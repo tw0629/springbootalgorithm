@@ -1,5 +1,11 @@
 package com.tian.algorithm.uniqueId;
 
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CountDownLatch;
+
 /**
  * @author David Tian
  * @desc
@@ -117,15 +123,5 @@ public class IdWorker {
 
     private long timeGen(){
         return System.currentTimeMillis();
-    }
-
-    //---------------测试---------------
-    public static void main(String[] args) {
-
-        IdWorker worker = new IdWorker(1,1,1);
-
-        for (int i = 0; i < 30; i++) {
-            System.out.println(worker.nextId());
-        }
     }
 }
