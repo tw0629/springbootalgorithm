@@ -3,31 +3,48 @@ package com.tian.algorithm.concurrentRob.coupon3;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author David Tian
  * @desc
+ * 面试题：
+ *
+ * 题目背景：
+ * 1. 定义不同场景条件下（货品种类，交易金额，交易时间段）可用的营销优惠券，及优惠金额计算规则（固定金额，按比例）
+ * 2. 在多线程访问的场景下，内存中维护一组上述营销优惠券，及相应的可用数量
+ * 3. 支付收银台咨询可用优惠券，并按优惠金额降序排序。
+ * 产出：
+ * 1. 一个通过Java main函数可执行，输出结果的代码
+ *
+ *
+ * 实现思路：
+ * 1 悲观锁机制  synchronized,lock
+ * 2 乐观锁机制  CAS AtomicInteger (本人实现方式)
+ *
  * @since 2021/6/30 10:37
  */
 public class RobCouponMain {
 
-    private static Map<String, List<CouponDTO>> couponMap = new ConcurrentHashMap<>();
+    /**
+     * 既然使用了原子操作Atomic,
+     * 没必要使用ConcurrentHashMap,否则影响性能
+     */
+    private static Map<String, List<CouponDTO>> couponMap = new HashMap<>();
 
-    private static int initialCapacity = 10;
+    private static int initialCapacity = 20;
 
     private static AtomicInteger foodCoupon = new AtomicInteger(0);
     private static AtomicInteger clothCoupon = new AtomicInteger(0);
     private static AtomicInteger carCoupon = new AtomicInteger(0);
 
     public static void main(String[] args) throws Exception {
+
         init();
 
         CountDownLatch countDownLatch = new CountDownLatch(initialCapacity);
         for(int i=0;i<initialCapacity;i++){
-
             //robCoupon(user);
 
             // 异步并发抢购
@@ -37,14 +54,16 @@ public class RobCouponMain {
                 robCoupon(user);
                 countDownLatch.countDown();
             });
-
         }
 
         countDownLatch.await();
         robCouponMainInfo();
     }
 
-    private static void robCouponMainInfo() {
+    /**
+     * 打印这次活动营销优惠券的信息
+     */
+    private static void robCouponMainInfo() throws Exception {
         System.out.println("");
         System.out.println("======>  营销优惠券 核算  <======");
         System.out.println("活动前：");
@@ -54,8 +73,14 @@ public class RobCouponMain {
         System.out.println("FOOD优惠券发了："+foodCoupon+"张");
         System.out.println("CLOTH优惠券发了："+clothCoupon+"张");
         System.out.println("CAR优惠券发了："+carCoupon+"张");
+
+        Thread.sleep(100000);
+        System.out.println("======>  END  <======");
     }
 
+    /**
+     * 抢优惠券
+     */
     private static void robCoupon(User user) {
         List<CouponDTO> couponDTOList = couponMap.get(user.getGoodsType());
         CouponDTO couponDTO = couponDTOList.get(0);
@@ -101,6 +126,9 @@ public class RobCouponMain {
 
     }
 
+    /**
+     * 统计优惠券的发放情况
+     */
     private static void countCoupon(String goodsType) {
 
         if(goodsType.equals("FOOD")){
@@ -114,7 +142,9 @@ public class RobCouponMain {
         }
     }
 
-
+    /**
+     *  模拟一个用户
+     */
     private static User buildUser( int i) {
         // index
         String index = "" + i;
@@ -128,7 +158,9 @@ public class RobCouponMain {
         return User.builder().userId(index).userName(index).goodsId(index).goodsType(goodsType).goodsAmount(new BigDecimal(10000)).build();
     }
 
-
+    /**
+     *  初始化一组营销优惠券
+     */
     public static void init(){
 
         // goodsType:coupon
@@ -144,7 +176,7 @@ public class RobCouponMain {
                 discountType("FIXED").
                 discountMoney(new BigDecimal("10")).
                 discountRatio(null).
-                quantity(new AtomicInteger(2)).
+                quantity(new AtomicInteger(5)).
                 build();
         couponDTOList.add(couponDTO);
         couponMap.put("FOOD",couponDTOList);
@@ -161,7 +193,7 @@ public class RobCouponMain {
                 discountType("RATIO").
                 discountMoney(null).
                 discountRatio(new BigDecimal(0.9)).
-                quantity(new AtomicInteger(2)).
+                quantity(new AtomicInteger(5)).
                 build();
         couponDTOList2.add(couponDTO2);
         couponMap.put("CLOTH",couponDTOList2);
@@ -178,7 +210,7 @@ public class RobCouponMain {
                 discountType("RATIO").
                 discountMoney(null).
                 discountRatio(new BigDecimal(0.9)).
-                quantity(new AtomicInteger(2)).
+                quantity(new AtomicInteger(5)).
                 build();
         couponDTOList3.add(couponDTO3);
         couponMap.put("CAR",couponDTOList3);

@@ -82,7 +82,7 @@ public class RedPackageLogic {
         RedPackage redPackage = createRedPackage(100, 10);
 
         //2 模拟多人抢红包
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < 150; i++){
 
             new Thread(new Runnable() {
                 @Override
