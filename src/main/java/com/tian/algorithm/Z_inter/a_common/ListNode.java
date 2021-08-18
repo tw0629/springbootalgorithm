@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_test;
+package com.tian.algorithm.Z_inter.a_common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,6 +58,11 @@ public class ListNode {
         System.out.print(head.data+"->");
         while (head.next!=null) {
             head=head.next;
+
+            if(head.next==null){
+                System.out.print(head.data);
+                continue;
+            }
             System.out.print(head.data+"->");
         }
         System.out.println("");

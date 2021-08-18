@@ -1,4 +1,6 @@
-package com.tian.algorithm.Z_test;
+package com.tian.algorithm.Z_inter.list;
+
+import com.tian.algorithm.Z_inter.a_common.ListNode;
 
 /**
  * @author David Tian

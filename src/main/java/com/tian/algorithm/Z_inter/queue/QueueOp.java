@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_inter.other;
+package com.tian.algorithm.Z_inter.queue;
 
 import java.util.Stack;
 

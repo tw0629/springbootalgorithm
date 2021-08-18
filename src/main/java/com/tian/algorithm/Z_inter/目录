@@ -1,46 +1,51 @@
-反转链表 com.tian.algorithm.Z_inter.list.ReverseList
+#leedcode https://leetcode-cn.com/problemset/all/
+#牛客网 https://www.nowcoder.com/ta/job-code-high
 
-树的先/中/后序遍历 com.tian.algorithm.Z_inter.tree.TreeSearch
-在二叉树中找到两个节点的最近公共祖先 com.tian.algorithm.Z_inter.tree.TreeOp
 
-LRUCache com.tian.algorithm.Z_inter.cache.LRUCache
+最小的K个数、寻找第K大   快堆归
+快堆归 com.tian.algorithm.Z_inter.sort.sort
+
+合并两个有序的数组 com.tian.algorithm.Z_inter.array.ArrayOp
+连续子数组的最大和 com.tian.algorithm.Z_inter.array.ArrayOp
+               com.tian.algorithm.Z_inter.list.ListNodeOperate
+两数之和 com.tian.algorithm.Z_inter.array.ArrayOp
+所有子集 com.tian.algorithm.Z_inter.array.ArrayOp
+全排列 com.tian.algorithm.Z_inter.array.ArrayOp
+|leftMax-rightMax|绝对值最大 com.tian.algorithm.Z_inter.array.ArrayOp
+最长无重复子数组 com.tian.algorithm.Z_inter.array.ArrayOp
+（最长无重复子数组 和 两个数的和 写法有点相似）
+
 
 反转字符串 com.tian.algorithm.Z_inter.string.StringOp
 回文/最大回文子字符串 com.tian.algorithm.Z_inter.string.StringOp
 最长公共子串 com.tian.algorithm.Z_inter.string.StringOp
 括号序列 com.tian.algorithm.Z_inter.string.StringOp
+最长的括号子串 com.tian.algorithm.Z_inter.string.StringOp
+            (最长的括号子串 3 是自己实现的 最简单的)
 
-合并两个有序的数组 com.tian.algorithm.Z_inter.array.ArrayOp
-子数组的最大累加和问题 com.tian.algorithm.Z_inter.array.ArrayOp
-                   com.tian.algorithm.Z_test.ListNodeOperate
-两数之和 com.tian.algorithm.Z_inter.array.ArrayOp
-所有子集 com.tian.algorithm.Z_inter.array.ArrayOp
-全排列 com.tian.algorithm.Z_inter.array.ArrayOp
-积水问题 com.tian.algorithm.Z_inter.array.ArrayOp
-
-斐波拉契 com.tian.algorithm.Z_inter.other.DynamicPlan
-跳台阶 com.tian.algorithm.Z_inter.other.DynamicPlan
-
-用两个栈实现队列 com.tian.algorithm.Z_inter.other.QueueOp
-
-快堆归 com.tian.algorithm.Z_inter.sort.sort
+反转链表 com.tian.algorithm.Z_inter.list.ReverseList
+子数组的和最大问题 com.tian.algorithm.Z_inter.list.ListNodeOperate
+实现一个单链表，每K个节点之间为一组进行逆序 com.tian.algorithm.Z_inter.list.ListNodeOperate
+链表中的节点每k个一组翻转（正开始、倒开始 两个方向的）（包含链表翻转）
+    com.tian.algorithm.Z_inter.list.ListNodeOperate
+判断链表中是否有环  com.tian.algorithm.Z_inter.list.ListNodeOperate
 
 
+树的先/中/后序遍历 com.tian.algorithm.Z_inter.tree.TreeSearch
+在二叉树中找到两个节点的最近公共祖先 com.tian.algorithm.Z_inter.tree.TreeOp
 
+###动态规划
+斐波拉契 com.tian.algorithm.Z_inter.other.DynamicProgram
+跳台阶 com.tian.algorithm.Z_inter.other.DynamicProgram
+和最大的子序列 com.tian.algorithm.Z_inter.list.ListNodeOperate
+积水问题 com.tian.algorithm.Z_inter.other.DynamicProgram
 
-链表中的节点每k个一组翻转（正开始、倒开始 两个方向的） com.tian.algorithm.Z_test.ListNodeOperate
-（包含链表翻转）
+###实现
+用两个栈实现队列 com.tian.algorithm.Z_inter.queue.QueueOp
+LRUCache com.tian.algorithm.Z_inter.cache.LRUCache（都是第一个类）
+LFUCache com.tian.algorithm.Z_inter.cache.LFUCache（都是第一个类）
+手写红黑树的简单实现 https://blog.csdn.net/ytulnj/article/details/103807903  ？？？？？？
+                 https://blog.csdn.net/my_air/article/details/117125435  ？？？？？？
 
-
-最小的K个数、寻找第K大   堆排序
-
-
-链表局部分组倒序  com.tian.algorithm.Z_test.ListNodeOperate
-
-
-
-
-积水问题算法题
-https://blog.csdn.net/weixin_43844941/article/details/106329268
 
 

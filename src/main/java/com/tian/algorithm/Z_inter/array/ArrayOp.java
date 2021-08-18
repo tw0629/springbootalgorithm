@@ -13,44 +13,109 @@ public class ArrayOp {
     private static int digui=0; //全排列个数
 
     /**
-     * 合并两个有序的数组
+     * 合并两个有序的数组 方法1
+     *
+     * 这种写法省去了空间复杂度；相对于归并写法中的合并
      */
     public void merge(int A[], int m, int B[], int n) {
-        //因为题目明确说了A数组足够大，所以直接在A数组操作
+        // 因为题目明确说了A数组足够大，所以直接在A数组操作
+        // 倒序的
         int i = m - 1;
         int j = n - 1;
-        int index = m + n - 1;//AB合并后最后一个元素所在位置
-        while(i >= 0 && j >= 0)//AB合并，谁大就先放谁
+        //AB合并后最后一个元素所在位置
+        int index = m + n - 1;
+
+        // AB合并，谁大就先放谁
+        while(i >= 0 && j >= 0)
         {
             A[index --] = A[i] > B[j] ? A[i --] : B[j --];
         }
-        while(j >= 0)//如果B没有遍历完，那么之间丢在A数组里面
+        // 如果B没有遍历完，那么之间丢在A数组里面
+        while(j >= 0)
         {
             A[index --] = B[j --];
         }
-
     }
 
     /**
-     * 子数组的最大累加和问题
+     * 合并两个有序的数组 方法2
+     *
+     * 归并写法
      */
-    public int maxsumofSubarray (int[] arr) {
+    public void merge2(int A[], int m, int B[], int n) {
+        int[] C = new int[m+n];
+        int index1 = 0;
+        int index2 = 0;
+
+        int i = 0;
+        while(i < C.length){
+            while((index1<=m-1) && (index2<=n-1)){
+
+                if(A[index1]<=B[index2]){
+                    C[i++] = A[index1++];
+                }else{
+                    C[i++] = B[index2++];
+                }
+            }
+
+            if(index1>m-1){
+                while(index2<=n-1){
+                    C[i++] = B[index2++];
+                }
+            }
+
+            if(index2>n-1){
+                while(index1<=m-1){
+                    C[i++] = A[index1++];
+                }
+            }
+
+        }
+
+        for(int j=0; j< C.length; j++){
+            A[j] = C[j];
+        }
+    }
+
+    /**
+     * 连续子数组的最大和
+     *
+     * 三种递推方程类似:
+     * Math.max(temp + a[i], a[i]);
+     * == Math.max(dp[i-1] + a[i], a[i]);
+     * == Math.max(0,dp[i-1]) + arr[i];
+     *
+     */
+    public static int maxsumofSubarray (int[] arr) {
         // write code here
         //dp[i]代表到第i位的时侯,以arr[i]结尾的连续子数组最大累加和
-        int []dp = new int[arr.length];//开辟dp
+        int[] dp = new int[arr.length];//开辟dp
 
         dp[0] = arr[0];//初始化
         int maxSum = arr[0];//保存最终的结果
 
         for(int i = 1;i < arr.length;i ++){
-            dp[i] = Math.max(0,dp[i-1]) + arr[i];//维护dp[i]
-            maxSum = Math.max(maxSum,dp[i]);//每更新一个dp值就更新一下maxSum
+            /**
+             * Math.max(temp + a[i], a[i]);
+             * = Math.max(dp[i-1] + a[i], a[i]);
+             * = Math.max(0,dp[i-1]) + arr[i];
+             */
+            // 维护dp[i]
+            dp[i] = Math.max(0,dp[i-1]) + arr[i];
+            // 每更新一个dp值就更新一下maxSum
+            maxSum = Math.max(maxSum,dp[i]);
         }
         return maxSum;
     }
 
     /**
-     * NC61 两数之和
+     * 两数之和
+     *
+     * 下面为什么 +1 是因为题意要求返回
+     * 输入：
+     *      [3,2,4],6
+     * 返回值：
+     *      [2,3]
      */
     public int[] twoSum(int[] numbers, int target) {
         int n = numbers.length;
@@ -61,6 +126,7 @@ public class ArrayOp {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for(int i=0;i<n;i++){
             if(map.containsKey(numbers[i])){
+                // +1 是因为题意要求返回index+1
                 result[0] = map.get(numbers[i])+1;
                 result[1] = i+1;
                 break;
@@ -70,6 +136,20 @@ public class ArrayOp {
             }
         }
         return result;
+    }
+    /**
+     * 两数之和2
+     */
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("No two sum solution");
     }
 
 
@@ -179,6 +259,29 @@ public class ArrayOp {
         }
     }
 
+    /**
+     * 所有子集  中序遍历
+     *
+     * 每一层代表一个元素，左子树代表不使用该节点，右子树代表使用该节点，
+     * 使用中序遍历来获得全部叶子结点，那么就能获得该数组的子集。
+     *
+     * https://blog.csdn.net/weixin_43940001/article/details/102874458
+     * https://blog.csdn.net/u012118523/article/details/24884803
+     */
+    private static void getArr(List<Integer> list, List<List<Integer>> result, List<Integer> temp, int level)
+    {
+        if(level == list.size())
+        {
+            result.add(temp);
+        }
+        else
+        {
+            getArr(list, result, new ArrayList<>(temp), level + 1);
+            temp.add(list.get(level));
+            getArr(list, result, new ArrayList<>(temp), level + 1);
+        }
+    }
+
 
     /**
      * 全排列
@@ -218,76 +321,62 @@ public class ArrayOp {
         chs[j]=temp;
     }
 
-
     /**
-     * 所有子集  中序遍历
+     * 最大的leftMax和rightMax之差的最大值
      *
-     * 每一层代表一个元素，左子树代表不使用该节点，右子树代表使用该节点，
-     * 使用中序遍历来获得全部叶子结点，那么就能获得该数组的子集。
-     *
-     * https://blog.csdn.net/weixin_43940001/article/details/102874458
-     * https://blog.csdn.net/u012118523/article/details/24884803
+     * 思路：
+     * 差绝对值最大，即找出最大的数减去一个数
+     * 首先找出所有数中的最大值，找出来之后分两种情况
+     * 1.该最大值属于左部分，那怎么能使右部分的最大值最小呢，因为右部分必定包含了最后一个元素，
+     *   所以右部分的最大值肯定>=最后一个元素，所以就把右部分切的只剩下最后一个元素，
+     *   这样左部分的最大值依然使max，右部分的最大值就是最后一个元素
+     * 2.最大值属于右部分，同理
+     * 最后即求max-arr[0]和max-arr[arr.length-1]的绝对值最大值
+     * https://www.jianshu.com/p/a028d69d7dd6
      */
-    private static void getArr(List<Integer> list, List<List<Integer>> result, List<Integer> temp, int level)
-    {
-        if(level == list.size())
-        {
-            result.add(temp);
+    public static int maxleftright(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            max = Math.max(arr[i], max);
         }
-        else
-        {
-            getArr(list, result, new ArrayList<>(temp), level + 1);
-            temp.add(list.get(level));
-            getArr(list, result, new ArrayList<>(temp), level + 1);
-        }
+        return max - Math.min(arr[0], arr[arr.length - 1]);
     }
 
 
     /**
-     * 积水问题
-     * https://blog.csdn.net/qq_42247231/article/details/106482591
+     * 最长无重复子数组  （和两个数的和 写法有点相似）
+     * https://www.nowcoder.com/practice/b56799ebfd684fb394bd315e89324fb4?tpId=117&&tqId=37816&rp=1&ru=/ta/job-code-high&qru=/ta/job-code-high/question-ranking
+     *
+     * 想象：
+     * 固定j移动i; 当出现j和i指的数一样时候，将j移动到i位置
      */
-    int trap(int[] height)
-    {
-        int ans = 0;
-        int n = height.length;
-
-        int l_max = height[0];
-        int r_max = height[n - 1];
-
-        int left = 0;
-        int right = n - 1;
-
-        while (left <= right)
-        {
-            l_max = Math.max(l_max, height[left]);
-            r_max = Math.max(r_max, height[right]);
-
-            // 每次较低台阶的指针移动一格
-            if (l_max <= r_max)
-            {
-                ans += l_max - height[left];
-                ++left;
-            }
-            else
-            {
-                ans += r_max - height[right];
-                --right;
-            }
+    public int maxLength(int[] arr) {
+        if (arr.length == 0) {
+            return 0;
         }
-
-        return ans;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int i = 0, j = 0; i < arr.length; ++i) {
+            if (map.containsKey(arr[i])) {
+                j = Math.max(j, map.get(arr[i]) + 1);
+            }
+            map.put(arr[i], i);
+            max = Math.max(max, i - j + 1);
+        }
+        return max;
     }
+
 
     public static void main(String[] args) {
 
         int[] a = {-2,1,-3,4,-1,2,1,-5,4};
+        //int maxleftright = maxleftright(a);
 
         int[] array={1,2,3};
         //permutation(array,3,0);
 
-        int[] array2={1,2,3,4,5};
-        //permutation2(array2,0);
+        int[] array2={1,2,3};
+        permutation2(array2,0);
 
         int[] array3={1,3,7,13};
         //printAllSubsets(array3);
@@ -298,6 +387,10 @@ public class ArrayOp {
         int level = 0;
         getArr(list, result, temp, level);
         System.out.println("===="+result.toString());
+
+        int[] array5 = { -2, -3, 4, -1, -2, 1, 5, -3 };
+        System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array5));
+
     }
 
 

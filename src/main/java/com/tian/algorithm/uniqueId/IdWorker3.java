@@ -1,8 +1,5 @@
 package com.tian.algorithm.uniqueId;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
-import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**

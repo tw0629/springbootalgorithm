@@ -1,90 +1,47 @@
 package com.tian.algorithm.Z_test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
 /**
- * @author David Tian
- * @desc
- * @since 2021/8/2 14:57
+ * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+ *
+ * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+ * 输出：6
+ * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
+ * 示例 2：
+ * 输入：height = [4,2,0,3,2,5]
+ * 输出：9
  */
 public class Tian {
 
-    public void childNums(Integer[] a){
-        List<String> list = new ArrayList<>();
-        int length = a.length;
-        if(length<=0){
-            list.add("");
-            return;
-        }
-        list.add("");
-        list.add(a.toString());
-
-
-        if(length==1){
-            return;
-        }
-        List<String> temp = new ArrayList<>();
-        for(int i=1; i<length-1;i++){
-            for(int j=0; i<length;j++){
-                Integer child = a[j];
-                temp.add(child.toString());
-            }
-        }
-
-        Integer[] tp = new Integer[0];
-        int low = 0;
-        int high = a.length-1;
-        mergeSort(a,low,high,tp);
-
-    }
-
-    public void mergeSort(Integer[] a,Integer low,Integer high,Integer[] temp){
-
-        if(low<=high){
-            int mid = (low + high)/2;
-            mergeSort(a,low,mid,temp);
-            mergeSort(a,mid,high,temp);
-            merge(a,low,mid,high,temp);
-        }
-
-    }
-    public void merge(Integer[] a,int low,int mid,int high ,Integer[] temp){
-
-        /*if(){
-            temp[i++] =  a
-        }*/
-
-    }
-
     public static void main(String[] args) {
-        int[] nums = new int[]{1,2,3};
-        System.out.println("=======> " + childSets(nums));
+        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        waterSum(height);
     }
 
-    /**
-     * https://wolfmua.blog.csdn.net/article/details/104479418
-     * @param nums
-     * @return
-     */
-    public static List<List> childSets(int[] nums) {
-        List<List> result = new ArrayList<>();
+    public static void  waterSum(int[] height){
+        int length = height.length;
 
-        List anws = new ArrayList<>();
-        result.add(anws);
+        int[] dp1 = new int[length];
+        int[] dp2 = new int[length];
 
-        for (int i = 0; i < nums.length; i++) {
-            int num = nums[i];
-            int size = result.size();
-            for (int j = 0; j < size; j++) {
-                List temp = new ArrayList<>(result.get(j));
-                temp.add(num);
-                result.add(temp);
+        dp1[0] = height[0];
+        dp1[0] = height[0];
+        dp2[length-1] = height[length-1];
+        dp2[length-1] = height[length-1];
+
+        for(int i=1;i<length-1;i++){
+            dp1[i] = Math.max(dp1[i-1],height[i-1]);
+            dp2[length-1-i] = Math.max(dp2[length-1-i+1],height[length-1-i+1]);
+        }
+
+        int waterSum = 0;
+        for(int i=1;i<length-1;i++){
+            if(dp2[i]>height[i] && dp1[i]>height[i]){
+                waterSum += dp1[i] >= dp2[i]?dp2[i]-height[i]:dp1[i]-height[i];
             }
         }
 
-        return result;
+        System.out.println("======>"+waterSum);
     }
+
 
 }

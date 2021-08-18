@@ -1,5 +1,8 @@
 package com.tian.algorithm.Z_inter.string;
 
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -14,7 +17,7 @@ public class StringOp {
      * @param str
      * @return
      */
-    public boolean judgeHuiWen (String str) {
+    public static boolean judgeHuiWen(String str) {
         int len = str.length();
         for(int i = 0 ; i < len/2 ;i++)
         {
@@ -25,10 +28,22 @@ public class StringOp {
         return true;
     }
 
+    //判断是否是回文串
+    private boolean judgeHuiWen2(String s, int start, int end) {
+        while (start < end) {
+            if (s.charAt(start++) != s.charAt(end--)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * 最大回文子字符串
+     *
+     * https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/
      */
-    public int getLongestPalindrome(String A, int n) {
+    public static int getLongestPalindrome(String A, int n) {
         //边界条件判断
         if (n < 2){
             return A.length();
@@ -44,11 +59,16 @@ public class StringOp {
                 if (j - i < maxLen){
                     continue;
                 }
+                if (j<0 || j>=n){
+                    continue;
+                }
 
-                A=A.substring(i,j);
-                if (judgeHuiWen(A)) {
+                // 注意：截取是不包括尾, 左开右闭
+                String temp = A.substring(i,j);
+                if (judgeHuiWen(temp)) {
                     if (maxLen < j - i + 1) {
                         maxLen = j - i + 1;
+                        System.out.println("===> "+i+" "+j);
                     }
                 }
             }
@@ -56,6 +76,9 @@ public class StringOp {
         return maxLen;
     }
 
+    /**
+     * 最大回文子字符串
+     */
     public int getLongestPalindrome2(String A, int n) {
 
         // 第 i 个字符到第 j 个字符是否是回文串
@@ -191,26 +214,139 @@ public class StringOp {
     /**
      * 括号序列
      */
-    public class Solution {
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        // 使用foreach循环
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                stack.push(')');
+            } else if (c == '{') {
+                stack.push('}');
+            } else if (c == '[') {
+                stack.push(']');
 
-        public boolean isValid(String s) {
-            Stack<Character> stack = new Stack<Character>();
-            // 使用foreach循环
-            for (char c : s.toCharArray()) {
-                if (c == '(') {
-                    stack.push(')');
-                } else if (c == '{') {
-                    stack.push('}');
-                } else if (c == '[') {
-                    stack.push(']');
-                } else if (stack.isEmpty() || stack.pop() != c) {
-                    return false;
-                }
+            // 说明是 非括号左边
+            } else if (stack.isEmpty() || stack.pop() != c) {
+                return false;
             }
-            return stack.isEmpty();
         }
+        return stack.isEmpty();
     }
 
+    public static int sumKh(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        // 使用foreach循环
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                stack.push(')');
+            }
+            if (stack.isEmpty() || stack.pop() != c) {
+                return 0;
+            }
+        }
+
+        return stack.size();
+    }
+
+    /**
+     * 最长的括号子串
+     */
+    public static int longestValidParentheses(String s) {
+        int maxans = 0;
+        int[] dp = new int[s.length()];
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+                }
+                maxans = Math.max(maxans, dp[i]);
+            }
+        }
+        return maxans;
+    }
+
+    /**
+     * 最长的括号子串 2
+     */
+    public static int longestValidParentheses2(String s) {
+        int maxans = 0;
+        Deque<Integer> stack = new LinkedList<Integer>();
+        //Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                } else {
+                    maxans = Math.max(maxans, i - stack.peek());
+                }
+            }
+        }
+        return maxans;
+    }
+
+    /**
+     * 最长的括号子串 3
+     *
+     * 自己实现的 ??? 有问题
+     */
+    public static int longestValidParentheses3(String s) {
+        int l = s.length();
+        if(l<=1){
+            return 0;
+        }
+
+        Stack<Character> stack = new Stack<Character>();
+        // stack2主要是为了处理极值情况的，如开头以'('开始  或者  非'(',')'的其他符号
+        Stack<Character> stack2 = new Stack<Character>();
+
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            if (chars[i] == '(') {
+                stack.push(')');
+            }
+            if(stack.isEmpty() && chars[i] == ')'){
+                stack2.push(chars[i]);
+            }
+            if(chars[i] != '('&& chars[i] != ')'){
+                stack2.push(chars[i]);
+            }
+
+            if (!stack.isEmpty() && stack.peek()==chars[i]){
+                stack.pop();
+            }
+        }
+        return l-stack.size()-stack2.size();
+    }
+
+    public static void main(String[] args) {
+        String s = "abc1234321ab";
+        System.out.println("=======>"+getLongestPalindrome(s,s.length()));
+
+        String s1 = "abc1234321ab";
+        String substring = s1.substring(0, 0);
+        String substring2 = s1.substring(0, 1);
+        System.out.println("=======>"+substring);
+        System.out.println("=======>"+substring2);
+        System.out.println("");
+
+
+        String s2 = "[]{})()";
+        String s3 = "([{}])";
+        String s4 = "(()(()()()(()";
+        String s5 = "))((";
+        String s6 = "(()";
+        String s7 = "())))";
+        boolean valid = isValid(s3);
+        int i = longestValidParentheses3(s2);
+        System.out.println("=======>"+i);
+        System.out.println("");
+    }
 
 
 
