@@ -27,7 +27,20 @@ public class LRUCache {
         public LinkedNode(int _key, int _value) {key = _key; value = _value;}
     }
 
+    /**
+     *  其实就是：双向链表的结构
+     *  LRUCache 数据结构： head <一> 1 <一> 2 <一> 3 <一> 4 <一> tail
+     *
+     *  每次都要维护 链表和map (都存放数据)
+     *  链表: 维护关系---增删方便
+     *  map: 查询Node
+     *
+     *  ======> 相当于 LinkedHashMap <======
+     *
+     */
     private Map<Integer, LinkedNode> cache = new HashMap<Integer, LinkedNode>();
+    // size:当前大小 capacity:容量
+    // size<=capacity
     private int size;
     private int capacity;
     private LinkedNode head;
@@ -43,7 +56,7 @@ public class LRUCache {
         tail.prev = head;
     }
 
-
+    // 4步
     private void addToHead(LinkedNode node) {
         node.prev = head;
         node.next = head.next;
@@ -51,6 +64,7 @@ public class LRUCache {
         head.next = node;
     }
 
+    // 2步
     private void removeNode(LinkedNode node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
@@ -81,6 +95,7 @@ public class LRUCache {
 
     public void put(int key, int value) {
         LinkedNode node = cache.get(key);
+        // 每次都要维护 链表和map
         if (node == null) {
             // 如果 key 不存在，创建一个新的节点
             LinkedNode newNode = new LinkedNode(key, value);

@@ -1,5 +1,8 @@
 package com.tian.algorithm.Z_inter.array;
 
+import org.springframework.util.CollectionUtils;
+
+import java.io.Console;
 import java.util.*;
 
 /**
@@ -140,16 +143,22 @@ public class ArrayOp {
     /**
      * 两数之和2
      */
-    public int[] twoSum2(int[] nums, int target) {
+    public static int[] twoSum2(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
+        boolean twoSum = false;
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
             if (map.containsKey(complement)) {
-                return new int[] { map.get(complement), i };
+                twoSum = true;
+                System.out.println("twoSum2: "+nums[i]+"和"+complement);
+                //return new int[] { map.get(complement), i };
             }
             map.put(nums[i], i);
         }
-        throw new IllegalArgumentException("No two sum solution");
+        if(!twoSum){
+            throw new IllegalArgumentException("No two sum solution");
+        }
+        return null;
     }
 
 
@@ -296,12 +305,12 @@ public class ArrayOp {
         for(int i=start;i<=chs.length-1;i++) {
             //把第一个元素分别与后面的元素进行交换，递归的调用其子数组进行排序
             Swap(chs,i,start);
-            System.out.println("  Swap "+i+" "+start+" "+Arrays.toString(chs));
+            //System.out.println("  Swap "+i+" "+start+" "+Arrays.toString(chs));
 
             permutation2(chs,start+1);
 
             Swap(chs,i,start);
-            System.out.println("  Swap回去 "+i+" "+start+" "+Arrays.toString(chs));// 要关注这个打印
+            //System.out.println("  Swap回去 "+i+" "+start+" "+Arrays.toString(chs));// 要关注这个打印
 
             //System.out.println("======");
 
@@ -367,15 +376,196 @@ public class ArrayOp {
     }
 
 
-    public static void main(String[] args) {
+    static int[] arr = new int[100];
+    static int index = 0;// 记录当前
 
-        int[] a = {-2,1,-3,4,-1,2,1,-5,4};
+    public static void numGroup(int[] arr, int start, int length, int sum) {
+        if (sum == 0) {
+            for (int j = 0; j < index; j++) {
+                System.out.print(arr[j]);
+            }
+            System.out.println();
+        } else {
+            for (int i = start; i < length; i++) {
+                arr[index++] = arr[i];
+                numGroup(arr, i + 1, length-1, sum - arr[i]);
+            }
+        }
+        index--;
+    }
+
+    public static int subarraySum(int[] nums, int k) {
+        int count = 0, pre = 0;
+        HashMap < Integer, Integer > mp = new HashMap < > ();
+        mp.put(0, 1);
+        for (int i = 0; i < nums.length; i++) {
+            pre += nums[i];
+            if (mp.containsKey(pre - k)) {
+                count += mp.get(pre - k);
+            }
+            mp.put(pre, mp.getOrDefault(pre, 0) + 1);
+        }
+        return count;
+    }
+
+    /**
+     * 一 数组中和为定值的连续子集 （连续）
+     */
+
+    /**
+     * 从数组中找出和为指定值的任意组合（任意的）
+     * 方法一
+     *
+     * https://blog.csdn.net/dzh0622/article/details/112407803
+     *
+     * ### System.arraycopy
+     * public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
+     * 代码解释:
+     * 　　Object src : 原数组
+     *    int srcPos : 从元数据的起始位置开始
+     * 　　Object dest : 目标数组
+     * 　　int destPos : 目标数组的开始起始位置
+     * 　　int length  : 要copy的数组的长度
+     *
+     * ### Arrays.stream(array).sum()
+     *
+     *  关键：可以通过打印出结果，思考这种【 for循环 + 递归 】的过程
+     *  这种过程类似：全排列 的过程
+     */
+    public static void printCombinations(int[] array, int pos, int sum, int[] acc) {
+        if (Arrays.stream(acc).sum() == sum) {
+            System.out.println("======> "+Arrays.toString(acc));
+        }
+        for (int i = pos + 1; i < array.length; i++) {
+            int[] newAcc = new int[acc.length + 1];
+            System.arraycopy(acc, 0, newAcc, 0, acc.length);
+            newAcc[acc.length] = array[i];
+
+            //System.out.println("前："+Arrays.toString(newAcc));
+            printCombinations(array, i, sum, newAcc);
+            //System.out.println("后："+Arrays.toString(newAcc));
+
+        }
+    }
+
+    /**
+     * 方法二
+     * 从数组中找出和为指定值的任意组合
+     *
+     * 自己成功摸索出来的
+     *
+     * 思路类似：https://www.cnblogs.com/zhaoshujie/p/11555586.html,但写法不一样
+     */
+    private static void findNums(int[] candidates,List<Integer> list, int remainder, int loop)
+    {
+        if (remainder == 0)//找到一组
+        {
+            //Console.WriteLine($"第{++groupNum}组：{string.Join(" + ", list.Where(x => x.Used).Select(x => x.Number).ToArray())}");
+            println(candidates,list);
+            return;
+        }
+        for (int i = loop; i >= 0; i--)
+        {
+            if (!list.contains(i) && (remainder - candidates[i]) >= 0)
+            {
+                // 放的是下标,因为可能元素重复
+                list.add(i);
+                findNums(candidates,list, remainder - candidates[i], i - 1);
+                // 注意：是出去元素
+                list.remove(Integer.valueOf(i));
+            }
+        }
+    }
+    public static void println(int[] candidates,List<Integer> list){
+
+        System.out.print("【");
+        for(Integer integer : list){
+            System.out.print(candidates[integer]+",");
+        }
+        System.out.println("】");
+    }
+
+    /**
+     * 方法三
+     * 从数组中找出和为指定值的任意组合
+     *
+     **/
+    static List<List<Integer>> lists = new ArrayList<>();
+    //这个list存放所有数组
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        if (candidates == null || candidates.length == 0 || target < 0) {
+            return lists;
+        }
+        List<Integer> list = new ArrayList<>();
+        dfs(list,candidates,target,0);
+        //第一个list存放小数组，
+        return lists;
+    }
+
+    private static void dfs(List<Integer> list, int[] candidates,int target,int start) {
+        //递归的终止条件
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            lists.add(new ArrayList<>(list));
+        } else {
+            for (int i = start; i < candidates.length; i++) {
+                list.add(candidates[i]);
+                //*********************************************************
+                //因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
+                //*********************************************************
+                System.out.println("前: "+list.toString());
+                dfs(list, candidates, target - candidates[i], i);
+                System.out.println("后: "+list.toString());
+
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+
+    /**
+     * 获得两个字符串的最短距离
+     * https://blog.csdn.net/zuochao_2013/article/details/78991000
+     */
+    public static int getMinDistance(String[]strs,String str1,String str2){
+        if(str1==null||str2==null||strs==null){
+            return -1;
+        }
+        //模式串的值相同
+        if(str1.equals(str2)){
+            return 0;
+        }
+        int last1=-1; //模式串1初始化
+        int last2=-1; //模式串2初始化
+
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i!=strs.length;i++){
+            if(strs[i].equals(str1))
+            {
+                min=Math.min(min,last2==-1?min:i-last2);
+                last1=i;
+            }
+            if(strs[i].equals(str2))
+            {
+                min=Math.min(min,last1==-1?min:i-last1);
+                last2=i;
+            }
+        }
+
+        return min==Integer.MAX_VALUE?-1:min;
+    }
+
+
+    public static void main(String[] args){
+
+        /*int[] a = {-2,1,-3,4,-1,2,1,-5,4};
         //int maxleftright = maxleftright(a);
 
         int[] array={1,2,3};
         //permutation(array,3,0);
 
-        int[] array2={1,2,3};
+        int[] array2={1,2,3,4,5,6};
         permutation2(array2,0);
 
         int[] array3={1,3,7,13};
@@ -388,10 +578,39 @@ public class ArrayOp {
         getArr(list, result, temp, level);
         System.out.println("===="+result.toString());
 
-        int[] array5 = { -2, -3, 4, -1, -2, 1, 5, -3 };
+        int[] array5 = { -2, -3, 4, -1, -2, 1, 5, 7 };
         System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array5));
+        System.out.println("twoSum is " + twoSum2(array5,5));*/
+
+
+        //int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
+        /*
+        int[] arr = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int[] arr2 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int[] arr3 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        Arrays.sort(arr);
+        int sum = 7;
+        numGroup(arr, 0, arr.length, sum);
+        int i = subarraySum(arr2, sum);
+        printCombinations(arr3, -1, 7, new int[]{});
+        */
+
+        //int[] q = {10,1,2,7,6,1,5}; 因为这个宿数组有重复元素
+        /*int[] q = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int tar = 8;
+        List<List<Integer>> lists = combinationSum(q, tar);
+        System.out.println("combinationSum: "+lists.toString());
+
+        List<Integer> list = new ArrayList<>();
+        Arrays.sort(q);
+        findNums(q,list,tar,q.length-1);*/
+
+        String[] strs = {"rr","ab","ee","123","ww","ab","1234","qq"};
+        String str1 = "ab";
+        String str2 = "123";
+        int minDistance = getMinDistance(strs, str1, str2);
+        System.out.println("GetMinDistance: "+minDistance);
 
     }
-
-
 }
+

@@ -111,6 +111,28 @@ public class DynamicProgram {
         return waterSum;
     }
 
+    /**
+     * 积水问题2  水面积
+     *
+     * 双指针法
+     *
+     */
+    public static int maxArea(int[] height) {
+        int l = 0, r = height.length - 1;
+        int ans = 0;
+        while (l < r) {
+            int area = Math.min(height[l], height[r]) * (r - l);
+            ans = Math.max(ans, area);
+            if (height[l] <= height[r]) {
+                ++l;
+            }
+            else {
+                --r;
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 
         //int[] a = {4,2,0,3,2,5};
@@ -119,6 +141,10 @@ public class DynamicProgram {
         int waterSum2 = waterSum2(a);
         System.out.println("=======>"+waterSum);
         System.out.println("=======>"+waterSum2);
+        System.out.println("");
+
+        int[] b = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        System.out.println("=======>"+maxArea(b));
         System.out.println("");
     }
 }

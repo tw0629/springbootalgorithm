@@ -27,20 +27,41 @@ import java.util.Map;
  */
 public class LFUCache {
 
+    public class Node {
+        public int key;
+        public int val;
+        public int freq;
+
+        public Node(int key, int val, int freq) {
+            this.key = key;
+            this.val = val;
+            this.freq = freq;
+        }
+    }
+
     /**
+     * key_table:   key:node的key  value:node的value
+     * freq_table:  key:使用频率    value:该频率下元素的List
+     *
      * minfreq: 若一直有新的元素添加进来，minfreq几乎永远为1;
      *          没有元素添加进来，freq_table没删除掉一个list，minfreq都会加1;
      * minfreq要用来方位freq; 只要访问,freq是一直是+1的。
      *
-     */
-    public int minfreq;
-    public int capacity;
-    /**
-     *  key_table:   key:node的key  value:node的value
-     *  freq_table:  key:使用频率    value:该频率下元素的List
+     *
+     * ！！！
+     * 注意：在freq_table中的LinkedList<Node>, 插入都是头部, 删除都是尾部
+     *
+     * list.offerFirst
+     * list.peekFirst
+     * list.pollLast
+     * list.peekLast
+     *
      */
     public Map<Integer, Node> key_table;
     public Map<Integer, LinkedList<Node>> freq_table;
+    public int minfreq;
+    public int capacity;
+
 
     public LFUCache(int capacity) {
         this.minfreq = 0;
@@ -112,19 +133,6 @@ public class LFUCache {
             list.offerFirst(new Node(key, value, freq + 1));
             freq_table.put(freq + 1, list);
             key_table.put(key, freq_table.get(freq + 1).peekFirst());
-        }
-    }
-
-
-    public class Node {
-        public int key;
-        public int val;
-        public int freq;
-
-        public Node(int key, int val, int freq) {
-            this.key = key;
-            this.val = val;
-            this.freq = freq;
         }
     }
 

@@ -10,7 +10,7 @@ import com.tian.algorithm.Z_inter.a_common.TreeNode;
 public class TreeOp {
 
     /**
-     * 查找最近公共祖先
+     * 最近公共祖先
      */
     public int lowestCommonAncestor (TreeNode root, int o1, int o2) {
         // write code here

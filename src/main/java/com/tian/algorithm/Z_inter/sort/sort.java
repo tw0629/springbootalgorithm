@@ -42,6 +42,16 @@ public class sort {
     ==================================================
     ==================================================
 
+    // 寻找topN，该方法改变data，将topN排到最前面
+    public void findTopN(int n, int[] data) {
+        // 先构建n个数的小顶堆
+        buildHeap(n, data);
+        // n往后的数进行调整
+        for(int i = n; i < data.length; i++) {
+            adjust(i, n, data);
+        }
+    }
+
     private void buildHeap(int n, int[] data) {
         for(int i = 1; i < n; i++) {
             int t = i;

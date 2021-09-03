@@ -10,7 +10,7 @@ import com.tian.algorithm.Z_inter.a_common.Node;
  */
 public class ReverseList {
 
-    //反转单链表
+    //反转链表
     public static ListNode reverseList(ListNode head) {
         ListNode next = null;//指向当前节点的后驱
         ListNode pre = null;//指向当前节点的前驱

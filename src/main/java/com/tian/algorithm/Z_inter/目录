@@ -1,19 +1,26 @@
 #leedcode https://leetcode-cn.com/problemset/all/
 #牛客网 https://www.nowcoder.com/ta/job-code-high
 
+有一个巧妙的思路 ：
+1 常常使用： for循环+递归 ======> 解决多层级for循环
+
 
 最小的K个数、寻找第K大   快堆归
 快堆归 com.tian.algorithm.Z_inter.sort.sort
 
 合并两个有序的数组 com.tian.algorithm.Z_inter.array.ArrayOp
 连续子数组的最大和 com.tian.algorithm.Z_inter.array.ArrayOp
-               com.tian.algorithm.Z_inter.list.ListNodeOperate
+               com.tian.algorithm.Z_inter.list.ListNodeOperate sumMaxChild3
 两数之和 com.tian.algorithm.Z_inter.array.ArrayOp
 所有子集 com.tian.algorithm.Z_inter.array.ArrayOp
 全排列 com.tian.algorithm.Z_inter.array.ArrayOp
 |leftMax-rightMax|绝对值最大 com.tian.algorithm.Z_inter.array.ArrayOp
 最长无重复子数组 com.tian.algorithm.Z_inter.array.ArrayOp
-（最长无重复子数组 和 两个数的和 写法有点相似）
+（最长无重复子数组 和 两数之和 写法有点相似）
+从数组中找出和为指定值的任意组合 com.tian.algorithm.Z_inter.array.ArrayOp 方法二
+从数组中找出和为指定值的连续子组合
+数组中两个字符串的最小距离 com.tian.algorithm.Z_inter.array.ArrayOp
+    (面试中遇到是 大的字符串中两个字符串的最小距离，大的字符串是空格相隔的 ======> 可以将大的字符串 转换成 数组)
 
 
 反转字符串 com.tian.algorithm.Z_inter.string.StringOp
@@ -24,21 +31,26 @@
             (最长的括号子串 3 是自己实现的 最简单的)
 
 反转链表 com.tian.algorithm.Z_inter.list.ReverseList
-子数组的和最大问题 com.tian.algorithm.Z_inter.list.ListNodeOperate
+连续子数组的和最大问题 com.tian.algorithm.Z_inter.list.ListNodeOperate
 实现一个单链表，每K个节点之间为一组进行逆序 com.tian.algorithm.Z_inter.list.ListNodeOperate
 链表中的节点每k个一组翻转（正开始、倒开始 两个方向的）（包含链表翻转）
     com.tian.algorithm.Z_inter.list.ListNodeOperate
 判断链表中是否有环  com.tian.algorithm.Z_inter.list.ListNodeOperate
 
-
 树的先/中/后序遍历 com.tian.algorithm.Z_inter.tree.TreeSearch
 在二叉树中找到两个节点的最近公共祖先 com.tian.algorithm.Z_inter.tree.TreeOp
+
+
+单词拆分 com.tian.algorithm.Z_inter.dict.DictOperate
+
 
 ###动态规划
 斐波拉契 com.tian.algorithm.Z_inter.other.DynamicProgram
 跳台阶 com.tian.algorithm.Z_inter.other.DynamicProgram
 和最大的子序列 com.tian.algorithm.Z_inter.list.ListNodeOperate
-积水问题 com.tian.algorithm.Z_inter.other.DynamicProgram
+积水问题 水容量 com.tian.algorithm.Z_inter.other.DynamicProgram
+        水面积 com.tian.algorithm.Z_inter.other.DynamicProgram
+单词拆分 com.tian.algorithm.Z_inter.dict.DictOperate
 
 ###实现
 用两个栈实现队列 com.tian.algorithm.Z_inter.queue.QueueOp
@@ -48,4 +60,26 @@ LFUCache com.tian.algorithm.Z_inter.cache.LFUCache（都是第一个类）
                  https://blog.csdn.net/my_air/article/details/117125435  ？？？？？？
 
 
+把String变为double型的方法 com.tian.algorithm.Z_inter.base.BasicDataStructure
 
+
+
+
+###交叉打印:
+synchronized+wait/notifyAll
+ReentrantLock
+ReentrantLock+Condition
+
+采用while和boolean标识位来实现
+
+volatile
+atomicInteger
+AtomicInteger和volatile修饰符组合
+
+CountDownLatch
+
+https://www.cnblogs.com/rao11/p/13728941.html
+https://blog.csdn.net/qq_28619473/article/details/90722878
+https://ironic333.github.io/2020/02/22/%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E6%95%B0%E5%AD%97/
+https://www.jianshu.com/p/dcc7ee0ff110
+https://zhuanlan.zhihu.com/p/83454731
