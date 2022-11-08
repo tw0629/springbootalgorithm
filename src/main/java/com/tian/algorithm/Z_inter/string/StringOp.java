@@ -2,7 +2,6 @@ package com.tian.algorithm.Z_inter.string;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -82,17 +81,17 @@ public class StringOp {
     public int getLongestPalindrome2(String A, int n) {
 
         // 第 i 个字符到第 j 个字符是否是回文串
-        boolean[][] dp = new boolean[n][n];
+        boolean[][] dp = new boolean[n][n]; //
         int max = 0;
         // 字符串首尾字母长度差 (d = j-i)
-        for (int d = 0; d < n; d++) {
+        for (int d = 0; d < n; d++) { // !!!  d可以理解为字符串的长度
             // 字符串起始位置 i
             for (int i = 0; i < n-d; i++) {
                 // 字符串结束位置 j
                 int j = i+d;
                 // 如果字符串 i 到 j 的首尾相等，再根据字符串 i-1 到 j-1 来确定，即得到递推公式
                 if(A.charAt(i) == A.charAt(j)) {
-                    if(d == 0 || d == 1) {
+                    if(d == 0 || d == 1) { // !!!  因为回文个数至少得3个所以d=0,1时候,dp[i][j] = true
                         dp[i][j] = true;
                     } else {
                         dp[i][j] = dp[i+1][j-1];
@@ -101,6 +100,10 @@ public class StringOp {
                         // 更新最大长度
                         max = Math.max(max, d+1);
                     }
+                    // 最大回文字符串 起始位置
+                    /*if (dp[i][j] && j - i + 1 > max) {
+                        begin = i;
+                    }*/
                 }
             }
         }
@@ -124,7 +127,11 @@ public class StringOp {
     }
 
 
-    public String LCS(String str1, String str2) {
+    /**
+     * 最长公共子串
+     *
+     */
+    public String LCS1(String str1, String str2) {
         int maxLenth = 0;//记录最长公共子串的长度
         //记录最长公共子串最后一个元素在字符串str1中的位置
         int maxLastIndex = 0;
@@ -150,44 +157,22 @@ public class StringOp {
         return str1.substring(maxLastIndex - maxLenth + 1, maxLastIndex + 1);
     }
 
-
+//8中基本数据类型的默认值：
+//byte short int long 这四种基本数据类型数组默认值为0
+//float double 这两种数组默认值是0.0
+//char这种类型数组默认值为空格
+//boolean类型数组默认值为false
+//Integer类不是基本的数据类型，默认值不是0，是null；
 
     /**
      * 最长公共子串
      *
      */
-    public String LCS1(String str1, String str2) {
-        int maxLenth = 0;//记录最长公共子串的长度
-        //记录最长公共子串最后一个元素在字符串str1中的位置
-        int maxLastIndex = 0;
-        int[] dp = new int[str2.length() + 1];
-        for (int i = 0; i < str1.length(); i++) {
-            //注意这里是倒叙
-            for (int j = str2.length() - 1; j >= 0; j--) {
-                //递推公式，两个字符相等的情况
-                if (str1.charAt(i) == str2.charAt(j)) {
-                    dp[j + 1] = dp[j] + 1;
-                    //如果遇到了更长的子串，要更新，记录最长子串的长度，
-                    //以及最长子串最后一个元素的位置
-                    if (dp[j + 1] > maxLenth) {
-                        maxLenth = dp[j + 1];
-                        maxLastIndex = i;
-                    }
-                } else {
-                    //递推公式，两个字符不相等的情况
-                    dp[j + 1] = 0;
-                }
-            }
-        }
-        //最字符串进行截取，substring(a,b)中a和b分别表示截取的开始和结束位置
-        return str1.substring(maxLastIndex - maxLenth + 1, maxLastIndex + 1);
-    }
-
     public String LCS2(String str1, String str2) {
         int maxLenth = 0;//记录最长公共子串的长度
         //记录最长公共子串最后一个元素在字符串str1中的位置
         int maxLastIndex = 0;
-        int[] dp = new int[str2.length() + 1];
+        int[] dp = new int[str2.length() + 1];  // dp该位置之前的相同元素个数
         for (int i = 0; i < str1.length(); i++) {
             //注意这里是倒叙
             for (int j = str2.length() - 1; j >= 0; j--) {
@@ -251,7 +236,7 @@ public class StringOp {
     /**
      * 最长的括号子串
      */
-    public static int longestValidParentheses(String s) {
+    public static int longestValidParentheses1(String s) {
         int maxans = 0;
         int[] dp = new int[s.length()];
         for (int i = 1; i < s.length(); i++) {
@@ -268,7 +253,7 @@ public class StringOp {
     }
 
     /**
-     * 最长的括号子串 2
+     * 最长的括号子串 2   就是最长的括号子串的 前后下标相减
      */
     public static int longestValidParentheses2(String s) {
         int maxans = 0;
@@ -343,7 +328,9 @@ public class StringOp {
         String s6 = "(()";
         String s7 = "())))";
         boolean valid = isValid(s3);
-        int i = longestValidParentheses3(s2);
+        int i  = longestValidParentheses1(s4);
+        int i2 = longestValidParentheses2(s4);
+        int i3 = longestValidParentheses3(s4);
         System.out.println("=======>"+i);
         System.out.println("");
     }

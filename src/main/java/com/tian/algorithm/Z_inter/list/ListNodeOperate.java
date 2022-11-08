@@ -2,6 +2,7 @@ package com.tian.algorithm.Z_inter.list;
 
 import com.tian.algorithm.Z_inter.a_common.ListNode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,78 +13,19 @@ import java.util.Set;
  */
 public class ListNodeOperate {
 
-    public static void sumMaxChild(int[] a){
-        int length = a.length;
-        int max = 0;
-        for(int i=0; i<length; i++){
-            for(int j=0; j<length; j++){
-                int result = sum(a, i, j);
-                if(result>max){
-                  max = result;
-                  System.out.println("a下标区间："+i+"-"+j+"，sumMaxChild："+max);
-                }
-            }
-        }
-    }
-    public static int sum(int[] a, int m, int n){
-        int result = 0;
-        for(int k=m; k<=n; k++){
-            result+=a[k];
-        }
-        return result;
-    }
-
-    public static void sumMaxChild2(int[] a) {
-
-        int[] temp = new int[a.length];
-        temp[0] = 0;
-        for(int i = 1; i<a.length;i++){
-            temp[i] = Math.max(a[i], temp[i-1]+a[i]);
-        }
-
-        int sumMax = 0;
-        for(int i = 0; i<a.length; i++){
-            sumMax = Math.max(sumMax,temp[i]);
-        }
-
-        System.out.println("sumMaxChild2: "+ sumMax);
-    }
-
     /**
-     * 连续子数组的最大和
-     *
-     * dp: dp(i)=max(dp(i-1)+array[i],array[i])
-     *
-     * 三种递推方程类似:
-     * Math.max(temp + a[i], a[i]);
-     * == Math.max(dp[i-1] + a[i], a[i]);
-     * == Math.max(0,dp[i-1]) + arr[i];
-     *
-     * 注意:这个时候用一个变量temp就可以了, 不必要搞个dp[]数组的。
-     *
+     * ListNode
      */
-    public static void sumMaxChild3(int[] a) {
-        //max就是上面的dp[i]
-        // 这个时候用一个变量temp就可以了, 不必要搞个dp[]数组的
-        int temp = a[0];
-        //因为这个dp[i]老是变，所以比如你dp[4]是8 dp[5]就变成-7了，所以需要res保存一下
-        int sumMax = a[0];
-        for (int i = 1; i < a.length; i++) {
-            //dp[i] = Math.max(dp[i-1] + a[i], a[i]); 没必要这么写
-            temp = Math.max(temp + a[i], a[i]);
-            sumMax = Math.max(sumMax, temp);
-        }
-        System.out.println("sumMaxChild3: "+ sumMax);
-    }
-
-    public static void sumMaxChild4(int[] a) {
+    public static void sumMaxChild5(ListNode head) {
         int max = 0;
         int temp= 0;
-        for(int i = 0; i<a.length; i++) {
-            temp = temp+a[i] > a[i] ? temp+a[i]:a[i];
-            max  = max > temp ? max:temp;
+        ListNode cur = head;
+        while(cur!=null){
+            temp = Math.max(temp+cur.data, cur.data);
+            max  = Math.max(max,temp);
+            cur=cur.next;
         }
-        System.out.println("sumMaxChild4: "+ max);
+        System.out.println("ListNode sumMaxChild5: "+ max);
     }
 
 
@@ -97,6 +39,8 @@ public class ListNodeOperate {
      */
 
     /**
+     * 实现一个单链表，每K个节点之间为一组进行逆序
+     *
      * 从尾部倒着开始,链表局部分组倒序
      *
      * 给定一个单链表的头节点 head,实现一个调整单链表的函数，使得每K个节点之间为一组进行逆序，
@@ -225,6 +169,14 @@ public class ListNodeOperate {
         sumMaxChild3(a);
         sumMaxChild4(a);*/
 
+        ListNode head = new ListNode(a[0]);
+        ListNode cur = head;
+        for(int i = 1; i< a.length; i++){
+            cur.next = new ListNode(a[i]);
+            cur=cur.next;
+        }
+        sumMaxChild5(head);
+
         //https://zhuanlan.zhihu.com/p/77573456
         ListNode node = ListNode.initBuild();
         solve( node, 3);
@@ -234,9 +186,6 @@ public class ListNodeOperate {
         ListNode node2 = ListNode.initBuild();
         solve2( node2, 3);
 
-        //int[] array5 = { -2, -3, 4, -1, -2, 1, 5, -3 };
-        int[] array5 = { 20, -3, -4, -1, -2, -1, 5, -3 };
-        sumMaxChild3(array5);
 
     }
 }

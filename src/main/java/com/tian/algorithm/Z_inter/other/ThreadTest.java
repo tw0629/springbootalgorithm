@@ -2,8 +2,20 @@ package com.tian.algorithm.Z_inter.other;
 
 /**
  * @author David Tian
- * @desc
+ * @desc 交叉打印
  * @since 2021/9/1 11:35
+ */
+
+/**
+ * 交叉打印的模板流程：
+ * 获取锁；
+ *      while( a==t/f ){  // a是否等于特定条件
+ *         wait()/await();
+ *      }
+ *      notify()/signal();
+ *      a=t/f; // 赋值a特定条件
+ * 释放锁；
+ *
  */
 public class ThreadTest {
 

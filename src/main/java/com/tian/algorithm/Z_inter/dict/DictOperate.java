@@ -15,7 +15,7 @@ public class DictOperate {
      *
      * 单词拆分
      *
-     * 判断一个列表中的单词是否在字符串中
+     * 判断字符串可否由列表中的单词组成
      *
      * 输入一个列表的单词，及一个长字符串，判断字符串可否由列表中的单词组成。
      * 比如：
@@ -41,13 +41,21 @@ public class DictOperate {
                 // dp[j]代表上一个分片在字典表中, s.substring(j,i)代表下一个分片在字典表中
                 if( dp[j] && wordDict.contains(s.substring(j,i)) ){
                     dp[i]=true;
-                    System.out.println("break "+ Arrays.toString(dp));
+                    System.out.println("======> break "+ Arrays.toString(dp));
                     break;
+                }else {
+                    System.out.println(Arrays.toString(dp));
                 }
-                System.out.println(Arrays.toString(dp));
             }
         }
 
         return dp[s.length()];
+    }
+
+    public static void main(String[] args) {
+
+        List<String> list = Arrays.asList("I", "love", "byte", "bytedance");
+        System.out.println(wordBreak("Ilovebytedance",list));
+        System.out.println();
     }
 }

@@ -2,7 +2,7 @@
 #牛客网 https://www.nowcoder.com/ta/job-code-high
 
 有一个巧妙的思路 ：
-1 常常使用： for循环+递归 ======> 解决多层级for循环
+1 常常使用： for循环+递归  ======替代======>  解决多层级for循环
 
 
 最小的K个数、寻找第K大   快堆归
@@ -10,7 +10,7 @@
 
 合并两个有序的数组 com.tian.algorithm.Z_inter.array.ArrayOp
 连续子数组的最大和 com.tian.algorithm.Z_inter.array.ArrayOp
-               com.tian.algorithm.Z_inter.list.ListNodeOperate sumMaxChild3
+               com.tian.algorithm.Z_inter.list.ListNodeOperate sumMaxChild5 类似
 两数之和 com.tian.algorithm.Z_inter.array.ArrayOp
 所有子集 com.tian.algorithm.Z_inter.array.ArrayOp
 全排列 com.tian.algorithm.Z_inter.array.ArrayOp
@@ -31,7 +31,7 @@
             (最长的括号子串 3 是自己实现的 最简单的)
 
 反转链表 com.tian.algorithm.Z_inter.list.ReverseList
-连续子数组的和最大问题 com.tian.algorithm.Z_inter.list.ListNodeOperate
+连续子链表的和最大问题 com.tian.algorithm.Z_inter.list.ListNodeOperate
 实现一个单链表，每K个节点之间为一组进行逆序 com.tian.algorithm.Z_inter.list.ListNodeOperate
 链表中的节点每k个一组翻转（正开始、倒开始 两个方向的）（包含链表翻转）
     com.tian.algorithm.Z_inter.list.ListNodeOperate
@@ -83,3 +83,11 @@ https://blog.csdn.net/qq_28619473/article/details/90722878
 https://ironic333.github.io/2020/02/22/%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E6%95%B0%E5%AD%97/
 https://www.jianshu.com/p/dcc7ee0ff110
 https://zhuanlan.zhihu.com/p/83454731
+
+
+
+回溯技巧
+为了防止搞混 以及 应对面试： 提炼一种：for循环+"一次"递归;
+全排          	index  		for(i=0 		    def(index+1
+子集	 	        index  		for(i=index 		def(i+1
+组合总和 	    index  		for(i=index 		def(i+1

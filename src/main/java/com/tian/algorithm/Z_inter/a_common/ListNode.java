@@ -22,6 +22,11 @@ public class ListNode {
         this.data = data;
     }
 
+    public ListNode(int val, ListNode next) {
+        this.data = val;
+        this.next = next;
+    }
+
     public static ListNode initBuild(){
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);

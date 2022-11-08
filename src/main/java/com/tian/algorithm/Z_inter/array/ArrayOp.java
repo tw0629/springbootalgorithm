@@ -1,8 +1,5 @@
 package com.tian.algorithm.Z_inter.array;
 
-import org.springframework.util.CollectionUtils;
-
-import java.io.Console;
 import java.util.*;
 
 /**
@@ -88,6 +85,10 @@ public class ArrayOp {
      * == Math.max(dp[i-1] + a[i], a[i]);
      * == Math.max(0,dp[i-1]) + arr[i];
      *
+     * 思路有点类似： 递推有点类似
+     *     积水问题 com.tian.algorithm.Z_inter.other.DynamicProgram#waterSum2(int[])
+     *     判断字符串可否由列表中的单词组成 com.tian.algorithm.Z_inter.dict.DictOperate#wordBreak(java.lang.String, java.util.List)
+     *
      */
     public static int maxsumofSubarray (int[] arr) {
         // write code here
@@ -104,7 +105,8 @@ public class ArrayOp {
              * = Math.max(0,dp[i-1]) + arr[i];
              */
             // 维护dp[i]
-            dp[i] = Math.max(0,dp[i-1]) + arr[i];
+            //dp[i] = Math.max(0,dp[i-1]) + arr[i];
+            dp[i] = Math.max(dp[i-1] + arr[i], arr[i]);;
             // 每更新一个dp值就更新一下maxSum
             maxSum = Math.max(maxSum,dp[i]);
         }
@@ -120,7 +122,7 @@ public class ArrayOp {
      * 返回值：
      *      [2,3]
      */
-    public int[] twoSum(int[] numbers, int target) {
+    public static int[] twoSum(int[] numbers, int target) {
         int n = numbers.length;
         int[] result = new int[2];
         //map里面放 键为target-每个数的结果 值为下标
@@ -139,6 +141,17 @@ public class ArrayOp {
             }
         }
         return result;
+    }
+    // twoSum1优化
+    public static int[] twoSum11(int[] nums, int target) {
+        Map<Integer, Integer> hashtable = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; ++i) {
+            if (hashtable.containsKey(target - nums[i])) {
+                return new int[]{hashtable.get(target - nums[i]), i};
+            }
+            hashtable.put(nums[i], i);
+        }
+        return new int[0];
     }
     /**
      * 两数之和2
@@ -332,6 +345,7 @@ public class ArrayOp {
 
     /**
      * 最大的leftMax和rightMax之差的最大值
+     * |leftMax-rightMax|绝对值最大
      *
      * 思路：
      * 差绝对值最大，即找出最大的数减去一个数
@@ -367,6 +381,7 @@ public class ArrayOp {
         int max = 0;
         for (int i = 0, j = 0; i < arr.length; ++i) {
             if (map.containsKey(arr[i])) {
+                // 每次无重复字符串的起始位置
                 j = Math.max(j, map.get(arr[i]) + 1);
             }
             map.put(arr[i], i);
@@ -375,16 +390,18 @@ public class ArrayOp {
         return max;
     }
 
-
+    /**
+     * 请参考一下： com.tian.algorithm.leedcode.a39a40_组合总和#combinationSum1(int[], int)
+     * 此题写法有问题
+     */
     static int[] arr = new int[100];
     static int index = 0;// 记录当前
-
     public static void numGroup(int[] arr, int start, int length, int sum) {
         if (sum == 0) {
             for (int j = 0; j < index; j++) {
-                System.out.print(arr[j]);
+                System.out.print(arr[j]+" ");
             }
-            System.out.println();
+            //System.out.println();
         } else {
             for (int i = start; i < length; i++) {
                 arr[index++] = arr[i];
@@ -394,6 +411,7 @@ public class ArrayOp {
         index--;
     }
 
+    // ？？
     public static int subarraySum(int[] nums, int k) {
         int count = 0, pre = 0;
         HashMap < Integer, Integer > mp = new HashMap < > ();
@@ -455,6 +473,7 @@ public class ArrayOp {
      * 自己成功摸索出来的
      *
      * 思路类似：https://www.cnblogs.com/zhaoshujie/p/11555586.html,但写法不一样
+     * https://blog.nowcoder.net/n/08521a63d59946f1af9ed5a19ffc65b6
      */
     private static void findNums(int[] candidates,List<Integer> list, int remainder, int loop)
     {
@@ -485,10 +504,11 @@ public class ArrayOp {
         System.out.println("】");
     }
 
+
     /**
      * 方法三
      * 从数组中找出和为指定值的任意组合
-     *
+     * https://blog.nowcoder.net/n/08521a63d59946f1af9ed5a19ffc65b6
      **/
     static List<List<Integer>> lists = new ArrayList<>();
     //这个list存放所有数组
@@ -525,7 +545,82 @@ public class ArrayOp {
     }
 
     /**
-     * 获得两个字符串的最短距离
+     * 方法四
+     * 从数组中找出和为指定值的任意组合
+     *
+     * https://blog.csdn.net/qq_33775774/article/details/111305288
+     **/
+    public static List<Integer>  getSubSequenceEqualTargetSum(int[] nums, int target){
+        List<Integer>  result = new ArrayList<>();
+        int sum=0;
+        int  start = 0;
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+
+            if(sum == target){
+                for(int j=start;j<=i;j++){
+                    result.add(nums[j]);
+                    System.out.print(nums[j]+" ");
+                }
+                break;
+            } else  if(sum>target){
+                sum -= nums[start++];
+            }
+        }
+
+        System.out.println("result: "+result.toString());
+
+        return result;
+
+    }
+
+    /**
+     * 方法二
+     * 从数组中找出和为指定值的任意组合
+     * http://blog.chinaunix.net/uid-25979788-id-3276802.html
+     *
+     * function getSquence($n){
+     *     $low=1;
+     *     $high=2;
+     *     $mid=($n+1)/2;
+     *     $sum=$low+$high;
+     *     while($low<$mid){
+     *         if($sum==$n){
+     *             echo $low.'-'.$high.' ';
+     *             $sum-=$low;
+     *             $low++;
+     *         }else if($sum>$n){
+     *             $sum-=$low;
+     *             $low++;
+     *         }else{
+     *             $high++;
+     *             $sum+=$high;
+     *         }
+     *     }
+     * }
+     */
+
+    // ???
+    static int solve(int A[], int N, int val)
+    {
+        int count = 0, beg = 1, end = 0, sum = A[0];
+        while (beg < end && end < N) {
+            if (sum == val) {
+                count++;
+                // A[beg] -> A[end]
+                sum += A[++end];
+            } else if (sum < val) {
+                sum += A[++end];
+            } else {
+                sum -= A[beg++];
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 数组中两个字符串的最小距离
+     *
      * https://blog.csdn.net/zuochao_2013/article/details/78991000
      */
     public static int getMinDistance(String[]strs,String str1,String str2){
@@ -538,18 +633,25 @@ public class ArrayOp {
         }
         int last1=-1; //模式串1初始化
         int last2=-1; //模式串2初始化
-
         int min=Integer.MAX_VALUE;
+
         for(int i=0;i!=strs.length;i++){
-            if(strs[i].equals(str1))
-            {
+            /*if(strs[i].equals(str1)) {
                 min=Math.min(min,last2==-1?min:i-last2);
                 last1=i;
             }
-            if(strs[i].equals(str2))
-            {
+            if(strs[i].equals(str2)) {
                 min=Math.min(min,last1==-1?min:i-last1);
                 last2=i;
+            }*/
+            // 好理解
+            if(strs[i].equals(str1)) {
+                last1=i;
+                min=Math.min(min,last2==-1?min:last1-last2);
+            }
+            if(strs[i].equals(str2)) {
+                last2=i;
+                min=Math.min(min,last1==-1?min:last2-last1);
             }
         }
 
@@ -557,7 +659,31 @@ public class ArrayOp {
     }
 
 
+    public static int getMinDistance2(String[]strs,String str1,String str2){
+
+        return 0;
+    }
+
+
+
+
     public static void main(String[] args){
+
+        int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
+
+        //int[] arr = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int[] arr2 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int[] arr3 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        Arrays.sort(arr);
+        int sum = 7;
+        numGroup(arr, 0, arr.length, sum);
+        int i = subarraySum(arr, sum);
+        printCombinations(arr3, -1, 7, new int[]{});
+
+        int[] array5 = { -2, -3, 4, 3, -2, 1, 5, 7 };
+        System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array5));
+        System.out.println("====");
+
 
         /*int[] a = {-2,1,-3,4,-1,2,1,-5,4};
         //int maxleftright = maxleftright(a);
@@ -605,12 +731,38 @@ public class ArrayOp {
         Arrays.sort(q);
         findNums(q,list,tar,q.length-1);*/
 
-        String[] strs = {"rr","ab","ee","123","ww","ab","1234","qq"};
+        /*String[] strs = {"rr","ab","ee","123","ww","ab","1234","qq"};
         String str1 = "ab";
         String str2 = "123";
         int minDistance = getMinDistance(strs, str1, str2);
-        System.out.println("GetMinDistance: "+minDistance);
+        System.out.println("GetMinDistance: "+minDistance);*/
 
+        int[] nums = {3,2,1,5,4,3,7,9};
+        //getSubSequenceEqualTargetSum(nums,12);
+        int count = solve(nums, nums.length, 12);
+
+        //System.out.println(Arrays.toString(twoSum(nums,7)));
+        //System.out.println(Arrays.toString(twoSum11(nums,7)));
+        //System.out.println(Arrays.toString(twoSum2(nums,7)));
+
+        /*int[][] arr = new int[3][]; //定义个一维数组,长度为3, 每个位置放入一个数组
+        arr[0] = new int[]{1,2,3}
+        arr[1] = new int[]{4,5}
+        arr[2] = new int[]{6...}*/
+        //int[][] arr = {{12,33},{33,45},{23,55},{66,77}};
+        //int[][] arr = new int[][] {{12,33,45},{15,23,55},{66,77}};
+
+        /*for (int[] i : arr) {
+            System.out.print(i[0]);
+            System.out.println(i[1]);
+        }*/
+        /*Arrays.asList(arr).forEach(a->{
+            System.out.println(a[0]);
+        });*/
+
+        //Arrays.sort(arr, (v1, v2) -> v1[0] - v2[0]);
+
+        System.out.println(Arrays.stream(arr).toArray());
     }
 }
 
