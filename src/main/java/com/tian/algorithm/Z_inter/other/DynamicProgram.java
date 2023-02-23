@@ -10,7 +10,7 @@ public class DynamicProgram {
     /**
      * 斐波拉契
      */
-    public int Fibonacci(int n) {
+    public static int Fibonacci(int n) {
         int ans[] = new int[40];
         ans[0] = 0;
         ans[1] = 1;
@@ -20,14 +20,24 @@ public class DynamicProgram {
         }
         return ans[n];
     }
+    public static int Fibonacci2(int n) {
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return 1;
+        }
+        return Fibonacci2(n-1)+Fibonacci2(n-2);
+    }
 
     /**
      * 跳台阶
+     *  类似：需要 n 阶你才能到达楼顶
      */
     public int jumpFloor(int target) {
-        if(target==1) {
+        if(target==1) { // 1阶有两种跳法
             return 1;
-        } else if(target==2) {
+        } else if(target==2) { // 2阶有两种跳法
             return 2;
         }
         return jumpFloor(target-1)+jumpFloor(target-2);
@@ -134,6 +144,10 @@ public class DynamicProgram {
     }
 
     public static void main(String[] args) {
+
+        System.out.println(Fibonacci(10));
+        System.out.println(Fibonacci2(10));
+        System.out.println();
 
         //int[] a = {4,2,0,3,2,5};
         int[] a = {0,1,0,2,1,0,1,3,2,1,2,1};

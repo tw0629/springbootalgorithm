@@ -1,5 +1,8 @@
 package com.tian.algorithm.Z_inter.array;
 
+import com.google.common.collect.Lists;
+import org.springframework.util.CollectionUtils;
+
 import java.util.*;
 
 /**
@@ -147,50 +150,100 @@ public class ArrayOp {
         Map<Integer, Integer> hashtable = new HashMap<Integer, Integer>();
         for (int i = 0; i < nums.length; ++i) {
             if (hashtable.containsKey(target - nums[i])) {
+                System.out.println("twoSum2: "+nums[i]+"和"+(target - nums[i]));
                 return new int[]{hashtable.get(target - nums[i]), i};
             }
             hashtable.put(nums[i], i);
         }
         return new int[0];
     }
+
     /**
-     * 两数之和2
+     * 两数之和变种------找到所有满足条件的数对
+     * https://blog.csdn.net/chk_plusplus/article/details/119417432
+     * 两数之和、三数之和、四数之和、N数之和
+     * https://blog.csdn.net/qq_35655602/article/details/116170755
      */
-    public static int[] twoSum2(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        boolean twoSum = false;
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement)) {
-                twoSum = true;
-                System.out.println("twoSum2: "+nums[i]+"和"+complement);
-                //return new int[] { map.get(complement), i };
+
+    /**
+     * 两数之和3
+     * 思路：排序加双指针
+     */
+    public static List<List<Integer>> twoSum3(int[] nums, int target) {
+        Arrays.sort(nums);
+
+        int len = nums.length;
+        int i = 0, j = len - 1;
+        List<List<Integer>> all = new ArrayList<>();
+
+        while(i < j){
+            if(nums[i] + nums[j] == target){
+                /*List<Integer> list = new ArrayList<>();
+                list.add(nums[i]);
+                list.add(nums[j]);
+                all.add(list);*/
+                all.add(Arrays.asList(nums[i], nums[j]));
+                ++i;
+                --j;
+
+                // 以下两步去重处理
+                while(i < j && nums[j] == nums[j + 1]) --j;
+                while(i < j && nums[i] == nums[i - 1]) ++i;
+            }else if(nums[i] + nums[j] < target){
+                ++i;
+            } else{
+                --j;
             }
-            map.put(nums[i], i);
         }
-        if(!twoSum){
-            throw new IllegalArgumentException("No two sum solution");
+        return all;
+    }
+
+    /**
+     * 三数之和
+     *
+     * 排序+ 最外层去重 + 内层去重
+     */
+    public static List<List<Integer>> threeSum3(int[] nums, int target) {
+        List<List<Integer>> threeSum = new ArrayList<>();
+        //排序
+        Arrays.sort(nums);
+
+        for(int i = 0 ; i<nums.length; i++){
+            // 最外层去重
+            if(i>0&&nums[i]==nums[i-1]){
+                continue;
+            }
+
+            List<List<Integer>> lists = twoSum3(nums, target - nums[i]);
+            if(CollectionUtils.isEmpty(lists)){
+                continue;
+            }
+            for(List<Integer> list: lists){
+                list.add(nums[i]);
+                threeSum.add(list);
+            }
         }
-        return null;
+
+        return threeSum;
     }
 
 
-    /**
-     * https://wolfmua.blog.csdn.net/article/details/104479418
-     *
-     * 输入: nums = [1,2,3]
-     * 输出:
-     * [
-     *   [3],
-     *   [1],
-     *   [2],
-     *   [1,2,3],
-     *   [1,3],
-     *   [2,3],
-     *   [1,2],
-     *   []
-     * ]
-     */
+        /**
+         * https://wolfmua.blog.csdn.net/article/details/104479418
+         *
+         * 输入: nums = [1,2,3]
+         * 输出:
+         * [
+         *   [3],
+         *   [1],
+         *   [2],
+         *   [1,2,3],
+         *   [1,3],
+         *   [2,3],
+         *   [1,2],
+         *   []
+         * ]
+         */
     /**
      * 非递归
      */
@@ -659,15 +712,13 @@ public class ArrayOp {
     }
 
 
-    public static int getMinDistance2(String[]strs,String str1,String str2){
-
-        return 0;
-    }
-
-
-
-
     public static void main(String[] args){
+
+        //int[] array5 = { -2, -3, 4, -1, -2, 1, 5, 7 };
+        int[] array5 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 ,4, 6};
+        System.out.println("twoSum is " + twoSum3(array5,10));
+        int[] array51 = { 2, 4, 2, 1, 4, 2, 2, 1, 4 };
+        System.out.println("twoSum is " + threeSum3(array51,6));
 
         int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
 
@@ -680,8 +731,8 @@ public class ArrayOp {
         int i = subarraySum(arr, sum);
         printCombinations(arr3, -1, 7, new int[]{});
 
-        int[] array5 = { -2, -3, 4, 3, -2, 1, 5, 7 };
-        System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array5));
+        int[] array6 = { -2, -3, 4, 3, -2, 1, 5, 7 };
+        System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array6));
         System.out.println("====");
 
 

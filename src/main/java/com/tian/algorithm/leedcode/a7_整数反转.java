@@ -28,11 +28,14 @@ public class a7_整数反转 {
      * 作者：LeetCode-Solution
      * 链接：https://leetcode.cn/problems/reverse-integer/solution/zheng-shu-fan-zhuan-by-leetcode-solution-bccn/
      *
+     *  b=a%10;
+     *  a=a/10;
+     *  c=c*10+b;
      */
     public int reverse(int x) {
         int rev = 0;
         while (x != 0) {
-            // 防止溢出
+            // 防止溢出    ?? (res>Integer.MAX_VALUE/10 && r>7)
             if (rev < Integer.MIN_VALUE / 10 || rev > Integer.MAX_VALUE / 10) {
                 return 0;
             }

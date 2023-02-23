@@ -51,15 +51,16 @@ public class sort {
             adjust(i, n, data);
         }
     }
-
+    // for+while
     private void buildHeap(int n, int[] data) {
-        for(int i = 1; i < n; i++) {
+        for(int i = 1; i < n; i++) { //i = 1 开始
             int t = i;
             // 调整堆
             while(t != 0 && data[parent(t)] > data[t]) {//大就交换
                 int temp = data[t];
                 data[t] = data[parent(t)];
                 data[parent(t)] = temp;
+
                 t = parent(t);
             }
         }
@@ -74,6 +75,7 @@ public class sort {
         int temp = data[i];
         data[i] = data[0];
         data[0] = temp;
+
         // 调整堆顶
         int t = 0;
         while( (left(t) < n && data[t] > data[left(t)])
@@ -83,12 +85,14 @@ public class sort {
                 temp = data[t];
                 data[t] = data[right(t)];
                 data[right(t)] = temp;
+
                 t = right(t);
             } else {
                 // 否则置换左孩子
                 temp = data[t];
                 data[t] = data[left(t)];
                 data[left(t)] = temp;
+
                 t = left(t);
             }
         }

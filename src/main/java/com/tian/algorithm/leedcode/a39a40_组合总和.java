@@ -28,7 +28,7 @@ public class a39a40_组合总和 {
             return new ArrayList<>();
         }
         List<List<Integer>> res = new ArrayList<>();
-        Deque<Integer> path = new ArrayDeque<>();
+        Deque<Integer> path = new ArrayDeque<>();// 应该和List效果一样
 
         // 排序是剪枝的前提
         Arrays.sort(candidates);
@@ -76,10 +76,10 @@ public class a39a40_组合总和 {
 
         // 关键步骤
         Arrays.sort(candidates);
-        dfs2(candidates, len, 0, target, path, res);
+        dfs2(candidates, 0, len, target, res, path);
         return res;
     }
-    private static void dfs2(int[] candidates, int len, int begin, int target, Deque<Integer> path, List<List<Integer>> res) {
+    private static void dfs2(int[] candidates, int begin, int len, int target, List<List<Integer>> res, Deque<Integer> path) {
         if (target == 0) {
             res.add(new ArrayList<>(path));
             return;
@@ -100,7 +100,7 @@ public class a39a40_组合总和 {
             // System.out.println("递归之前 => " + path + "，剩余 = " + (target - candidates[i]));
 
             // 因为元素不可以重复使用，这里递归传递下去的是 i + 1 而不是 i
-            dfs2(candidates, len, i + 1, target - candidates[i], path, res);
+            dfs2(candidates, i + 1, len, target - candidates[i], res, path);
 
             path.removeLast();
             // 调试语句 ②
@@ -112,10 +112,11 @@ public class a39a40_组合总和 {
     public static void main(String[] args) {
         int[] a = {1,2,3,4,5,6,7};
         int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
-        System.out.println(combinationSum1(arr,7));
+        System.out.println(combinationSum1(a,8));
 
-        int[] a2= {1,2,3,4,5,6,7,7};
-        System.out.println(combinationSum2(a2,7));
+        int[] a2= {1,2,3,4,5,6,7,1,6,3,4};
+        int[] a3= {1,2,2,3};
+        System.out.println(combinationSum2(a2,8));
         System.out.println();
     }
 

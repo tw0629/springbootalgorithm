@@ -53,7 +53,7 @@ public class Demo {
         //使用剩余总金额平均数来控制波动，改为使用平均数的某个倍数(限制为0.01 ~ 平均值 *n之间波动)
         //注意：是剩余总金额平均数-不是总金额平均数
         double max = redPackage.getRemianMoney()/redPackage.remianSize*3;
-        //nextDouble() 方法用于获取下一个从这个伪随机数生成器的序列中均匀分布的0.0和1.0之间的double值。
+        //nextDouble()方法用于获取下一个从这个伪随机数生成器的序列中均匀分布的0.0和1.0之间的double值。
         double money = r.nextDouble() * max;
 
         money = money <= min ? 0.01 : money;

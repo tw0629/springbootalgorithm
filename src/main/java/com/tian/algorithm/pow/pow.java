@@ -7,6 +7,7 @@ package com.tian.algorithm.pow;
  */
 public class pow {
 
+    // 2n次方
     public static double pow1(double x, int n) {
         if(n==0) {
             return 1;
@@ -19,10 +20,11 @@ public class pow {
         }
 
         double half=pow1(x,n/2);
-        double rest=pow1(x,n%2);
+        double rest=pow1(x,n%2); //起正负号的作用
         return half*half*rest;
     }
 
+    // n为负数时有点问题
     public static double pow2(double x, int n) {
         if(n<0) {
             x=1/x;

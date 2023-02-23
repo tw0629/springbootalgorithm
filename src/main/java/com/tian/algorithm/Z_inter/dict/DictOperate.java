@@ -28,6 +28,9 @@ public class DictOperate {
      * bytedancebyte true
      * bytelovedance false
      */
+    /**
+     * dp[i] = dp[j] && wordDict.contains(s.substring(j,i))
+     */
     public static boolean wordBreak(String s, List<String> wordDict){
         if(s==null||s.length()==0) {
             return false;
@@ -36,13 +39,13 @@ public class DictOperate {
         boolean[] dp=new boolean[s.length()+1];
         dp[0]=true;
         for(int i=1;i<=s.length();i++){
-            for(int j=0;j<i;j++){
+            for(int j=0;j<i;j++){ // 注意j<i
                 System.out.println("dp[j]:"+dp[j]+"  "+j+"-"+i+": s.substring(j,i):"+s.substring(j,i));
                 // dp[j]代表上一个分片在字典表中, s.substring(j,i)代表下一个分片在字典表中
                 if( dp[j] && wordDict.contains(s.substring(j,i)) ){
                     dp[i]=true;
                     System.out.println("======> break "+ Arrays.toString(dp));
-                    break;
+                    break; // 注意:一定是break,否则会覆盖
                 }else {
                     System.out.println(Arrays.toString(dp));
                 }
@@ -55,7 +58,9 @@ public class DictOperate {
     public static void main(String[] args) {
 
         List<String> list = Arrays.asList("I", "love", "byte", "bytedance");
-        System.out.println(wordBreak("Ilovebytedance",list));
+        String s = "Ilovebytedance";
+        System.out.println(wordBreak(s,list));
+        System.out.println(s.substring(1,5));
         System.out.println();
     }
 }

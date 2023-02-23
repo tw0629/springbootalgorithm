@@ -7,6 +7,11 @@ package com.tian.algorithm.leedcode;
  */
 public class a6_Z字形变换 {
 
+    /**
+     * numRows=3时候
+     * row:   0    1   2   1   0   1   2   1   0   1   2   1   0   1   2   1   0
+     * index:        row-1           row-1           row-1           row-1
+     */
     public String convert(String s, int numRows) {
         if(numRows==1){
             return s;

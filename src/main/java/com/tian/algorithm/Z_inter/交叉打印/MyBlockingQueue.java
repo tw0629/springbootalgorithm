@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_inter.queue;
+package com.tian.algorithm.Z_inter.交叉打印;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -56,3 +56,15 @@ public class MyBlockingQueue<T> {
         return t;
     }
 }
+
+/**
+ * 交叉打印的模板流程：
+ * 获取锁；
+ *      while( a==t/f ){  // a是否等于特定条件
+ *         wait()/await();
+ *      }
+ *      notify()/signal();
+ *      a=t/f; // 赋值a特定条件
+ * 释放锁；
+ *
+ */

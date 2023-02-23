@@ -1,5 +1,7 @@
 package com.tian.algorithm.leedcode;
 
+import org.springframework.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,8 +61,10 @@ public class a93_复原IP地址 {
     /**
      * 方法二  推荐
      */
-    static List<String> res = new ArrayList<>(); // 所有的ip地址
-    static List<String> path = new ArrayList<>(); // 每次子集临时存放, ip地址的四个段
+    // 所有的ip地址  注意: 因为是字符串,所以res为List<String>而不是List<List<String>>
+    static List<String> res = new ArrayList<>();
+    // 每次子集临时存放, ip地址的四个段
+    static List<String> path = new ArrayList<>();
 
     public static List<String> restoreIpAddresses12(String s) {
         //backtracking12(s,0,path);
@@ -78,10 +82,12 @@ public class a93_复原IP地址 {
             }
             res.add(ans.substring(0,ans.length() - 1));
         }
-        if (path.size() == 4 && index != s.length()) return;
+        if (path.size() == 4 && index != s.length())
+            return;
+
         for (int i = index; i < s.length() && i < index + 3; i++) {
             if (isIp12(s,index,i)){
-                path.add(s.substring(index,i + 1));
+                path.add(s.substring(index,i + 1)); //!!! substring(index, i + 1)
                 //backtracking12(s,i + 1,path);
                 backtracking12(s,i + 1);
                 path.remove(path.size() - 1);
@@ -89,7 +95,7 @@ public class a93_复原IP地址 {
         }
     }
     private static boolean isIp12(String s, int index, int end) {
-        if (s.charAt(index) == '0' && end - index >= 1) return false;
+        if (s.charAt(index) == '0' && end - index >= 1) return false; // 可以:0, 不可以:011,01
         int sum = 0;
         for (int j = index; j <= end; j++) {
             int tmp = s.charAt(j) - '0';
@@ -106,6 +112,59 @@ public class a93_复原IP地址 {
         System.out.println();
         System.out.println(restoreIpAddresses12(s));
         System.out.println();
+        System.out.println(ipProcess("123456123456"));
+        System.out.println();
     }
+
+
+    /**
+     *  类似 复原IP地址
+     *
+     *  此题为字节跳动面试题,
+     *  大致是编码加码题的叙述
+     *  即：1--->A 2--->B 3--->C …… 26--->Z
+     *  (226)--->(2 2 6)(22 6)(2 26)  有效编码组合
+     *           (B B F)(T F)(B Z)    解码后的组合
+     *
+     *  给一串数字, 能拆出多少组合来
+     */
+    public static int ipProcess(String s){
+        List<List<String>> res = new ArrayList<>();
+        List<String> path = new ArrayList<>();
+
+        dfs(s,0,res,path);
+        System.out.println();
+        return res.size();
+    }
+
+    public static void dfs(String s, int index, List<List<String>> res, List<String> path){
+        if(index==s.length()){
+            System.out.println("======> "+path.toString());
+            res.add(new ArrayList<>(path));
+            return;
+        }
+
+        for(int i=index; i<s.length()&&i<=index+2; i++){
+            String substr = s.substring(index, i + 1); //!!! substring(index, i + 1)
+            if(is126(substr)){
+                path.add(substr);
+                dfs(s,index+1,res,path);
+                path.remove(path.size()-1);
+            }
+        }
+
+    }
+
+    public static boolean is126(String s){
+        if(StringUtils.isEmpty(s)){
+            return false;
+        }
+        Integer a = Integer.valueOf(s);
+        if(1<=a && a<=26){
+            return true;
+        }
+        return false;
+    }
+
 
 }

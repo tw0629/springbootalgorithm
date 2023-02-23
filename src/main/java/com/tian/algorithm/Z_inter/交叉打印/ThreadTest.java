@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_inter.other;
+package com.tian.algorithm.Z_inter.交叉打印;
 
 /**
  * @author David Tian

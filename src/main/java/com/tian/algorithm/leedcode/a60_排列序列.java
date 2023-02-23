@@ -63,6 +63,9 @@ public class a60_排列序列 {
                 continue;
             }
             visited[i] = true;
+            // !!!
+            // 数字拼接：num * 10 + i
+            // 字符串拼接：aRes + String.valueOf(i)
             dfs11(arrayList, n, current + 1, visited, num * 10 + i);
             visited[i] = false;
         }
@@ -107,8 +110,8 @@ public class a60_排列序列 {
         List<List<Integer>> ans = new ArrayList<List<Integer>>();// 放所有的子排列
         List<Integer> perm = new ArrayList<Integer>();//每个子排列
         boolean[] visited = new boolean[nums.length];//每个位置的元素是否访问过  boolean默认值是false
-
         Arrays.sort(nums); //排序 本来有序就无需排序
+
         backtrack(nums,0, visited, ans, perm);
         return ans.get(k - 1);
     }
@@ -135,8 +138,8 @@ public class a60_排列序列 {
         }
     }
 
-    List<List<Integer>> res = new ArrayList<>();
-    List<Integer> list = new ArrayList<>();
+    static List<List<Integer>> res = new ArrayList<>();
+    static List<Integer> list = new ArrayList<>();
 
     /**
      * 方法四  for循环+一次递归
@@ -150,7 +153,7 @@ public class a60_排列序列 {
      *     return;
      *
      */
-    public String getPermutation(int n, int k) {
+    public static String getPermutation(int n, int k) {
         // 初始化元素
         int[] num = new int[n];
         boolean[] flag = new boolean[n];
@@ -171,7 +174,7 @@ public class a60_排列序列 {
         return sbd.toString();
     }
     //dfs
-    private void dfs(int[] num, int h, boolean[] flag, int k){
+    private static void dfs(int[] num, int h, boolean[] flag, int k){
         if (k == res.size()) // ！！！已经有第k个元素了,就不在添加了，直接返回了
             return;
         if(h == num.length){
@@ -197,6 +200,7 @@ public class a60_排列序列 {
         System.out.println(getPermutation11(5,3));
         System.out.println(getPermutation12(5,3));
         System.out.println(getPermutation13(a,3));
+        System.out.println(getPermutation(5,3));
         System.out.println("============================");
     }
 }

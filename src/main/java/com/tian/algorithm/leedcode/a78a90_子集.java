@@ -31,14 +31,14 @@ public class a78a90_子集 {
      *  方法一  推荐
      *  排序 + for循环 + 一次递归
      */
-    public static List<List<Integer>> subsets13(int[] nums) {
+    public static List<List<Integer>> subsets11(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         LinkedList<Integer> path = new LinkedList<>();
         Arrays.sort(nums);
-        dfs13(nums, 0, res, path);
+        dfs11(nums, 0, res, path);
         return res;
     }
-    private static void dfs13(int[] nums, int index, List<List<Integer>> res, LinkedList<Integer> path) {
+    private static void dfs11(int[] nums, int index, List<List<Integer>> res, LinkedList<Integer> path) {
         res.add(new ArrayList<>(path)); // // !!!注意：不能写成ans.add(perm); 因为每次都会remove掉
         if(index == nums.length){
             return;
@@ -46,30 +46,60 @@ public class a78a90_子集 {
 
         for (int i = index; i < nums.length; i++) {
             path.add(nums[i]);
-            dfs13(nums,i+1,res,path);
+            dfs11(nums,i+1,res,path);
             path.removeLast();
         }
     }
 
+    static boolean[] used112;// 通过used数组标记是否访问过
+    public static List<List<Integer>> subsets112(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+        used112 = new boolean[nums.length];
+
+        Arrays.sort(nums);
+        dfs112(nums, 0, res, path);
+        return res;
+    }
+    private static void dfs112(int[] nums, int index, List<List<Integer>> res, LinkedList<Integer> path) {
+        res.add(new ArrayList<>(path)); // // !!!注意：不能写成ans.add(perm); 因为每次都会remove掉
+        if(index == nums.length){
+            return;
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            if(used112[i]){
+                continue;
+            }
+
+            path.add(nums[i]);
+            used112[i]=true;
+            dfs11(nums,i+1,res,path);
+            path.removeLast();
+            used112[i]=false;
+        }
+    }
+
+
     /**
      *  方法二 排序 + 两次递归
      */
-    public static List<List<Integer>> subsets11(int[] nums) {
+    public static List<List<Integer>> subsets12(int[] nums) {
         ArrayList<List<Integer>> result = new ArrayList<>();
         LinkedList<Integer> queue = new LinkedList<>();
 
-        recursive11(result,queue,nums,0);
+        recursive12(result,queue,nums,0);
         return result;
     }
-    private static void recursive11(ArrayList<List<Integer>> result, LinkedList<Integer> queue, int[] nums, int cur) {
+    private static void recursive12(ArrayList<List<Integer>> result, LinkedList<Integer> queue, int[] nums, int cur) {
         if (cur==nums.length){
             result.add(new ArrayList<>(queue)); // !!!注意：不能写成ans.add(perm); 因为每次都会remove掉
             return;
         }
         queue.offer(nums[cur]);
-        recursive11(result, queue, nums, cur+1);
+        recursive12(result, queue, nums, cur+1);
         queue.removeLast();
-        recursive11(result, queue, nums, cur+1);
+        recursive12(result, queue, nums, cur+1);
 
         //注意也可以改变顺序
         /*
@@ -84,21 +114,21 @@ public class a78a90_子集 {
      * 方法三
      * 中序遍历写法
      */
-    public static List<List<Integer>> subsets12(int[] nums) {
+    public static List<List<Integer>> subsets13(int[] nums) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         List<Integer> path = new ArrayList<Integer>();
         Arrays.sort(nums);
-        dfs12(Ints.asList(nums), res, path, 0);
+        dfs13(Ints.asList(nums), res, path, 0);
         return res;
     }
-    private static void dfs12(List<Integer> list, List<List<Integer>> res, List<Integer> path, int level)
+    private static void dfs13(List<Integer> list, List<List<Integer>> res, List<Integer> path, int level)
     {
         if(level == list.size()) {
             res.add(path);
         } else {
-            dfs12(list, res, new ArrayList<>(path), level + 1);
+            dfs13(list, res, new ArrayList<>(path), level + 1);
             path.add(list.get(level));
-            dfs12(list, res, new ArrayList<>(path), level + 1);
+            dfs13(list, res, new ArrayList<>(path), level + 1);
         }
     }
 
@@ -145,15 +175,15 @@ public class a78a90_子集 {
             return;
         }
         for (int i = startIndex; i < nums.length; i++){
-            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]){
+            if (used[i] || i > startIndex && nums[i] == nums[i - 1] && !used[i - 1]){
                 continue;
             }
 
             path.add(nums[i]);
             used[i] = true;
             df21(nums, i + 1, result, path);
-            path.removeLast();
             used[i] = false;
+            path.removeLast();
         }
     }
 
@@ -220,15 +250,16 @@ public class a78a90_子集 {
 
         int[] a0 = {1,2,3};
         System.out.println(subsets11(a0));
+        System.out.println(subsets112(a0));
         System.out.println(subsets12(a0));
         System.out.println(subsets13(a0));
         System.out.println(subsetsWithDup22(a0));
         System.out.println();
 
-        int[] a = {1,2,2,2};
+        int[] a = {1,2,2,3};
         System.out.println(subsetsWithDup21(a));
-        System.out.println(subsetsWithDup22(a));
-        System.out.println(subsetsWithDup23(a));
+        //System.out.println(subsetsWithDup22(a));
+        //System.out.println(subsetsWithDup23(a));
         System.out.println();
     }
 

@@ -11,54 +11,6 @@ import java.util.List;
 public class a57_插入区间 {
 
     /**
-     * 方法一 有点问题  自己实现
-     */
-    public static int[][] insert(int[][] intervals, int[] newInterval) {
-
-        int i = 0;
-        int m = 0;
-        int n = 0;
-        for (int[] interval: intervals) {
-            if(interval[0]<=newInterval[0] && newInterval[0]<=interval[1]){
-                m = i;
-            }
-            if(interval[0]<=newInterval[1] && newInterval[1]<=interval[1]){
-                n = i;
-            }
-            if(n!=0&&m==n){
-                break;
-            }
-            i++;
-        }
-        // 没考虑 最左，最右，中间不交
-
-        if(m==n){
-            return intervals;
-        }
-
-        int[][] merge = new int[intervals.length][];
-        int j = 0;
-        int t = 0;
-        int left = 0;
-        int right = 0;
-        for (int[] interval: intervals) {
-            if(m<=j && j<=n){
-                left=left==0?interval[0]:left;
-                left = Math.min(left,interval[0]);
-                right = Math.max(right,interval[1]);
-                merge[t] = new int[]{left, right};
-            }else {
-                if(j!=0){
-                    ++t;
-                }
-                merge[t] = interval;
-            }
-            j++;
-        }
-        return merge;
-    }
-
-    /**
      * 方法二
      */
     public static int[][] insert2(int[][] intervals, int[] newInterval) {
@@ -70,7 +22,7 @@ public class a57_插入区间 {
             if (interval[0] > right) {
                 // 在插入区间的右侧且无交集
                 if (!placed) {
-                    ansList.add(new int[]{left, right});
+                    ansList.add(new int[]{left, right});//起初
                     placed = true;
                 }
                 ansList.add(interval);
@@ -86,6 +38,7 @@ public class a57_插入区间 {
         if (!placed) {
             ansList.add(new int[]{left, right});
         }
+
         int[][] ans = new int[ansList.size()][2];
         for (int i = 0; i < ansList.size(); ++i) {
             ans[i] = ansList.get(i);

@@ -45,17 +45,39 @@ public class a46a47_全排列 {
 
         // 在非叶子结点处，产生不同的分支，这一操作的语义是：在还未选择的数中依次选择一个元素作为下一个位置的元素，这显然得通过一个循环实现。
         for (int i = 0; i < len; i++) {
-            if (!used[i]) {
-                path.add(nums[i]);
-                used[i] = true;
-                //System.out.println("  递归之前 => " + path);
-                dfs11(nums, len, depth + 1, res, path);
-                // 注意：下面这两行代码发生 「回溯」，回溯发生在从 深层结点 回到 浅层结点 的过程，代码在形式上和递归之前是对称的
-                used[i] = false;
-                path.remove(path.size() - 1); // 移出最后一个
-                //System.out.println("递归之后 => " + path);
+            if (used[i]) {
+                continue;
             }
+
+            path.add(nums[i]);
+            used[i] = true;
+            //System.out.println("  递归之前 => " + path);
+            dfs11(nums, len, depth + 1, res, path);
+            // 注意：下面这两行代码发生 「回溯」，回溯发生在从 深层结点 回到 浅层结点 的过程，代码在形式上和递归之前是对称的
+            used[i] = false;
+            path.remove(path.size() - 1); // 移出最后一个
+            //System.out.println("递归之后 => " + path);
         }
+    }
+
+    /**
+     * 好像有问题
+     */
+    static List<List<Integer>> res = new ArrayList<>();
+    public static List<List<Integer>> dfs13( int[] arr,List<Integer> list){
+        List<Integer> temp = new ArrayList<>(list);
+        if (arr.length == list.size()){
+            res.add(temp);
+        }
+        for (int i=0;i<arr.length;i++){
+            if (temp.contains(arr[i])){
+                continue;
+            }
+            temp.add(arr[i]);
+            dfs13(arr,temp);
+            temp.remove(temp.size()-1);
+        }
+        return res;
     }
 
     /**
@@ -134,10 +156,11 @@ public class a46a47_全排列 {
             perm.add(nums[i]);
             visited[i] = true;
             backtrack(nums, ans, idx + 1, perm);
-            visited[i] = false;
+            visited[i] = false; // 后两行应该没有顺序
             perm.remove(idx);
         }
     }
+
 
     public static void main(String[] args) {
 
@@ -145,6 +168,7 @@ public class a46a47_全排列 {
         permutation12(a,0);
         System.out.println();
         System.out.println(permutation11(a));
+        System.out.println(dfs13(a,new ArrayList<>()));
         System.out.println("============================");
 
         int[] a1 = {1,2,2};

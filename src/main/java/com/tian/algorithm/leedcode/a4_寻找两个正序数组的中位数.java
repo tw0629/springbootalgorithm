@@ -12,7 +12,7 @@ public class a4_寻找两个正序数组的中位数 {
      * 方法一 归并
      * 简单粗暴，先将两个数组合并，两个有序数组的合并也是归并排序中的一部分。然后根据奇数，还是偶数，返回中位数。
      */
-    public double findMedianSortedArrays1(int[] nums1, int[] nums2) {
+    public static double findMedianSortedArrays1(int[] nums1, int[] nums2) {
         int[] combo = new int[nums1.length + nums2.length];
         int i = 0;
         int j = 0;
@@ -30,6 +30,7 @@ public class a4_寻找两个正序数组的中位数 {
         while (j < nums2.length) {
             combo[k++] = nums2[j++];
         }
+
         int len = combo.length;
         if (len == 1) {
             return Double.valueOf(combo[0]);
@@ -187,8 +188,9 @@ public class a4_寻找两个正序数组的中位数 {
         //int[] nums2 = {1,2,3,4,5,6,7,8,9};
 
         int[] nums1 = {1,3,5,7,9};
-        int[] nums2 = {2,4,6,8,10,11};
+        int[] nums2 = {2,4,6,8,10};
 
+        double medianSortedArrays1 = findMedianSortedArrays1(nums1, nums2);
         double medianSortedArrays3 = findMedianSortedArrays3(nums1, nums2);
         double medianSortedArrays32 = findMedianSortedArrays32(nums1, nums2);
 

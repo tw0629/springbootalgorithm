@@ -1,5 +1,6 @@
 package com.tian.algorithm.Z_inter.string;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -90,7 +91,9 @@ public class StringOp {
                 // 字符串结束位置 j
                 int j = i+d;
                 // 如果字符串 i 到 j 的首尾相等，再根据字符串 i-1 到 j-1 来确定，即得到递推公式
-                if(A.charAt(i) == A.charAt(j)) {
+                if( A.charAt(i) == A.charAt(j) ) {
+                    // 注意：前提是A.charAt(i) == A.charAt(j)
+                    // 所以才d == 0 || d == 1
                     if(d == 0 || d == 1) { // !!!  因为回文个数至少得3个所以d=0,1时候,dp[i][j] = true
                         dp[i][j] = true;
                     } else {
@@ -126,16 +129,37 @@ public class StringOp {
         return String.valueOf(res);
     }
 
+    /**
+     * 最长公共子串 和 最长公共子序列  类似
+     * https://blog.csdn.net/ly0724ok/article/details/119876759
+     */
 
     /**
      * 最长公共子串
+     *
+     * 用一个二维数组dp[i][j]表示 第一个字符串前 i 个字符 和 第二个字符串前 j 个字符 组成的最长公共字符串的长度。
+     *
+     * 那么我们在计算dp[i][j]的时候，我们首先要判断s1.charAt(i)是否等于s2.charAt(j)：
+     *      如果不相等，说明当前字符无法构成公共子串，所以dp[i][j]=0。
+     *      如果相等，说明可以构成公共子串，我们还要加上他们前一个字符构成的最长公共子串长度，也就是dp[i-1][j-1]。所以我们很容易找到递推公式
+     * 原文链接：https://blog.csdn.net/ly0724ok/article/details/119876759
+     *
+     * //8中基本数据类型的默认值：
+     * //byte short int long 这四种基本数据类型数组默认值为0
+     * //float double 这两种数组默认值是0.0
+     * //char这种类型数组默认值为空格
+     * //boolean类型数组默认值为false
+     * //Integer类不是基本的数据类型，默认值不是0，是null；
      *
      */
     public String LCS1(String str1, String str2) {
         int maxLenth = 0;//记录最长公共子串的长度
         //记录最长公共子串最后一个元素在字符串str1中的位置
         int maxLastIndex = 0;
+        // 当 i 或 j 等于 0 时，初始化子串就是为0，初始化数组也是为0
         int[][] dp = new int[str1.length() + 1][str2.length() + 1];
+        //Arrays.fill(dp,0);
+
         for (int i = 0; i < str1.length(); i++) {
             for (int j = 0; j < str2.length(); j++) {
                 //递推公式，两个字符相等的情况
@@ -153,16 +177,9 @@ public class StringOp {
                 }
             }
         }
-        //最字符串进行截取，substring(a,b)中a和b分别表示截取的开始和结束位置
+        // 最字符串进行截取，substring(a,b)中a和b分别表示截取的开始和结束位置
         return str1.substring(maxLastIndex - maxLenth + 1, maxLastIndex + 1);
     }
-
-//8中基本数据类型的默认值：
-//byte short int long 这四种基本数据类型数组默认值为0
-//float double 这两种数组默认值是0.0
-//char这种类型数组默认值为空格
-//boolean类型数组默认值为false
-//Integer类不是基本的数据类型，默认值不是0，是null；
 
     /**
      * 最长公共子串
@@ -173,6 +190,7 @@ public class StringOp {
         //记录最长公共子串最后一个元素在字符串str1中的位置
         int maxLastIndex = 0;
         int[] dp = new int[str2.length() + 1];  // dp该位置之前的相同元素个数
+        //Arrays.fill(dp,0);
         for (int i = 0; i < str1.length(); i++) {
             //注意这里是倒叙
             for (int j = str2.length() - 1; j >= 0; j--) {
@@ -193,6 +211,85 @@ public class StringOp {
         }
         //最字符串进行截取，substring(a,b)中a和b分别表示截取的开始和结束位置
         return str1.substring(maxLastIndex - maxLenth + 1, maxLastIndex + 1);
+    }
+
+    /**
+     *  最长公共子序列
+     *  一个字符串的子序列是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+     *
+     * 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
+     */
+    public int longestCommonSubsequence(String text1, String text2) {
+        int len1 = text1.length();
+        int len2 = text2.length();
+        if (text1 == null || text2 == null || len1 < 1 || len2 < 1)
+            return 0;
+
+        //定义 dp[i][j] 表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列。 所以需要 + 1
+        //之所以 dp[i][j] 的定义不是 text1[0:i] 和 text2[0:j] ，是为了方便当 i = 0 或者 j = 0 的时候，
+        //dp[i][j]表示的为空字符串和另外一个字符串的匹配，这样 dp[i][j] 可以初始化为 0。
+        int[][] dp = new int[len1 + 1][len2 + 1];
+        for (int i = 1; i <= len1; ++i) {
+            for (int j = 1; j <= len2; ++j) {
+                //由于当 i 和 j 取值为 0 的时候，dp[i][j] = 0，而 dp 数组本身初始化就是为 0，所以，直接让 i 和 j 从 1 开始遍历
+                //遍历的结束应该是字符串的长度为 len(text1) 和 len(text2)。
+
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    //两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    //两个子字符串的最后一位不相等，那么此时的状态 dp[i][j] 应该是 dp[i - 1][j] 和 dp[i][j - 1] 的最大值
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[len1][len2];
+    }
+
+    // dp 状态压缩   ？？？
+    public int longestCommonSubsequence4(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
+        int[] pre = new int[m+1];// (i-1)层
+        int[] cur = new int[m+1];// i 层
+
+        for (int i = 1; i < n + 1; i++) {
+            for (int j = 1; j < m + 1; j++) {
+                if (text1.charAt(i-1) == text2.charAt(j-1))
+                    cur[j] = pre[j-1]+1;
+                else
+                    cur[j] = Math.max(cur[j-1],pre[j]);
+            }
+            // 更新 (i-1) 层 为 i 层
+            for (int j = 0; j < m + 1; j++) {
+                pre[j] = cur[j];
+            }
+        }
+        return cur[m];
+    }
+    
+    /**
+     *  优化  最长公共子序列
+     *  一个字符串的子序列是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+     *
+     * 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
+     */
+    public static int longestCommonSubsequence3(String str1, String str2) {
+        if (str1 == null || str2 == null || str1.length() == 0 || str2.length() == 0)
+            return 0;
+        int max = 0;
+        int[] dp = new int[str2.length() + 1];
+        for (int i = 1; i <= str1.length(); i++) {
+            //使用的倒序的方式，这是因为dp数组后面的值会依赖前面的值，而前面的值不依赖后面的值，所以后面的值先修改对前面的没影响，但前面的值修改会对后面的值有影响，所以这里要使用倒序的方式。
+            for (int j = str2.length(); j >= 1; j--) {
+                if (str1.charAt(i - 1) == str2.charAt(j - 1))
+                    dp[j] = dp[j - 1] + 1;
+                else
+                    dp[j] = 0;
+                max = Math.max(max, dp[j]);
+            }
+        }
+        return max;
     }
 
 
@@ -254,6 +351,9 @@ public class StringOp {
 
     /**
      * 最长的括号子串 2   就是最长的括号子串的 前后下标相减
+     *
+     * 堆栈操作
+     * https://www.cnblogs.com/duiyuedangge/p/15643495.html
      */
     public static int longestValidParentheses2(String s) {
         int maxans = 0;
@@ -325,16 +425,32 @@ public class StringOp {
         String s3 = "([{}])";
         String s4 = "(()(()()()(()";
         String s5 = "))((";
-        String s6 = "(()";
+        String s6 = "()()()()()()";
         String s7 = "())))";
         boolean valid = isValid(s3);
         int i  = longestValidParentheses1(s4);
-        int i2 = longestValidParentheses2(s4);
+        int i2 = longestValidParentheses2(s6);
         int i3 = longestValidParentheses3(s4);
         System.out.println("=======>"+i);
         System.out.println("");
     }
 
 
+    /**
+     * 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？
+     *
+     */
+    public int numTrees(int n) {
+        int[] G = new int[n + 1];
+        G[0] = 1;
+        G[1] = 1;
+
+        for (int i = 2; i <= n; ++i) {
+            for (int j = 1; j <= i; ++j) {
+                G[i] += G[j - 1] * G[i - j];
+            }
+        }
+        return G[n];
+    }
 
 }

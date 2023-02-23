@@ -19,13 +19,13 @@ public class a3_无重复字符的最长子串 {
         if (s.length()==0) return 0;
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         int max = 0; //最长子串长度
-        int left = 0; //滑动窗口左下标，i相当于滑动窗口右下标
+        int left = 0; //滑动窗口左下标，i相当于滑动窗口右下标  ---> [left,i]
         for(int i = 0; i < s.length(); i ++){
             if(map.containsKey(s.charAt(i))){
-                left = Math.max(left,map.get(s.charAt(i)) + 1);//指向重复元素的下一个位置
+                left = Math.max(left,map.get(s.charAt(i)) + 1);// ！！！指向重复元素的下一个位置
             }
             map.put(s.charAt(i),i); // 重要！！！
-            max = Math.max(max,i-left+1);//改变最长子串的长度
+            max = Math.max(max,i-left+1);// 改变最长子串的长度
         }
         return max;
     }

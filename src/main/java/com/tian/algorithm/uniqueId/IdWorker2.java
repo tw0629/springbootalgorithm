@@ -25,6 +25,7 @@ public class IdWorker2 {
             nextId=0L;
         }
         nextId+=1;
+        //workerId = Thread.currentThread().getId();
         map.put(workerId,nextId);
         return nextId;
     }

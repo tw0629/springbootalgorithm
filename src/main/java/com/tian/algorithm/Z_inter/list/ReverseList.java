@@ -10,19 +10,33 @@ import com.tian.algorithm.Z_inter.a_common.Node;
  */
 public class ReverseList {
 
-    //反转链表
-    public static ListNode reverseList(ListNode head) {
-        ListNode next = null;//指向当前节点的后驱
-        ListNode pre = null;//指向当前节点的前驱
-        while (head != null) {
-            next = head.next;// 1 1和4对应
-            //当前节点的后驱指向前驱
-            head.next = pre; // 2 改变 head.next 为【新head】
-            pre = head; // 3 将【新head】重新 赋给pre
-            //处理下一个节点
-            head = next;// 4 1和4对应
+    /**
+     * ListNode找中间值
+     */
+    private ListNode findMid(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next;
+            fast = fast.next;
+            slow = slow.next;
         }
-        return pre;
+        return slow;
+    }
+
+    // 只需要举例一组简单数，即：1->2->3
+    // 反转链表
+    public static ListNode reverseList(ListNode head) {
+        ListNode res = null;//指向当前节点的前驱
+        ListNode next = null;//指向当前节点的后驱
+        while (head != null) {
+            next = head.next;// 1 1和4对应                      // next：2->3  head:1->2->3
+            //当前节点的后驱指向前驱
+            head.next = res; // 2 改变 head.next 为【新head】    // head:1->res
+            res = head; // 3 将【新head】重新 赋给pre             // head:1->res res:1
+            //处理下一个节点
+            head = next;// 4 1和4对应                           // head:2->3 res:1
+        }
+        return res;
     }
 
     //用递归的方法反转链表
@@ -62,28 +76,34 @@ public class ReverseList {
         return newList;
     }
 
-    public static void main(String[] args) {
-        Node node = new Node(1);
-        Node node2 = new Node(2);
-        Node node3 = new Node(3);
-        node.next=node2;
-        node2.next=node3;
+    public static void op3(ListNode head) {
 
-        ListNode listNode = ListNode.initBuild();
-        //ListNode r1 = reverseList(listNode);
-        ListNode r2 = reverseList2(listNode);
-        //ListNode r3 = reverseList3(listNode);
+        ListNode cur = head;
+        cur = cur.next.next;
 
-        //System.out.println(listNode1);
-        //ListNode.print(listNode1);
-        //ListNode.print(r1);
-        ListNode.print(r2);
-        //ListNode.print(r3);
-        System.out.println();
-        System.out.println(r2);
-        //System.out.println(r3);
-        System.out.println();
+        ListNode nur = cur;
+        nur.next = null;
+
+        ListNode.print(head);
+        ListNode.print(cur);
+        ListNode.print(nur);
     }
 
+    public static void main(String[] args) {
+        ListNode listNode = ListNode.initBuild();
+        ListNode r1 = reverseList(listNode);
+        ListNode listNode2 = ListNode.initBuild();
+        ListNode r2 = reverseList2(listNode2);
+        ListNode listNode3 = ListNode.initBuild();
+        ListNode.print(r1);
+        ListNode.print(r2);
+
+        System.out.println();
+
+        ListNode listNode4 = ListNode.initBuild();
+        op3(listNode4);
+        System.out.println();
+
+    }
 
 }

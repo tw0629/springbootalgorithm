@@ -9,7 +9,7 @@ public class a42_接雨水 {
 
     /**
      * 方法一
-     * 积水问题
+     * 积水问题   面积和最大问题
      * https://blog.csdn.net/qq_42247231/article/details/106482591
      */
     public static int waterSum(int[] height){

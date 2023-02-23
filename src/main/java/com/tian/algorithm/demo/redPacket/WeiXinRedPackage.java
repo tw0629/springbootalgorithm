@@ -32,7 +32,6 @@ public class WeiXinRedPackage{
         while(restNum>1) {
             //最大的红包为：两倍的平均红包大小
             double max=(restMoney/restNum) * 2;
-
             //产生[0,1)之间的随机数
             double r=random.nextDouble();
 
