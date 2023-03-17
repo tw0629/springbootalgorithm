@@ -100,4 +100,14 @@ public class TreeOp {
         //走到这里说明A的值与B的值相等，递归各自的左右节点
         return isSub(A.left, B.left) && isSub(A.right, B.right);
     }
+
+    // 优化（上一个方法）
+    public boolean isSub(TreeNode A, TreeNode B){
+        if(B == null)
+            return true;        //子树B遍历到最后的叶子节点
+        if(A == null)
+            return false;       //已经越过A的叶子节点
+        return (A.val == B.val && dfs(A.left, B.left) && dfs(A.right, B.right));
+    }
+    // https://blog.csdn.net/ly0724ok/article/details/119180148
 }
