@@ -107,7 +107,7 @@ public class TreeOp {
             return true;        //子树B遍历到最后的叶子节点
         if(A == null)
             return false;       //已经越过A的叶子节点
-        return (A.val == B.val && dfs(A.left, B.left) && dfs(A.right, B.right));
+        return (A.val == B.val && isSub(A.left, B.left) && isSub(A.right, B.right));
     }
     // https://blog.csdn.net/ly0724ok/article/details/119180148
 }
