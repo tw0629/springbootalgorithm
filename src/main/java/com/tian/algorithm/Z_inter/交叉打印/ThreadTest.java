@@ -117,4 +117,88 @@ public class ThreadTest {
             }
         }
     }
+    
+        private static ReentrantLock lock = new ReentrantLock();
+    private static Condition condition = lock.newCondition();
+
+    public static class TaskA implements Runnable{
+        ReentrantLock lock ;
+        Condition condition ;
+        public TaskA
+        
+        @Override
+        public void run() {
+//             ReentrantLock lock = ThreadTest.lock;
+//             Condition condition = ThreadTest.condition;
+            try {
+                lock.lockInterruptibly();
+
+                for(int i= 0; i<num; i++) {
+
+                    while (count%3!=2){
+                        condition.await();
+                    }
+                    System.out.println("taskA: "+count);
+                    count++;
+                    condition.signalAll();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static class TaskB implements Runnable{
+
+        @Override
+        public void run() {
+//            ReentrantLock lock = ThreadTest.lock;
+//            Condition condition = ThreadTest.condition;
+            try {
+                lock.lockInterruptibly();
+
+                for(int i= 0; i<num; i++) {
+
+                    while (count%3!=2){
+                        condition.await();
+                    }
+                    System.out.println("taskB: "+count);
+                    count++;
+                    condition.signalAll();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static class TaskC implements Runnable{
+
+        @Override
+        public void run() {
+//            ReentrantLock lock = ThreadTest.lock;
+//            Condition condition = ThreadTest.condition;
+            try {
+                lock.lockInterruptibly();
+
+                for(int i= 0; i<num; i++) {
+
+                    while (count%3!=2){
+                        condition.await();
+                    }
+                    System.out.println("taskC: "+count);
+                    count++;
+                    condition.signalAll();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+        }
+    }
 }
