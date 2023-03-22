@@ -19,130 +19,132 @@ package com.tian.algorithm.Z_inter.交叉打印;
  */
 public class ThreadTest {
 
-    //定义一个共享变量，用来在线程中进行通信
-    private static final Object obj = new Object();
+    private static Integer num = 10;
+    private static int count = 0;  // <<<------ !!!
 
-    //定义一个变量来记录打印的次数，控制打印条件
-    private static int count = 1;
-
-    public static void main(String[] args) {
-        //创建三个线程，然后把三个任务分别放入这三个线程执行
-
-        //创建线程1执行任务1
-        new Thread(new Task1()).start();
-        //创建线程2执行任务2
-        new Thread(new Task2()).start();
-        //创建线程3执行任务4
-        new Thread(new Task3()).start();
+    public ThreadTest(Integer num){
+        this.num=num;
     }
 
-    //任务1
-    private static class Task1 implements Runnable {
+    
+
+    private static final Object object = new Object();
+
+    public static class Task1 implements Runnable{
 
         @Override
         public void run() {
-            synchronized (obj) {
-                //打印十次A
-                for (int i = 0; i < 10; i++) {
-                    //一直轮询，如果条件不是要打印A的条件，那么直接释放锁
-                    /*
-                        !!! 这个地方一定要用while，
-                        如果用了if的话，再下次重新获得锁的时候，是继续往下去执行，走到obj.notifyAll()这一行代码，不会再判断count的值，
-                        用while的话会再去判断count的值，如果符合条件再往下执行，走到obj.notifyAll()这一行代码，可以自己把while换成if试试，看看结果
-                     */
-                    while (count % 3 != 1) {
+            synchronized (object){
+               for(int i= 0; i<num; i++) {
+
+                   while (count%3!=0){  // <<<------ !!!
+                       try {
+                           object.wait();
+                       } catch (InterruptedException e) {
+                           e.printStackTrace();
+                       }
+                   }
+                   System.out.println("task1: "+ count);
+                   count++;  // <<<------ !!!
+                   object.notifyAll();
+               }
+            }
+        }
+    }
+
+    public static class Task2 implements Runnable{
+
+        @Override
+        public void run() {
+            synchronized (object){
+                for(int i= 0; i<num; i++) {
+
+                    while (count%3!=1){
                         try {
-                            obj.wait();
+                            object.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    //通知其他所有线程可以来抢占锁了，但是发现现在线程1在持有锁，其他线程还抢不到，只有等到线程1释放锁之后，才可以抢到锁
-                    obj.notifyAll();
-                    System.out.println("A:"+count);
+                    System.out.println("task2: "+count);
                     count++;
+                    object.notifyAll();
                 }
             }
         }
     }
 
-    //任务2
-    private static class Task2 implements Runnable {
+    public static class Task3 implements Runnable{
 
         @Override
         public void run() {
-            synchronized (obj) {
-                //打印十次B
-                for (int i = 0; i < 10; i++) {
-                    //一直轮询，如果条件不是要打印B的条件，那么直接释放锁
-                    while (count % 3 != 2) {
+            synchronized (object){
+                for(int i= 0; i<num; i++) {
+
+                    while (count%3!=2){
                         try {
-                            obj.wait();
+                            object.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    //通知其他所有线程可以来抢占锁了，但是发现现在线程2在持有锁，其他线程还抢不到，只有等到线程2释放锁之后，才可以抢到锁
-                    obj.notifyAll();
-                    System.out.println("B:"+count);
-
+                    System.out.println("task3: "+count);
                     count++;
-                }
-            }
-        }
-    }
-
-    //任务3
-    private static class Task3 implements Runnable {
-
-        @Override
-        public void run() {
-            synchronized (obj) {
-                //打印十次C
-                for (int i = 0; i < 10; i++) {
-                    //一直轮询，如果条件不是要打印C的条件，那么直接释放锁
-                    while (count % 3 != 0) {
-                        try {
-                            obj.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    //通知其他所有线程可以来抢占锁了，但是发现现在线程3在持有锁，其他线程还抢不到，只有等到线程3释放锁之后，才可以抢到锁
-                    obj.notifyAll();
-                    System.out.println("C:"+count);
-
-                    count++;
+                    object.notifyAll();
                 }
             }
         }
     }
     
-        private static ReentrantLock lock = new ReentrantLock();
-    private static Condition condition = lock.newCondition();
+
+    private static ReentrantLock lock = new ReentrantLock();
+    private static Condition conditionA = lock.newCondition();
+    private static Condition conditionB = lock.newCondition();
+    private static Condition conditionC = lock.newCondition();
+
+//    错误示范：
+//    public static class TaskA implements Runnable{
+//
+//        @Override
+//        public void run() {
+//            try {
+//                lock.lockInterruptibly();
+//
+//                for(int i= 0; i<num; i++) {
+//
+//                    while (count%3!=0){
+//                        conditionB.await();
+//                        conditionC.await();
+//                    }
+//                    System.out.println("taskA: "+count);
+//                    count++;
+//                    conditionB.signalAll();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }finally {
+//                lock.unlock();
+//            }
+//        }
+//    }
 
     public static class TaskA implements Runnable{
-        ReentrantLock lock ;
-        Condition condition ;
-        public TaskA
-        
+
         @Override
         public void run() {
-//             ReentrantLock lock = ThreadTest.lock;
-//             Condition condition = ThreadTest.condition;
             try {
                 lock.lockInterruptibly();
 
                 for(int i= 0; i<num; i++) {
 
-                    while (count%3!=2){
-                        condition.await();
+                    while (count%3!=0){
+                        conditionA.await();
                     }
                     System.out.println("taskA: "+count);
                     count++;
-                    condition.signalAll();
+                    conditionB.signalAll();
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }finally {
                 lock.unlock();
@@ -154,19 +156,18 @@ public class ThreadTest {
 
         @Override
         public void run() {
-//            ReentrantLock lock = ThreadTest.lock;
-//            Condition condition = ThreadTest.condition;
+
             try {
                 lock.lockInterruptibly();
 
                 for(int i= 0; i<num; i++) {
 
-                    while (count%3!=2){
-                        condition.await();
+                    while (count%3!=1){
+                        conditionB.await();
                     }
                     System.out.println("taskB: "+count);
                     count++;
-                    condition.signalAll();
+                    conditionC.signalAll();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -180,19 +181,18 @@ public class ThreadTest {
 
         @Override
         public void run() {
-//            ReentrantLock lock = ThreadTest.lock;
-//            Condition condition = ThreadTest.condition;
+
             try {
                 lock.lockInterruptibly();
 
                 for(int i= 0; i<num; i++) {
 
                     while (count%3!=2){
-                        condition.await();
+                        conditionC.await();
                     }
                     System.out.println("taskC: "+count);
                     count++;
-                    condition.signalAll();
+                    conditionA.signalAll();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -200,5 +200,92 @@ public class ThreadTest {
                 lock.unlock();
             }
         }
+    }
+
+    // 以A开始的信号量,初始信号量数量为1
+    private static Semaphore A = new Semaphore(1);
+    // B、C信号量,A完成后开始,初始信号数量为0
+    private static Semaphore B = new Semaphore(0);
+    private static Semaphore C = new Semaphore(0);
+
+    static class ThreadA extends Thread {
+        @Override
+        public void run() {
+            try {
+                for (int i = 0; i < 10; i++) {
+                    A.acquire();
+                    // A获取信号执行,A信号量减1,当A为0时将无法继续获得该信号量
+                    System.out.println("taskA: "+count);
+                    count++;
+                    B.release();
+                    // B释放信号，B信号量加1（初始为0），此时可以获取B信号量
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static class ThreadB extends Thread {
+        @Override
+        public void run() {
+            try {
+                for (int i = 0; i < 10; i++) {
+                    B.acquire();
+                    System.out.println("taskB: "+count);
+                    count++;
+                    C.release();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static class ThreadC extends Thread {
+        @Override
+        public void run() {
+            try {
+                for (int i = 0; i < 10; i++) {
+                    C.acquire();
+                    System.out.println("taskC: "+count);
+                    count++;
+                    A.release();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     *     1 synchronized(wait,notifyAll)
+     *     2 ReentrantLock Condition(await,signalAll)
+     *     3 Semaphore(acquire,release)
+     */
+
+    /**
+     * https://zhuanlan.zhihu.com/p/346688153
+     */
+    public static void main(String[] args) {
+        ThreadTest threadTest = new ThreadTest(30);
+
+//        new Thread(new Task1()).start();
+//        new Thread(new Task2()).start();
+//        new Thread(new Task3()).start();
+
+
+        System.out.println();
+
+//        new Thread(new TaskA()).start();
+//        new Thread(new TaskB()).start();
+//        new Thread(new TaskC()).start();
+
+        System.out.println();
+
+        new ThreadA().start();
+        new ThreadB().start();
+        new ThreadC().start();
     }
 }
