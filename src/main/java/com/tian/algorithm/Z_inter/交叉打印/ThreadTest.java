@@ -263,6 +263,7 @@ public class ThreadTest {
      *     1 synchronized(wait,notifyAll)
      *     2 ReentrantLock Condition(await,signalAll)
      *     3 Semaphore(acquire,release)
+     *     4 Semaphore 
      */
 
     /**
@@ -288,4 +289,58 @@ public class ThreadTest {
         new ThreadB().start();
         new ThreadC().start();
     }
+    
+    
+        /**
+     * 感觉和 CountDownLatch 没啥关系
+     */
+    private static final int MAX_PRINT_NUM = 30;
+    private static volatile int count1 = 0;
+
+    public static void countDownLatchPrint() {
+        // 声明CountDownLatch
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+
+        new Thread(() -> {
+            while (count1 < MAX_PRINT_NUM) {
+                if (count1 % 3 == 0) {
+                    System.out.println("num1: " + count1);
+                    count1++;
+                }
+            }
+            // 偶数线程执行完则计数器减一
+            countDownLatch.countDown();
+        }).start();
+
+        new Thread(() -> {
+            while (count1 < MAX_PRINT_NUM) {
+                if (count1 % 3 == 1) {
+                    System.out.println("num2: " + count1);
+                    count1++;
+                }
+            }
+            // 奇数线程执行完则计数器减一
+            countDownLatch.countDown();
+        }).start();
+
+        new Thread(() -> {
+            while (count1 < MAX_PRINT_NUM) {
+                if (count1 % 3 == 2) {
+                    System.out.println("num3: " + count1);
+                    count1++;
+                }
+            }
+            // 奇数线程执行完则计数器减一
+            countDownLatch.countDown();
+        }).start();
+
+        try {
+            countDownLatch.await();
+        } catch (Exception e) {
+        }
+
+        System.out.println("=====>=====>=====> "+count1);
+
+    }
+
 }
