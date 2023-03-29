@@ -87,7 +87,7 @@ public class a93_复原IP地址 {
 
         for (int i = index; i < s.length() && i < index + 3; i++) {
             if (isIp12(s,index,i)){
-                path.add(s.substring(index,i + 1)); //!!! substring(index, i + 1)
+                path.add(s.substring(index,i + 1));    //!!!!!! substring(index, i + 1)
                 //backtracking12(s,i + 1,path);
                 backtracking12(s,i + 1);
                 path.remove(path.size() - 1);
@@ -101,18 +101,20 @@ public class a93_复原IP地址 {
             int tmp = s.charAt(j) - '0';
             sum = sum*10 + tmp;
         }
+        //sum = Integer.valueOf(s.substring(index,end));
         if (sum >= 0 && sum <= 255) return true;
         return false;
     }
 
     public static void main(String[] args) {
 
-        String s = "25525511135";
-        System.out.println(restoreIpAddresses11(s));
+        //String s = "25525511135";
+        String s = "25515111115";
+        //System.out.println(restoreIpAddresses11(s));
         System.out.println();
         System.out.println(restoreIpAddresses12(s));
         System.out.println();
-        System.out.println(ipProcess("123456123456"));
+        //System.out.println(ipProcess("123456123456"));
         System.out.println();
     }
 
@@ -145,7 +147,9 @@ public class a93_复原IP地址 {
         }
 
         for(int i=index; i<s.length()&&i<=index+2; i++){
-            String substr = s.substring(index, i + 1); //!!! substring(index, i + 1)
+            //!!!!!! substring(index, i + 1)
+            String substr = s.substring(index, i + 1);  //!!!!!! substring(index, i + 1)
+
             if(is126(substr)){
                 path.add(substr);
                 dfs(s,index+1,res,path);

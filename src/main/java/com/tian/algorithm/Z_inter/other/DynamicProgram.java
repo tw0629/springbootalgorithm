@@ -44,12 +44,18 @@ public class DynamicProgram {
     }
 
 
+    // 积水
+    // 注意 ：
+    //      面积：if (height[l] <= height[r]) {
+    //      和：  if (l_max <= r_max) {
+
     /**
      * 积水问题
      * https://blog.csdn.net/qq_42247231/article/details/106482591
-     */
+     *
+     * */
     public static int waterSum(int[] height){
-        int ans = 0;
+        int sum = 0;
         int n = height.length;
 
         int l_max = height[0];
@@ -60,23 +66,23 @@ public class DynamicProgram {
 
         while (left <= right)
         {
-            l_max = Math.max(l_max, height[left]);
-            r_max = Math.max(r_max, height[right]);
+            l_max = Math.max(l_max, height[left]);  // 是左边最大值，不是左边第一个
+            r_max = Math.max(r_max, height[right]);  // 是右边最大值，不是右边第一个
 
             // 每次较低台阶的指针移动一格
-            if (l_max <= r_max)
+            if (l_max <= r_max)  //
             {
-                ans += l_max - height[left];
+                sum += l_max - height[left];
                 ++left;
             }
             else
             {
-                ans += r_max - height[right];
+                sum += r_max - height[right];
                 --right;
             }
         }
 
-        return ans;
+        return sum;
     }
 
     /**
@@ -84,6 +90,7 @@ public class DynamicProgram {
      *
      * 自己思考的出的
      * 思路类似：连续子数组的最大和
+     *
      */
     public static int waterSum2(int[] arr) {
         // write code here
@@ -133,7 +140,7 @@ public class DynamicProgram {
         while (l < r) {
             int area = Math.min(height[l], height[r]) * (r - l);
             ans = Math.max(ans, area);
-            if (height[l] <= height[r]) {
+            if (height[l] <= height[r]) {  // 注意
                 ++l;
             }
             else {

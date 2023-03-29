@@ -129,6 +129,8 @@ public class StringOp {
         return String.valueOf(res);
     }
 
+
+
     /**
      * 最长公共子串 和 最长公共子序列  类似
      * https://blog.csdn.net/ly0724ok/article/details/119876759
@@ -359,7 +361,7 @@ public class StringOp {
         int maxans = 0;
         Deque<Integer> stack = new LinkedList<Integer>();
         //Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
+        stack.push(-1); //!!!!!!
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
                 stack.push(i);
@@ -425,7 +427,7 @@ public class StringOp {
         String s3 = "([{}])";
         String s4 = "(()(()()()(()";
         String s5 = "))((";
-        String s6 = "()()()()()()";
+        String s6 = ")))";
         String s7 = "())))";
         boolean valid = isValid(s3);
         int i  = longestValidParentheses1(s4);

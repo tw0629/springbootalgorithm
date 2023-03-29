@@ -23,21 +23,6 @@ public class ListNodeOperate {
      *      只要走一次最简单的一组数皆可写出 即：1->2->3->4->5->6
      */
 
-    /**
-     * ListNode
-     */
-    public static void sumMaxChild5(ListNode head) {
-        int max = 0;
-        int temp= 0;
-        ListNode cur = head;
-        while(cur!=null){
-            temp = Math.max(temp+cur.data, cur.data);
-            max  = Math.max(max,temp);
-            cur=cur.next;
-        }
-        System.out.println("ListNode sumMaxChild5: "+ max);
-    }
-
     // 用数字想   1一>2一>3一>4一>5一>6
     /**
      * 给定一个链表，两两交换其中相邻的节点
@@ -97,8 +82,9 @@ public class ListNodeOperate {
      */
     public static ListNode reverseKGroup(ListNode head, int k) {
         // head/temp: 1->2->3->4->5->6->7->8
+        // eg:3
         ListNode temp = head;
-        for (int i = 1; i < k && temp != null; i++) {
+        for (int i = 1; i < k && temp != null; i++) { // k：一定要卡 k-1个, 即:(i = 1; i < k)；为了"temp.next = null"操作
             temp = temp.next;
         }
         // temp: 3->4->5->6->7->8
@@ -107,9 +93,9 @@ public class ListNodeOperate {
             return head;
         }
 
+        // temp: 3->null
         // t2:   4->5->6->7->8 !!!
         // head: 1->2->3->null !!!
-        // temp: 3->null
         ListNode t2 = temp.next; //!!!
         temp.next = null; //!!!
 
@@ -174,34 +160,88 @@ public class ListNodeOperate {
         return false;
     }
 
+    /**
+     * 和最大的子序列  和  ❌❌❌
+     * 和最大的子串/子手续    和  ❌❌❌
+     *
+     * 注意：这种写法是【和最大的子数组】的写法
+     * ListNode 只能写子序列；不好描述子串/子手续
+     */
+//    public static void sumMaxChild(ListNode head) {
+//        int max = 0;
+//        int temp= 0;
+//        ListNode cur = head;
+//        while(cur!=null){
+//            temp = Math.max(temp+cur.data, cur.data);
+//            max  = Math.max(max,temp);
+//            cur=cur.next;
+//        }
+//        System.out.println("ListNode sumMaxChild5: "+ max);
+//    }
+
+    /**
+     * 和最大的子序列  子序列
+     * ListNode
+     */
+    public static ListNode subSequenceSumMax(ListNode head) {
+        int max = 0;
+        int temp= 0;
+        ListNode cur = head;
+
+        ListNode newList = null;
+        ListNode tail = null;
+        while(cur!=null){
+            Integer data = cur.data;
+            cur=cur.next;
+
+            if(data>0){
+                // 和
+                max += data;
+
+                // 序列
+                ListNode listNode = new ListNode(data);
+                if(newList==null){
+                    newList = listNode;
+                    tail = listNode;
+                    continue;
+                }
+                tail.next = listNode;
+                tail = tail.next;
+            }
+        }
+        System.out.println("ListNode sumMaxChild5: "+ max);
+        System.out.println("newList: "+ newList);
+
+        return newList;
+    }
+
 
     public static void main(String[] args) {
 
         int[] a = {-2,1,-3,4,-1,2,1,-5,4};
-        /*sumMaxChild(a);
-        sumMaxChild2(a);
-        sumMaxChild3(a);
-        sumMaxChild4(a);*/
 
-        /*ListNode head = new ListNode(a[0]);
-        ListNode cur = head;
-        for(int i = 1; i< a.length; i++){
-            cur.next = new ListNode(a[i]);
-            cur=cur.next;
-        }
-        sumMaxChild5(head);*/
+        int[] array6 = { -2, -3, 4, 3, -2, 1, 5, 7 };
+        ListNode node0 = new ListNode(7,null);
+        ListNode node1 = new ListNode(5,node0);
+        ListNode node2 = new ListNode(1,node1);
+        ListNode node3 = new ListNode(-2,node2);
+        ListNode node4 = new ListNode(3,node3);
+        ListNode node5 = new ListNode(4,node4);
+        ListNode node6 = new ListNode(-3,node5);
+        ListNode node7 = new ListNode(-2,node6);
+        ListNode.print(node7);
+        ListNode newList = subSequenceSumMax(node7);
+        ListNode.print(newList);
 
         //https://zhuanlan.zhihu.com/p/77573456
-        ListNode node = ListNode.initBuild();
-        //solve( node, 3);
 
         System.out.println("");
 
-        ListNode node2 = ListNode.initBuild();
+        //ListNode node2 = ListNode.initBuild();
         //solve2( node2, 4);
-        ListNode.print(KGroup(node2,3));
-        node2 = ListNode.initBuild();
-        ListNode.print(reverseKGroup(node2,3));
+        //ListNode.print(KGroup(node2,3));
+        ListNode nodeInit = ListNode.initBuild();
+        ListNode.print(reverseKGroup(nodeInit,3));
         System.out.println("");
 
     }

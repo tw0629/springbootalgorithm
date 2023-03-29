@@ -165,10 +165,10 @@ public class a46a47_全排列 {
     public static void main(String[] args) {
 
         int[] a = {1,2,3};
-        permutation12(a,0);
+        //permutation12(a,0);
         System.out.println();
         System.out.println(permutation11(a));
-        System.out.println(dfs13(a,new ArrayList<>()));
+        //System.out.println(dfs13(a,new ArrayList<>()));
         System.out.println("============================");
 
         int[] a1 = {1,2,2};

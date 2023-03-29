@@ -1,5 +1,7 @@
 package com.tian.algorithm.leedcode;
 
+import org.junit.Test;
+
 import java.util.*;
 
 /**
@@ -112,12 +114,81 @@ public class a39a40_组合总和 {
     public static void main(String[] args) {
         int[] a = {1,2,3,4,5,6,7};
         int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
-        System.out.println(combinationSum1(a,8));
+        //System.out.println(combinationSum1(a,8));
 
         int[] a2= {1,2,3,4,5,6,7,1,6,3,4};
         int[] a3= {1,2,2,3};
-        System.out.println(combinationSum2(a2,8));
+        //System.out.println(combinationSum2(a3,5));
         System.out.println();
+
+        int[] nums = {3,7,3,2,5,1,4,3,7,1,9};
+        //int[] nums = {3,2,1,5,4,3,7,9};
+        List<List<Integer>> res = sequenceChildSum_equal_target2(nums, 10);
+        System.out.println(res);
+    }
+
+
+    /**
+     * 变形：从数组中找出和为指定值的连续子组合
+     * 推荐方法二
+     * eg 3,2,1,5,4,3,7,9
+     */
+    // 方法二
+    public static List<List<Integer>> sequenceChildSum_equal_target2(int[] nums,int target){
+        List<List<Integer>>  res = new ArrayList<>();
+        int sum = 0;
+        int start = 0;
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+
+            while (sum>=target){ // !!!!!!
+                if(sum == target){
+                    List<Integer> result = new ArrayList<>();
+                    for(int j=start;j<=i;j++){
+                        result.add(nums[j]);
+                    }
+                    res.add(result);
+
+                    break; // !!!!!!
+                }else {
+                    sum -= nums[start++]; // !!!!!!
+                }
+            }
+        }
+        return res;
+    }
+
+    // 方法一
+    public static List<List<Integer>> sequenceChildSum_equal_target(int[] nums,int target){
+        List<List<Integer>>  res = new ArrayList<>();
+        int sum = 0;
+        int start = 0;
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+
+            if(sum == target){
+                List<Integer> result = new ArrayList<>();
+                for(int j=start;j<=i;j++){
+                    result.add(nums[j]);
+                }
+                res.add(result);
+            } else  if(sum>target){
+                // 3,2,1,5,4,3,7,9
+                while (sum>target){
+                    sum -= nums[start++];
+                    if(sum == target){
+                        List<Integer> result = new ArrayList<>();
+                        for(int j=start;j<=i;j++){
+                            result.add(nums[j]);
+                        }
+                        res.add(result);
+                    }
+                }
+            }
+
+        }
+
+        return res;
     }
 
 }

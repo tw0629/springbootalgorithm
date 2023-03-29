@@ -6,6 +6,11 @@ package com.tian.algorithm.Z_inter.交叉打印;
  * @since 2021/9/1 11:35
  */
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * 交叉打印的模板流程：
  * 获取锁；
@@ -26,7 +31,7 @@ public class ThreadTest {
         this.num=num;
     }
 
-    
+
 
     private static final Object object = new Object();
 
@@ -263,13 +268,15 @@ public class ThreadTest {
      *     1 synchronized(wait,notifyAll)
      *     2 ReentrantLock Condition(await,signalAll)
      *     3 Semaphore(acquire,release)
-     *     4 Semaphore 
+     *     4 Semaphore
      */
 
     /**
      * https://zhuanlan.zhihu.com/p/346688153
      */
     public static void main(String[] args) {
+
+
         ThreadTest threadTest = new ThreadTest(30);
 
 //        new Thread(new Task1()).start();
@@ -289,8 +296,8 @@ public class ThreadTest {
         new ThreadB().start();
         new ThreadC().start();
     }
-    
-    
+
+
         /**
      * 感觉和 CountDownLatch 没啥关系
      */

@@ -29,6 +29,7 @@ public class TreeOp {
         int left = lowestCommonAncestor(root.left, o1, o2);
         int right = lowestCommonAncestor(root.right, o1, o2);
 
+        //!!!!!!
         if(left ==-1) {
             return right;
         }
@@ -36,7 +37,7 @@ public class TreeOp {
             return left;
         }
 
-        return root.val;
+        return root.val;  // !!! 此时root即最近公共祖先
     }
 
     // 方法二
@@ -76,6 +77,8 @@ public class TreeOp {
 
     /**
      * 树的子结构
+     *
+     * 也包含了 "两个二叉树是否完全相同"
      */
     public boolean isSubStructure(TreeNode A, TreeNode B) {
         if (A == null || B == null) {
@@ -84,6 +87,7 @@ public class TreeOp {
         //判断根节点，再判断左右节点
         return isSub(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
+
     private boolean isSub(TreeNode A, TreeNode B) {
         //递归终止条件：到达A或B的叶子节点
         //1.如果B为null，说明B都走完了，B都能匹配，返回true
@@ -100,9 +104,10 @@ public class TreeOp {
         //走到这里说明A的值与B的值相等，递归各自的左右节点
         return isSub(A.left, B.left) && isSub(A.right, B.right);
     }
-
+    // !!!!!!
     // 优化（上一个方法）
-    public boolean isSub(TreeNode A, TreeNode B){
+    public boolean isSub2(TreeNode A, TreeNode B){ //这样理解 A:大树一部分  B:小树
+        // 先判断B为不为null, 再判断A为不为null
         if(B == null)
             return true;        //子树B遍历到最后的叶子节点
         if(A == null)
@@ -110,4 +115,18 @@ public class TreeOp {
         return (A.val == B.val && isSub(A.left, B.left) && isSub(A.right, B.right));
     }
     // https://blog.csdn.net/ly0724ok/article/details/119180148
+
+    /**
+     * 两个二叉树是否完全相同
+     */
+    public boolean isSub3(TreeNode A, TreeNode B){ //这样理解 A:大树一部分  B:小树
+        if(A == null && B == null){
+            return true;
+        }
+        if(A == null || B == null){
+            return false;
+        }
+        return (A.val == B.val && isSub(A.left, B.left) && isSub(A.right, B.right));
+    }
+
 }

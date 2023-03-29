@@ -46,7 +46,6 @@ public class a10_正则表达式匹配 {
                 return false;
             }
         }
-
         if (s==null && p.length()==1){
             return false;
         }
@@ -55,13 +54,14 @@ public class a10_正则表达式匹配 {
         int n = p.length()+1;
 
         boolean[][]dp = new boolean[m][n];
-
         dp[0][0] = true;
 
         // s: 空
         // p: xxxxa*   a*a*a*a*a*a*(a*可以为0个)
         for (int j=2;j<n;j++){
-            if (p.charAt(j-1)=='*'){
+            // ？？ s为空时候，只要该位置等于"*",dp[0][j] = dp[0][j-2]
+            if (p.charAt(j-1)=='*'){     //  charAt(0): 第一个
+                // i都为0,即:s为空时候
                 dp[0][j] = dp[0][j-2];
             }
         }

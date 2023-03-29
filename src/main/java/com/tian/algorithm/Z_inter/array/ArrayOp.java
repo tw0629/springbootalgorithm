@@ -716,9 +716,9 @@ public class ArrayOp {
 
         //int[] array5 = { -2, -3, 4, -1, -2, 1, 5, 7 };
         int[] array5 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 ,4, 6};
-        System.out.println("twoSum is " + twoSum3(array5,10));
+        //System.out.println("twoSum is " + twoSum3(array5,10));
         int[] array51 = { 2, 4, 2, 1, 4, 2, 2, 1, 4 };
-        System.out.println("twoSum is " + threeSum3(array51,6));
+        //System.out.println("twoSum is " + threeSum3(array51,6));
 
         int[] arr = { 1, 3, 2, 4, 5, 6, 7, 8, 9 };
 
@@ -727,9 +727,9 @@ public class ArrayOp {
         int[] arr3 = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
         Arrays.sort(arr);
         int sum = 7;
-        numGroup(arr, 0, arr.length, sum);
+        //numGroup(arr, 0, arr.length, sum);
         int i = subarraySum(arr, sum);
-        printCombinations(arr3, -1, 7, new int[]{});
+        //printCombinations(arr3, -1, 7, new int[]{});
 
         int[] array6 = { -2, -3, 4, 3, -2, 1, 5, 7 };
         System.out.println("Maximum contiguous sum is " + maxsumofSubarray(array6));
@@ -773,14 +773,14 @@ public class ArrayOp {
         */
 
         //int[] q = {10,1,2,7,6,1,5}; 因为这个宿数组有重复元素
-        /*int[] q = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
+        int[] q = { 1, 8, 3, 6, 5, 2, 9, 7, 4 };
         int tar = 8;
         List<List<Integer>> lists = combinationSum(q, tar);
         System.out.println("combinationSum: "+lists.toString());
 
         List<Integer> list = new ArrayList<>();
         Arrays.sort(q);
-        findNums(q,list,tar,q.length-1);*/
+        findNums(q,list,tar,q.length-1);
 
         /*String[] strs = {"rr","ab","ee","123","ww","ab","1234","qq"};
         String str1 = "ab";
@@ -803,13 +803,6 @@ public class ArrayOp {
         //int[][] arr = {{12,33},{33,45},{23,55},{66,77}};
         //int[][] arr = new int[][] {{12,33,45},{15,23,55},{66,77}};
 
-        /*for (int[] i : arr) {
-            System.out.print(i[0]);
-            System.out.println(i[1]);
-        }*/
-        /*Arrays.asList(arr).forEach(a->{
-            System.out.println(a[0]);
-        });*/
 
         //Arrays.sort(arr, (v1, v2) -> v1[0] - v2[0]);
 

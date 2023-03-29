@@ -11,11 +11,16 @@ import java.util.Set;
  */
 public class a3_无重复字符的最长子串 {
 
+    public static void main(String[] args) {
+        System.out.println(lengthOfLongestSubstring("123145"));
+        System.out.println();
+    }
+
     /**
      * 方法一
      * 思路是：滑动窗口（不断地改变左指针的位置）
      */
-    public int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring(String s) {
         if (s.length()==0) return 0;
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         int max = 0; //最长子串长度
