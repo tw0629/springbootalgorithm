@@ -158,7 +158,7 @@ public class a39a40_组合总和 {
         return res;
     }
 
-    // 方法一
+    // 方法一  （？？好像只适用在全为正数时，有负数会漏掉）
     public static List<List<Integer>> sequenceChildSum_equal_target(int[] nums,int target){
         List<List<Integer>>  res = new ArrayList<>();
         int sum = 0;

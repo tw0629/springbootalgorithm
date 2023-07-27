@@ -47,8 +47,13 @@ public class a57_插入区间 {
     }
 
     public static void main(String[] args) {
-        int[][] arr = {{12,33},{43,45},{53,65},{66,77}};
-        int[] arr2 = {5,88};
+        int[][] arr0 = {{12,33},{43,45},{53,65},{66,77}};
+        int[] arr02 = {45,60};
+        int[][] insert0 = insert2(arr0, arr02);
+
+        // 说明arr数组不能有重叠
+        int[][] arr = {{12,33},{32,45},{53,65},{66,77}};
+        int[] arr2 = {41,60};
 
         int[][] insert = insert2(arr, arr2);
 

@@ -43,6 +43,8 @@ public class LFUCache {
      * key_table:   key:node的key  value:node的value
      * freq_table:  key:使用频率    value:该频率下元素的List
      *
+     *
+     * !!!!minfreq：之所以要维护minfreq，是当map满了之后，要从minfreq的list删除一个node
      * minfreq: 若一直有新的元素添加进来，minfreq几乎永远为1;
      *          没有元素添加进来，freq_table没删除掉一个list，minfreq都会加1;
      * minfreq要用来方位freq; 只要访问,freq是一直是+1的。

@@ -115,7 +115,7 @@ public class a93_复原IP地址 {
         System.out.println(restoreIpAddresses12(s));
         System.out.println();
         //System.out.println(ipProcess("123456123456"));
-        System.out.println();
+        System.out.println(s.substring(0,2));
     }
 
 

@@ -12,6 +12,7 @@ public class ReverseList {
 
     /**
      * ListNode找中间值
+     * （类似：是否有环）
      */
     private ListNode findMid(ListNode head) {
         ListNode fast = head, slow = head;

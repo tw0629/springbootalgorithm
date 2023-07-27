@@ -699,11 +699,11 @@ public class ArrayOp {
             }*/
             // 好理解
             if(strs[i].equals(str1)) {
-                last1=i;
+                last1=i;   // 因为是下标从小到大遍历,所以此时 last1一定大于last2
                 min=Math.min(min,last2==-1?min:last1-last2);
             }
             if(strs[i].equals(str2)) {
-                last2=i;
+                last2=i;   // 因为是下标从小到大遍历,所以此时 last2一定大于last1
                 min=Math.min(min,last1==-1?min:last2-last1);
             }
         }

@@ -1,6 +1,5 @@
 package com.tian.algorithm.Z_inter.string;
 
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -123,8 +122,10 @@ public class StringOp {
         char[] s=str.toCharArray();
         char[] res=new char[s.length];
         int j=0;
+//        String temp = "";
         for(int i=s.length-1;i>=0;i--){
             res[j++]=s[i];
+//            temp=temp+String.valueOf(s[i]);
         }
         return String.valueOf(res);
     }
@@ -370,6 +371,7 @@ public class StringOp {
                 if (stack.isEmpty()) {
                     stack.push(i);
                 } else {
+                    // i 减去 去处有效括号的第一个
                     maxans = Math.max(maxans, i - stack.peek());
                 }
             }
@@ -412,6 +414,17 @@ public class StringOp {
     }
 
     public static void main(String[] args) {
+
+        Deque<Integer> stack = new LinkedList<Integer>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+        System.out.println(stack.pop());
+        System.out.println(stack.peek());
+
+
         String s = "abc1234321ab";
         System.out.println("=======>"+getLongestPalindrome(s,s.length()));
 

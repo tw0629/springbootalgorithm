@@ -171,7 +171,7 @@ public class a78a90_子集 {
     }
     private static void df21(int[] nums, int startIndex, List<List<Integer>> result, LinkedList<Integer> path){
         result.add(new ArrayList<>(path)); // !!!注意：不能写成ans.add(perm); 因为每次都会remove掉
-        if (startIndex >= nums.length){
+        if (startIndex == nums.length){
             return;
         }
         for (int i = startIndex; i < nums.length; i++){

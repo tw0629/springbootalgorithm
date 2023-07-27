@@ -80,6 +80,34 @@ public class a23_合并K个升序链表 {
         }
     }
 
+    // 组合
+    public static ListNode twoMerge3(ListNode node1, ListNode node2) {
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        while(node1 != null && node2 != null) {
+            if(node1.data < node2.data) {
+                cur.next = node1;
+                node1 = node1.next;
+                cur = cur.next;
+            } else {
+                cur.next = node2;
+                node2 = node2.next;
+                cur = cur.next;
+            }
+        }
+        while(node1 != null) {
+            cur.next = node1;
+            node1 = node1.next;
+            cur = cur.next;
+        }
+        while(node2 != null) {
+            cur.next = node2;
+            node2 = node2.next;
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         ListNode listNode1 = ListNode.initBuild();
         ListNode listNode2 = ListNode.initBuild();

@@ -32,8 +32,8 @@ public class a56_合并区间 {
             // !!!
             // 如果结果数组是空的，或者当前区间的起始位置 > 结果数组中最后区间的终止位置
             // 则不合并，直接将当前区间加入结果数组。
-            if (idx == -1 || interval[0] > res[idx][1]) {
-                res[++idx] = interval;
+            if (idx == -1 || interval[0] > res[idx][1]) {      // 写这个if-else中的逻辑时,举例子
+                res[++idx] = interval;                         // 只有这种情况interval[0] > res[idx][1]，才++idx
             } else {
                 // 反之将当前区间合并至结果数组的最后区间
                 // !!! 因为以及排好序了，

@@ -14,6 +14,14 @@ import com.tian.algorithm.Z_inter.a_common.TreeNode;
  */
 public class TreeOp {
 
+    /* 二叉树
+    最大深度：Math.max(left,right)+1;
+    最小深度：Math.min(left,right)+1;
+    节点的个数：left+right+1;
+    叶子节点的个数：left+right
+    第k层节点的个数：left+right（0<层<=k)
+    */
+
     /**
      * 最近公共祖先
      */
@@ -79,6 +87,10 @@ public class TreeOp {
      * 树的子结构
      *
      * 也包含了 "两个二叉树是否完全相同"
+     *
+     * 即：1 先： 不断用A的子分支和B
+     *    2 再： 判断两个二叉树是否完全相同
+     *
      */
     public boolean isSubStructure(TreeNode A, TreeNode B) {
         if (A == null || B == null) {
@@ -116,11 +128,12 @@ public class TreeOp {
     }
     // https://blog.csdn.net/ly0724ok/article/details/119180148
 
+
     /**
      * 两个二叉树是否完全相同
      */
-    public boolean isSub3(TreeNode A, TreeNode B){ //这样理解 A:大树一部分  B:小树
-        if(A == null && B == null){
+    public boolean isSameTree(TreeNode A, TreeNode B){ //这样理解 A:大树一部分  B:小树
+        if(A == null && B == null){ // !!!
             return true;
         }
         if(A == null || B == null){

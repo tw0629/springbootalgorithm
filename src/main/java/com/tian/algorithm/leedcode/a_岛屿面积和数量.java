@@ -22,9 +22,9 @@ public class a_岛屿面积和数量 {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) { // 计算面积时,grid[i].length
                 if (grid[i][j] == 1) {
-                    res = Math.max(res, dfs(i, j, grid)); // 面积最大的岛屿
+                    res = Math.max(res, dfs(i, j, grid)); // 如果是：面积最大的岛屿
 
-                    // res +=dfs(i, j, grid); 所有岛屿的面积
+                    // res +=dfs(i, j, grid);  // 如果是：所有岛屿的面积
                 }
             }
         }

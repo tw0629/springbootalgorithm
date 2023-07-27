@@ -113,7 +113,7 @@ public class ListNodeOperate {
     }
 
     //只要走一次最简单的一组数皆可写出 即：1->2->3
-    //逆序单链表
+    //逆序单链表     （这种方式画图理解简单，图见:com.tian.algorithm.Z_inter.list.ReverseList.reverseList2）
     private static ListNode reverseList(ListNode head) {
         if(head == null || head.next == null){
             return head;
@@ -166,6 +166,8 @@ public class ListNodeOperate {
      *
      * 注意：这种写法是【和最大的子数组】的写法
      * ListNode 只能写子序列；不好描述子串/子手续
+     *
+     *  （连续子序列）
      */
 //    public static void sumMaxChild(ListNode head) {
 //        int max = 0;
