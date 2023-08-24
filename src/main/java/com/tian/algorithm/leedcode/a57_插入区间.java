@@ -14,6 +14,9 @@ public class a57_插入区间 {
      * 方法二
      */
     public static int[][] insert2(int[][] intervals, int[] newInterval) {
+
+        // 若无序， Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
+
         int left = newInterval[0];
         int right = newInterval[1];
         boolean placed = false;

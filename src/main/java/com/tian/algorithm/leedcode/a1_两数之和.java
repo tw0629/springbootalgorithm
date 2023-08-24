@@ -134,6 +134,8 @@ public class a1_两数之和 {
      *  原文链接：https://blog.csdn.net/qq_35655602/article/details/116170755
      *  n数之和
      *  nSum框架，从nums[start]开始，计算和为target的n元组
+     *
+     *  注意：start容易漏掉，n是当前层几个数
      */
     private List<List<Integer>> nSumEqualsTarget(int[] nums, int n, int start, int target) {
         int sz = nums.length;
@@ -145,7 +147,7 @@ public class a1_两数之和 {
             return twoSumAll(nums, target);
         } else {
             /* n>2时，递归计算(n-1)Sum的结果 */
-            for (int i = start; i < sz; i++) { // !!! i = start
+            for (int i = start; i < sz; i++) { // !!!!!! i = start
                 /* 对target-nums[i]计算(n-1)Sum */  // !!! 变化为 n - 1, i + 1
                 List<List<Integer>> sub = nSumEqualsTarget(nums, n - 1, i + 1, target - nums[i]);
                 for (List<Integer> arr : sub) {

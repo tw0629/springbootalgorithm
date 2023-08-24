@@ -7,6 +7,15 @@ package com.tian.algorithm.leedcode;
  */
 public class a8_字符串转换整数 {
 
+    /**
+     *     //int转char
+     *     int a = 9;
+     *     char c1= (char) (a+'0');
+     *
+     *     //char转int
+     *     char c2='1';
+     *     int b=c2-'0';
+     */
     public static int myAtoi(String s) {
         char[] str = s.toCharArray();
 

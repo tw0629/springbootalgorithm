@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class a_最长递增子序列 {
 
     /**
-     *  最长递增子序列
+     *  最长递增子序列  （是序列，可不连续）
      *
      *  链接：https://leetcode.cn/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/
      *

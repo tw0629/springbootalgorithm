@@ -28,7 +28,7 @@ public class a10_正则表达式匹配 {
      *
      * 1 p[i]==’.’时，点匹配任意一个字符，所以match[i][j]=match[i-1][j-1]
      * 2 p[i]==’*’时，也可分为三种情况，结果为三者取并集：
-     *  ’*’匹配0个元素： (match[i-1][j])
+     *  ’*’匹配0个元素： (match[i-1][j])   //?? 应该是匹配1个元素吧
      *  ’’匹配多个元素，只要’’前元素能与s中对应元素匹配的上：match[i][j-1]&&(p.charAt(i-2)=='.' ||p.charAt(i-2)==s.charAt(j-1))
      *  ’*’删除前一元素（题目有些描述不清，可以理解为删除）：match[i-2][j];
      * 所以match[i][j]=(match[i-1][j])||(match[i][j-1]&&(p.charAt(i-2)=='.'||p.charAt(i-2)==s.charAt(j-1)))||match[i-2][j];
@@ -80,8 +80,9 @@ public class a10_正则表达式匹配 {
                     if (p.charAt(j-1)==s.charAt(i) || p.charAt(j-1)=='.'){
                         //dp[r][c] = dp[r-1][c] || dp[r][c-2];
                         dp[r][c] = dp[r-1][c] || dp[r][c-2] || dp[r][c-1];
+                        //          abcd和ab.*      a* 0个       a* 1个
                     }else{
-                        // a* 0个
+                        // abcd和abcdw*
                         dp[r][c] = dp[r][c-2];
                     }
                 }else{
