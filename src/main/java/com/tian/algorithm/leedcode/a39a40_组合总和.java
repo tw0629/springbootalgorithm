@@ -87,12 +87,9 @@ public class a39a40_组合总和 {
             return;
         }
         for (int i = begin; i < len; i++) {
-            // 大剪枝：减去 candidates[i] 小于 0，减去后面的 candidates[i + 1]、candidates[i + 2] 肯定也小于 0，因此用 break
-            if (target - candidates[i] < 0) {
-                break;
-            }
 
-            // 小剪枝：同一层相同数值的结点，从第 2 个开始，候选数更少，结果一定发生重复，因此跳过，用 continue
+
+            // 小剪枝：同一层相同数值x                                  结点，从 2 个开始，候选数更少，结果一定发生重复，因此跳过，用 continue
             if (i > begin && candidates[i] == candidates[i - 1]) {
                 continue;
             }

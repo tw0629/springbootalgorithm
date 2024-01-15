@@ -146,8 +146,8 @@ public class a1_两数之和 {
         if (n == 2) {
             return twoSumAll(nums, target);
         } else {
-            /* n>2时，递归计算(n-1)Sum的结果 */
-            for (int i = start; i < sz; i++) { // !!!!!! i = start
+            /* n>2时，递归计算(n-1)Sum的结果 */     // ！！！threeSum3All 说明 3个数, start从0开始
+            for (int i = start; i < sz; i++) {   //易错❌ !!!!!! i = start
                 /* 对target-nums[i]计算(n-1)Sum */  // !!! 变化为 n - 1, i + 1
                 List<List<Integer>> sub = nSumEqualsTarget(nums, n - 1, i + 1, target - nums[i]);
                 for (List<Integer> arr : sub) {

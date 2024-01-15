@@ -27,10 +27,8 @@ public class a3_无重复字符的最长子串 {
         int left = 0; //滑动窗口左下标，i相当于滑动窗口右下标  ---> [left,i]
         for(int i = 0; i < s.length(); i ++){
             if(map.containsKey(s.charAt(i))){
-                left = Math.max(left,map.get(s.charAt(i)) + 1);// ！！！指向重复元素的下一个位置
-
-                // 也行吗？？
-                // left = Math.min(i,map.get(s.charAt(i)) + 1);// ！！！指向重复元素的下一个位置
+                // 举例：  1，2，3，4，5，2，6，7，8，2，9，10
+                left = Math.max(left,map.get(s.charAt(i)) + 1); // ！！！指向重复元素的下一个位置
             }
             map.put(s.charAt(i),i); // 重要！！！
             max = Math.max(max,i-left+1);// 改变最长子串的长度
