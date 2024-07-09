@@ -1,8 +1,8 @@
 package com.tian.algorithm.leedcode;
 
 
-import com.tian.algorithm.Z_inter.a_common.ListNode;
-import com.tian.algorithm.Z_inter.list.ReverseList;
+import com.tian.algorithm.base_DataStructure.ListNode;
+import com.tian.algorithm.base_op.list.ReverseList;
 
 /**
  * @author David Tian
@@ -106,14 +106,18 @@ public class a2_两数相加 {
         listNode24.next = listNode23;
 
 
-        ListNode listNode = addTwoNumbers(listNode17, listNode24);
-        System.out.print("    ");
         ListNode.print(listNode17);
         System.out.print("    ");
         ListNode.print(listNode24);
+        System.out.print("    ");
+
+        ListNode listNode = addTwoNumbers(listNode17, listNode24);
         ListNode.print(listNode);
+        System.out.println("    ");
+
         ListNode listNode1 = addTwoNumbers2(listNode17, listNode24,0);
         ListNode.print(listNode1);
+        System.out.println("    ");
 
         System.out.println("========= addTwoNumbers3 =======");
         // ?? 竟然看不出什么问题来 日后再看

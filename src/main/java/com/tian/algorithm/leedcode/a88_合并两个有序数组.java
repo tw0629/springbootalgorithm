@@ -8,11 +8,13 @@ package com.tian.algorithm.leedcode;
 public class a88_合并两个有序数组 {
 
     /**
-     * 合并两个有序的数组 方法1  推荐
+     *  合并两个有序的数组 方法1  推荐
+     *
+     *  note: !!! 倒序放到数组A中，A数组足够大
      *
      * 这种写法省去了空间复杂度；相对于归并写法中的合并
      */
-    public void merge(int A[], int m, int B[], int n) {
+    public void merge(int A[], int m, int B[], int n) { //int A[] 或者 int[] A
         // 因为题目明确说了A数组足够大，所以直接在A数组操作
         // 倒序的
         int i = m - 1;

@@ -1,6 +1,6 @@
 package com.tian.algorithm.leedcode;
 
-import com.tian.algorithm.Z_inter.a_common.ListNode;
+import com.tian.algorithm.base_DataStructure.ListNode;
 
 /**
  * @author David Tian
@@ -72,10 +72,10 @@ public class a23_合并K个升序链表 {
         }
 
         if (l1.data < l2.data) {
-            l1.next = twoMerge(l1.next, l2);
+            l1.next = twoMerge2(l1.next, l2);
             return l1;
         }else {
-            l2.next = twoMerge(l1, l2.next);
+            l2.next = twoMerge2(l1, l2.next);
             return l2;
         }
     }

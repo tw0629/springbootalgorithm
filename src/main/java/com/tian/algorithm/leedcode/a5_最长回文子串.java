@@ -37,7 +37,7 @@ public class a5_最长回文子串 {
                     }
                     if(dp[i][j]) {
                         // 更新最大长度
-                        max = Math.max(max, d+1);
+                        max = Math.max(max, d+1); // d从0开始的，长度为d+1
                     }
                 }
             }

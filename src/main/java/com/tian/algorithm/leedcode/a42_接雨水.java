@@ -27,6 +27,7 @@ public class a42_接雨水 {
             l_max = Math.max(l_max, height[left]);
             r_max = Math.max(r_max, height[right]);
 
+            //ans += Math.max(l_max,r_max) - height[left];
             // 每次较低台阶的指针移动一格
             if (l_max <= r_max)
             {

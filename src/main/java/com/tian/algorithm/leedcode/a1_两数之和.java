@@ -8,6 +8,9 @@ import java.util.*;
  * @author David Tian
  * @desc
  * @since 2022/10/6 16:02
+ *
+ *  关键点：排序; 去重; for (int i = start
+ *
  */
 public class a1_两数之和 {
 
@@ -110,7 +113,7 @@ public class a1_两数之和 {
 
         for(int i = 0 ; i<nums.length; i++){
             // twoSumAll
-            List<List<Integer>> lists = twoSumAll(nums, target - nums[i]);
+            List<List<Integer>> lists = twoSumAll(nums, target - nums[i]);// todo 可以优化为 多加一个入参,twoSumAll中从i+1开始for循环
             if(CollectionUtils.isEmpty(lists)){
                 continue;
             }
@@ -135,11 +138,13 @@ public class a1_两数之和 {
      *  n数之和
      *  nSum框架，从nums[start]开始，计算和为target的n元组
      *
-     *  注意：start容易漏掉，n是当前层几个数
+     *  注意：start为起始位置，0开始, 容易漏掉,n是n个数之和
      */
-    private List<List<Integer>> nSumEqualsTarget(int[] nums, int n, int start, int target) {
+    private static List<List<Integer>> nSumEqualsTarget(int[] nums, int n, int start, int target) {
         int sz = nums.length;
         List<List<Integer>> res = new LinkedList<>();
+        Arrays.sort(nums);//??
+
         /* 至少是2Sum，且数组大小不应该小于n */
         if (n < 2 || sz < n) return res;
         /* 2Sum是base case */
@@ -170,6 +175,9 @@ public class a1_两数之和 {
 
         int[] a = {1,3,2,3,4,3,4,2};
         System.out.println(threeSum3All(a,7));
+        List<List<Integer>> lists = nSumEqualsTarget(a, 3, 0, 7);
+        System.out.println(lists);
+        System.out.println();
     }
 
 

@@ -29,7 +29,7 @@ public class a8_字符串转换整数 {
         while(i<str.length && isdigit(str[i])){
             int r = str[i] - '0';
             // r>7   Integer.MAX_VALUE/10, int最大值为 2147483647，所以当chars[j] > 7 时会越界
-            if(res>Integer.MAX_VALUE/10 || (res>Integer.MAX_VALUE/10 && r>7)){
+            if(res>Integer.MAX_VALUE/10 || (res==Integer.MAX_VALUE/10 && r>7)){
                 return flag>0?Integer.MAX_VALUE:Integer.MIN_VALUE;
             }
 
