@@ -40,15 +40,15 @@ public class a39a40_组合总和 {
 
     private static void dfs1(int[] candidates, int begin, int len, int target, Deque<Integer> path, List<List<Integer>> res) {
         // 由于进入更深层的时候，小于 0 的部分被剪枝，因此递归终止条件值只判断等于 0 的情况
-        if (target == 0) {
+        if (target == 0) {  // !!!!!!
             res.add(new ArrayList<>(path));
             return;
         }
 
         for (int i = begin; i < len; i++) {
             // 重点理解这里剪枝，前提是候选数组已经有序，
-            if (target - candidates[i] < 0) {
-                break;
+            if (target - candidates[i] < 0) {  // !!!!!!
+                break;  // !!!!!!
             }
 
             path.addLast(candidates[i]);
@@ -141,14 +141,14 @@ public class a39a40_组合总和 {
             while (sum>=target){ // !!!!!!
                 if(sum == target){
                     List<Integer> result = new ArrayList<>();
-                    for(int j=start;j<=i;j++){
+                    for(int j=start;j<=i;j++){ //!!!!!!注意：从start开始
                         result.add(nums[j]);
                     }
                     res.add(result);
 
                     break; // !!!!!!
                 }else {
-                    sum -= nums[start++]; // !!!!!!
+                    sum -= nums[start++]; // !!!!!! 注意：从start开始， 删除最前面的
                 }
             }
         }

@@ -598,7 +598,7 @@ public class ArrayOp {
 
     /**
      * 方法四
-     * 从数组中找出和为指定值的任意组合
+     * 变形：从数组中找出和为指定值的连续子组合
      *
      * https://blog.csdn.net/qq_33775774/article/details/111305288
      **/

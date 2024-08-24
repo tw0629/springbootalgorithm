@@ -57,7 +57,7 @@ public class a10_正则表达式匹配 {
         dp[0][0] = true;
 
         // s: 空
-        // p: xxxxa*   a*a*a*a*a*a*(a*可以为0个)
+        // p: xxxxa*   a*********(a*可以为0个)
         for (int j=2;j<n;j++){
             // ？？ s为空时候，只要该位置等于"*",dp[0][j] = dp[0][j-2]
             if (p.charAt(j-1)=='*'){     //  charAt(0): 第一个

@@ -18,7 +18,7 @@
 最长无重复子数组 com.tian.algorithm.Z_inter.array.ArrayOp
 （最长无重复子数组 和 两数之和 写法有点相似）
 从数组中找出和为指定值的任意组合 com.tian.algorithm.Z_inter.array.ArrayOp 方法二
-从数组中找出和为指定值的连续子组合 com.tian.algorithm.leedcode.a39a40_组合总和.sequenceChildSum_equal_target2 方法二
+从数组中找出和为指定值的连续子组合 com.tian.algorithm.leedcode.a39a40_组合总和.sequenceChildSum_equal_target2 方法二   !!!!!!
 数组中两个字符串的最小距离 com.tian.algorithm.Z_inter.array.ArrayOp
     (面试中遇到是 大的字符串中两个字符串的最小距离，大的字符串是空格相隔的 ======> 可以将大的字符串 转换成 数组)
 
@@ -97,17 +97,17 @@ https://zhuanlan.zhihu.com/p/83454731
 1 常常使用： for循环+递归  ======替代======>  解决多层级for循环
 
 回溯技巧
-为了防止搞混 以及 应对面试： 提炼一种：for循环+"一次"递归;                                         建议定义
-全排          	index  		for(i=0 		    def(index+1                                res,path,used
-子集	 	        index  		for(i=index 		def(i+1         subsetsWithDup21           res,path,used        子集包括空
+为了防止搞混 以及 应对面试： 提炼一种：for循环+"一次"递归;                        建议定义
+全排          	index  		for(i=0 		    def(index+1               res,path,used                   (属于：非固定顺序）
+子集	 	        index  		for(i=index 		def(i+1                   res,path,used        子集包括空   (属于：非固定顺序）
 
-组合总和 	    index  		for(i=index 		def(i+1         subsetsWithDup21           res,path
+组合总和 	    index  		for(i=index 		def(i+1                   res,path     组合不需要used[]     (属于：非固定顺序）
 
 上面变种：
-    排列序列(全排列变种，第k个)
+    排列序列(属于：非固定顺序；全排列变种，第k个)
 
-    复原IP地址(属于：固定顺序，含全部元素，的子集综合)
-    编码加码(属于：固定顺序，含全部元素，的子集综合)
+    复原IP地址(属于：固定顺序；含全部元素，的子集综合)
+    编码加码(属于：固定顺序；全部元素，的子集综合)
 
 
 四个类似：
@@ -165,6 +165,9 @@ a8_字符串转换整数
         else
             dp[i + 1][j+1] = 0;
 
+注意：!!!!! dp[i][j]表示s1的前i位和s2的前j位(不包括i和j),所以比的是s1[i-1]和s2[j-1]。
+注意：!!!!! dp[i][j]表示s1的前i位和s2的前j位(不包括i和j),所以比的是s1[i-1]和s2[j-1]。
+
 -------最长公共 二维和一维 总结-----
 最长公共子序列 （返回的是最大长度）
    最长公共子序列（一维）: dp[j] = dp[j-1] + 1;
@@ -207,10 +210,10 @@ a8_字符串转换整数
 https://www.cnblogs.com/jentreywang/p/16799332.html
 
 eg:
-1
+1 任意组合vs连续子组合
 从数组中找出和为指定值的任意组合 com.tian.algorithm.Z_inter.array.ArrayOp 方法二
 从数组中找出和为指定值的连续子组合 com.tian.algorithm.leedcode.a39a40_组合总和.sequenceChildSum_equal_target2 方法二
-2
+2 公共子串vs公共子序列   (见上面：最长公共 二维和一维 总结)
 最长公共子串 com.tian.algorithm.Z_inter.string.StringOp
 最长公共子序列 com.tian.algorithm.Z_inter.string.StringOp
 #==================================================================

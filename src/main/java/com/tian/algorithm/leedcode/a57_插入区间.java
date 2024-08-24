@@ -1,7 +1,6 @@
 package com.tian.algorithm.leedcode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author David Tian
@@ -41,6 +40,7 @@ public class a57_插入区间 {
         if (!placed) {
             ansList.add(new int[]{left, right});
         }
+
 
         int[][] ans = new int[ansList.size()][2];
         for (int i = 0; i < ansList.size(); ++i) {

@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_test;
+package com.tian.algorithm.classical;
 
 
 import java.util.*;
@@ -75,6 +75,7 @@ public class 权重轮训 {
     // 原文链接：https://blog.csdn.net/qq_34827263/article/details/103863213
     public static String getServerByWeight2(Map<String ,Integer> map){
         Set<Map.Entry<String, Integer>> entries = map.entrySet();
+        // 1 从总权重中生成随机数
         Random random = new Random();
         int sum=0;
         for (Map.Entry<String, Integer> entry : entries) {
@@ -83,11 +84,20 @@ public class 权重轮训 {
         }
         int randomInt = random.nextInt(sum)+1;
 
+        // 2
+        /**
+         * 权重随机（效率佳）
+         * map:(ip,权重)
+         * ip：192.168.1.1|192.168.1.2|192.168.1.3|192.168.1.4  权重分别为10|20|30|40
+         *
+         * 变形为：区间范围
+         *      0-10--30---60----100
+         */
         int sum_temp = 0;
         for (Map.Entry<String, Integer> entry : entries) {
             Integer value = entry.getValue();
-            sum_temp += value;
-            if (randomInt <= sum_temp){
+            sum_temp += value; // 注意：累加    相当于区间阈值
+            if (randomInt <= sum_temp){ // 注意：比较区间阈值
                 return entry.getKey();
             }
         }

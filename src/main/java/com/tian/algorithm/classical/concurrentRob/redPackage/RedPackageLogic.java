@@ -1,10 +1,9 @@
 package com.tian.algorithm.classical.concurrentRob.redPackage;
 
+import org.springframework.util.CollectionUtils;
+
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -99,7 +98,6 @@ public class RedPackageLogic {
         //3 查看领取记录
         List list = queryRedPackageList();
         System.out.println(" 领取记录: " + list);
-
 
         //检测
        /* double total = 0.0;

@@ -30,7 +30,7 @@ public class a55_跳跃游戏 {
         int n = nums.length;
         int rightmost = 0;
         for (int i = 0; i < n; ++i) {
-            if (i <= rightmost) { // 关键!!! i <= rightmost
+            if (i <= rightmost) { // 关键!!! i <= rightmost   【当前的位置是之前的能到达的】
                 rightmost = Math.max(rightmost, i + nums[i]); // i位置可以跳跃到的位置i + nums[i]
                 if (rightmost >= n - 1) {
                     return true;

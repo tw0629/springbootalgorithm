@@ -20,7 +20,7 @@ public class a2_两数相加 {
         ListNode pre = dummyHead;
 
         int t = 0;
-        while (l1 != null || l2 != null || t != 0) { // t != 0
+        while (l1 != null || l2 != null || t != 0) { //!!! 当 l1/l2==null时,t!=0才能继续进位
             if (l1 != null) {
                 t += l1.data;
                 l1 = l1.next;

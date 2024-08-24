@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class 质子 {
 
     // 功能:输入一个正整数，按照从小到大的顺序输出它的所有质因子（重复的也要列举）（如180的质因子为2 2 3 3 5 ）
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         // Scanner number = new Scanner(System.in);
         // int v = number.nextInt();
         int v =180;
@@ -38,7 +38,7 @@ public class 质子 {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String s1 = scanner.nextLine();
         System.out.println(s1);

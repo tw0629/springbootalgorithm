@@ -40,7 +40,7 @@ public class RobRedPackageMain {
 
     public static void main(String[] args) throws Exception {
 
-        RedPackage redPackage = sendRandomRedPackage("Root",10,2);
+        RedPackage redPackage = sendRandomRedPackage("Root",10,3);
 
         CountDownLatch countDownLatch = new CountDownLatch(1000);
         for(int i=0;i<1000;i++){
@@ -97,7 +97,7 @@ public class RobRedPackageMain {
     private static void robRedPackage(String robUser,RedPackage redPackage) {
 
         if(redPackage.getAmount().get()<1 || redPackage.getQuantity().get()<1){
-            System.out.println(robUser+"没有抢到："+redPackage.getUserId()+"的红包");
+            System.out.println("手速慢导致 ======> "+robUser+"没有抢到："+redPackage.getUserId()+"的红包");
             return;
         }
 
@@ -125,8 +125,9 @@ public class RobRedPackageMain {
                 //Random random = new Random(); 并发下改用ThreadLocalRandom
                 ThreadLocalRandom random = ThreadLocalRandom.current();
                 //randomMoney = random.nextInt(redPackage.getAmount().get()-1+1)+1;
-                // 会有并发问题
+                // 会有并发问题   是不是写错了, 应该是redPackage.getAmount().get()-1+1吧？？
                 randomMoney = random.nextInt(redPackage.getAmount().get()-redPackage.getQuantity().get()+1)+1;
+                System.out.println();
             }
             remainAmount = redPackage.getAmount().addAndGet(-randomMoney);
             remainCount = redPackage.getQuantity().decrementAndGet();
@@ -134,7 +135,7 @@ public class RobRedPackageMain {
         if(remainAmount<0 || remainCount<0){
             redPackage.getAmount().addAndGet(randomMoney);
             redPackage.getQuantity().incrementAndGet();
-            System.out.println("=>"+robUser+"没有抢到："+redPackage.getUserId()+"的红包");
+            System.out.println("并发导致 ======> "+robUser+"没有抢到："+redPackage.getUserId()+"的红包" + redPackage.toString());
             return;
         }
 

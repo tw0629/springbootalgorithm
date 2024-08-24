@@ -27,6 +27,23 @@ public class z_买卖股票的最佳时机 {
         return maxprofit;
     }
 
+    /**
+     * 不知道有没有漏洞
+     */
+    public static int maxProfit2(int prices[]) {
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            minprice = Math.min(minprice,prices[i]);
+            maxprofit = Math.max(maxprofit,prices[i]-minprice);
+        }
+        return maxprofit;
+    }
+
+    /**
+     * 最大的leftMax和rightMax之差的最大值
+     * |leftMax-rightMax|绝对值最大
+     */
     public static int maxleftright(int[] arr) {
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
@@ -38,6 +55,7 @@ public class z_买卖股票的最佳时机 {
     public static void main(String[] args) {
         int[] a = {7,1,5,3,6,4};
         System.out.println(maxProfit(a));
+        System.out.println(maxProfit2(a));
         System.out.println(maxleftright(a));
         System.out.println();
     }

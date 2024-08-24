@@ -48,11 +48,11 @@ public class a239_MaxSlidingWindow {
     }
 
     /**
-     * 方法二
+     * 方法二 !!!!!!
      * 答案里最多的解法   利用：双向队列 LinkedList
      * 注意：代码实现中，双端队列中存的是数组值的下标，并不是值本身
      *
-     * 记住： 1 双端队列永远只放一个最大的；2 双端队列放的是 数组值的下标index
+     * 记住： 1 双端队列永远只放【从大到小元素的下标】；2 双端队列放的是 数组值的下标index
      *
      * https://blog.csdn.net/a1439775520/article/details/104636069
      * https://blog.csdn.net/weixin_43218500/article/details/105621894
@@ -65,16 +65,20 @@ public class a239_MaxSlidingWindow {
         // 结果数组
         int[] result = new int[nums.length-k+1];
         for(int i=0;i<nums.length;i++){
-            // 保证从大到小 如果前面数小 弹出   // 前面小的全部弹出去  // 这样的话，双向队列头部永远为最大的
+            // 1
+            // !!!!!!保证从大到小 如果前面数小 弹出   // 前面小的全部弹出去  // 这样的话，双向队列头部永远为最大的
             while(!list.isEmpty()&&nums[list.peekLast()]<=nums[i]){ //!!!易写错
                 list.pollLast(); //!!!易写错
             }
+            // 2
             // 添加当前值对应的数组下标
             list.addLast(i); //!!!易写错  addLast 和 入队的是i
+            // 3
             // 初始化窗口 等到窗口长度为k时 下次移动在删除过期数值 // 只要i移动到k-1以后，就入队队列中的最大值
             if(list.peek()<=i-k){ //控制窗口宽度 即：i >= list.peekFirst + k   //!!!易写错
                 list.poll();
             }
+            // 4
             // 当i>=k-1时,向右每移动一位，都保存当前窗口中最大值
             if(i-k+1>=0){//控制从啥时候加最大值  从i>=k-1开始记录滑动窗口中最大的   //i>=k-1时就往里装  //!!!易写错
                 result[i-k+1] = nums[list.peek()];

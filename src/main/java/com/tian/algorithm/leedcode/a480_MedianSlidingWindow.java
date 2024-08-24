@@ -33,11 +33,11 @@ public class a480_MedianSlidingWindow {
             addNum(nums[i]);
 
             // 如果当前窗口大小大于等于 k，计算并存储中位数
-            if (i >= k - 1) {
+            if (i >= k - 1) { //是i >= k - 1
                 result[i - k + 1] = findMedian();
 
                 // 从堆中移除滑出窗口的元素
-                removeNum(nums[i - k + 1]); //!!!易写错  移出的是队列第一个
+                removeNum(nums[i - k + 1]); //!!!易写错  移出的是队列第一个；   下标也是[i - k + 1]
             }
         }
 

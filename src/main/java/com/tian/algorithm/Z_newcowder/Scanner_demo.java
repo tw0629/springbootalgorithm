@@ -16,7 +16,7 @@ public class Scanner_demo {
      */
 
     public static void main(String[] args) {
-        test();
+        //test();
         test2();
     }
 

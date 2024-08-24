@@ -51,9 +51,11 @@ public class a23_合并K个升序链表 {
         while (l1 != null && l2 != null) {
             if (l1.data < l2.data) {
                 tail.next = l1;
+                //tail.next = new ListNode(l1.data);
                 l1 = l1.next;
             } else {
                 tail.next = l2;
+                //tail.next = new ListNode(l2.data);
                 l2 = l2.next;
             }
             tail = tail.next;
@@ -115,7 +117,7 @@ public class a23_合并K个升序链表 {
         ListNode[] lists = {listNode1,listNode2,listNode3};
 
         ListNode node = mergeKLists(lists);
-        //ListNode.print(node);
+        ListNode.print(node);
         System.out.println();
 
         ListNode node2 = mergeKLists2(lists,0,lists.length-1);

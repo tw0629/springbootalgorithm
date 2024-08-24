@@ -86,7 +86,7 @@ public class IdWorker {
             //这个位运算保证始终就是在4096这个范围内，避免你自己传递个sequence超过了4096这个范围
             sequence = (sequence + 1) & sequenceMask;
 
-            if (sequence == 0) {
+            if (sequence == 0) { // ???
                 timestamp = tilNextMillis(lastTimestamp);
             }
 

@@ -146,7 +146,7 @@ public class a93_复原IP地址 {
             return;
         }
 
-        for(int i=index; i<s.length()&&i<=index+2; i++){
+        for(int i=index; i<s.length()&&i<=index+2; i++){ // !!! i<s.length()&&i<=index+2
             //!!!!!! substring(index, i + 1)
             String substr = s.substring(index, i + 1);  //!!!!!! substring(index, i + 1)
 

@@ -246,7 +246,7 @@ public class StringOp {
                 //由于当 i 和 j 取值为 0 的时候，dp[i][j] = 0，而 dp 数组本身初始化就是为 0，所以，直接让 i 和 j 从 1 开始遍历
                 //遍历的结束应该是字符串的长度为 len(text1) 和 len(text2)。
 
-                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) { //注意：charAt(i - 1)比的时候，dp[i][j]
                     //两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
