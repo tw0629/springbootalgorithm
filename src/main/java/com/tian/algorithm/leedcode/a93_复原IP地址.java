@@ -112,9 +112,9 @@ public class a93_复原IP地址 {
         String s = "25515111115";
         //System.out.println(restoreIpAddresses11(s));
         System.out.println();
-        System.out.println(restoreIpAddresses12(s));
+        //System.out.println(restoreIpAddresses12(s));
         System.out.println();
-        //System.out.println(ipProcess("123456123456"));
+        System.out.println(ipProcess("123456123456"));
         System.out.println(s.substring(0,2));
     }
 
@@ -146,13 +146,13 @@ public class a93_复原IP地址 {
             return;
         }
 
-        for(int i=index; i<s.length()&&i<=index+2; i++){ // !!! i<s.length()&&i<=index+2
+        for(int i=index; i<s.length()&&i<=index+2; i++){ // !!!!!! i<s.length()&&i<=index+2
             //!!!!!! substring(index, i + 1)
-            String substr = s.substring(index, i + 1);  //!!!!!! substring(index, i + 1)
+            String substr = s.substring(index, i + 1);  // !!!!!! substring(index, i + 1)
 
             if(is126(substr)){
                 path.add(substr);
-                dfs(s,index+1,res,path);
+                dfs(s,i+1,res,path);
                 path.remove(path.size()-1);
             }
         }
