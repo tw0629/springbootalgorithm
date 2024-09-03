@@ -14,10 +14,26 @@ public class a56_合并区间 {
      * 1 先按照区间起始位置排序
      * 2 因为已经排好序了，直接合并/比较相邻两个就行
      *
+     *  举例
+     *  int[][] intervals = {{1,3},{2,5},{7,9},{8,10}};
+     *  注意：// !!!!!!Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]); !!!!!!为 从左到右，从小到大
+     *  |_____| 即：0_____1
+     *  for (int[] interval: intervals) {
+     *  注意：interval和intervals
+     *
+     *  第一轮 idx=-1
+     *  intervals: |_____| |_____| |_____| |_____| |_____| |_____| 从左到右，从小到大
+     *  res:       |_____|
+     *  即 res[0] = interval;
+     *
+     *  第n轮
+     *  interval[0] > res[idx][1],  res[++idx] = interval;
+     *  interval[0]<= res[idx][1],  res[idx][1] = Math.max(res[idx][1], interval[1]);
+     *
      */
     public static int[][] merge(int[][] intervals) {
         // 1 先按照区间起始位置排序
-        Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
+        Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);// !!!!!!
         //Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
         /*Arrays.sort(intervals, new Comparator<int[]>() {
             public int compare(int[] interval1, int[] interval2) {

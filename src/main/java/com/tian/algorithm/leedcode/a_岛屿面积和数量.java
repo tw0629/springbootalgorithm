@@ -34,7 +34,7 @@ public class a_岛屿面积和数量 {
     // 每次找到岛屿，则直接把找到的岛屿改成0，这是传说中的沉岛思想，就是遇到岛屿就把他和周围的全部沉默。
     // ps：如果能用沉岛思想，那么自然可以用朋友圈思想。有兴趣的朋友可以去尝试。
     private int dfs(int i, int j, int[][] grid) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[i].length || grid[i][j] == 0) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[i].length || grid[i][j] == 0) { // ??? 要改为grid[i][j]!=1吗
             return 0;
         }
         grid[i][j] = 2; //#遍历过的标记为2,或者其他0, 防止重复陆地重复遍历。
@@ -73,7 +73,7 @@ public class a_岛屿面积和数量 {
     // 为了将相连的'1'都遍历了
     public void dfs(char[][] grid,int i, int j){
         //防止 i 和 j 越界，也就是防止超出岛屿（上下左右）的范围。特别注意当遍历到海洋的时候也退出循环
-        if( i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]=='0')
+        if( i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]=='0') // ??? 要改为grid[i][j]!=1吗
             return;
         //将遍历过的陆地改为海洋，防止重复遍历
         grid[i][j]='2'; // 将格子标记为「已遍历过」

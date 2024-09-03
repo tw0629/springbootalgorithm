@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @author David Tian
- * @desc
+ * @desc  ListNode反转类型 用递归思想比较好
  * @since 2021/7/29 20:13
  */
 public class ListNodeOperate {

@@ -11,6 +11,14 @@ public class a57_插入区间 {
 
     /**
      * 方法二
+     *
+     * |_____| 即：   0_____1
+     * |_____| 即：left_____right
+     *
+     *  第一轮
+     *  intervals:      |_____| |_____| |_____| |_____| |_____| |_____| 从左到右，从小到大
+     *  newInterval:    |_____|
+     *
      */
     public static int[][] insert2(int[][] intervals, int[] newInterval) {
 
@@ -32,7 +40,7 @@ public class a57_插入区间 {
                 // 在插入区间的左侧且无交集
                 ansList.add(interval);
             } else {
-                // 与插入区间有交集，计算它们的并集
+                // 与插入区间有交集，计算它们的并集       // 注意：有交集时，要重新计算left,right
                 left = Math.min(left, interval[0]);
                 right = Math.max(right, interval[1]);
             }

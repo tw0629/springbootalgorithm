@@ -28,7 +28,7 @@ public class z_买卖股票的最佳时机 {
     }
 
     /**
-     * 不知道有没有漏洞
+     * 不知道有没有漏洞   和上面等价
      */
     public static int maxProfit2(int prices[]) {
         int minprice = Integer.MAX_VALUE;

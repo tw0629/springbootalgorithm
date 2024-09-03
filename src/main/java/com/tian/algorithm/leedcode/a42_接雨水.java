@@ -29,7 +29,7 @@ public class a42_接雨水 {
 
             //ans += Math.max(l_max,r_max) - height[left];
             // 每次较低台阶的指针移动一格
-            if (l_max <= r_max)
+            if (l_max <= r_max) // !!!!! 比较的左右最大值
             {
                 ans += l_max - height[left];
                 ++left;

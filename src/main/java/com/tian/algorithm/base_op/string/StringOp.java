@@ -84,9 +84,9 @@ public class StringOp {
         boolean[][] dp = new boolean[n][n]; //
         int max = 0;
         // 字符串首尾字母长度差 (d = j-i)
-        for (int d = 0; d < n; d++) { // !!!  d可以理解为字符串的长度
+        for (int d = 0; d < n; d++) { // !!!!!!  d可以理解为字符串的长度
             // 字符串起始位置 i
-            for (int i = 0; i < n-d; i++) {
+            for (int i = 0; i < n-d; i++) { // !!!!!! i为回文子字符串起始位置
                 // 字符串结束位置 j
                 int j = i+d;
                 // 如果字符串 i 到 j 的首尾相等，再根据字符串 i-1 到 j-1 来确定，即得到递推公式
@@ -362,6 +362,7 @@ public class StringOp {
     }
 
     /**
+     * 推荐
      * 最长的括号子串 2   就是最长的括号子串的 前后下标相减
      *
      * 堆栈操作
@@ -371,17 +372,17 @@ public class StringOp {
         int maxans = 0;
         Deque<Integer> stack = new LinkedList<Integer>();
         //Stack<Integer> stack = new Stack<>();
-        stack.push(-1); //!!!!!!
-        for (int i = 0; i < s.length(); i++) {
+        stack.push(-1); // !!!!!!  因为下标是从0开始的
+        for (int i = 0; i < s.length(); i++) { // ((((()
             if (s.charAt(i) == '(') {
                 stack.push(i);
             } else {
-                stack.pop();// )))))()
+                stack.pop();// )))))()  栈顶出栈
                 if (stack.isEmpty()) {
                     stack.push(i);
                 } else {
                     // i 减去 去处有效括号的第一个
-                    maxans = Math.max(maxans, i - stack.peek());
+                    maxans = Math.max(maxans, i - stack.peek()); // 当前下标 减 栈顶下标
                 }
             }
         }
@@ -451,11 +452,12 @@ public class StringOp {
         String s5 = "))((";
         String s6 = ")))";
         String s7 = "())))";
+        String s8 = "((((()";
         boolean valid = isValid(s3);
-        int i  = longestValidParentheses1(s4);
-        int i2 = longestValidParentheses2(s6);
-        int i3 = longestValidParentheses3(s4);
-        System.out.println("=======>"+i);
+        //int i  = longestValidParentheses1(s4);
+        int i2 = longestValidParentheses2(s8);
+        //int i3 = longestValidParentheses3(s4);
+        System.out.println("=======>"+i2);
         System.out.println("");
     }
 
