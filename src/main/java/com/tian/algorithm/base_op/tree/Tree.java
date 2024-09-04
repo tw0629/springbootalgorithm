@@ -13,7 +13,13 @@ import java.util.Stack;
  */
 public class Tree {
 
-    //广度优先遍历是使用队列实现的
+    /**
+     * 推荐：
+     *  广度优先遍历一使用队列实现的
+     *  深度优先遍历一递归写法实现的
+     */
+
+    // 广度优先遍历是使用队列实现的
     public void broadFirstSearch(TreeNode2 nodeHead) {
         if(nodeHead==null) {
             return;
@@ -23,6 +29,7 @@ public class Tree {
         while(!myQueue.isEmpty()) {
             TreeNode2 node=myQueue.poll();
             System.out.print(node.data+" ");
+            // 先左后右
             if(null!=node.leftNode) {
                 myQueue.add(node.leftNode);    //深度优先遍历，我们在这里采用每一行从左到右遍历
             }
@@ -33,7 +40,7 @@ public class Tree {
         }
     }
 
-    //深度优先遍历
+    // 深度优先遍历
     public void depthFirstSearch(TreeNode2 nodeHead) {
         if(nodeHead==null) {
             return;
