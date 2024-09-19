@@ -16,7 +16,7 @@ public class Tree {
     /**
      * 推荐：
      *  广度优先遍历一使用队列实现的
-     *  深度优先遍历一递归写法实现的
+     *  深度优先遍历一递归写法实现的（也是 树的先序遍历）
      */
 
     // 广度优先遍历是使用队列实现的
@@ -24,19 +24,18 @@ public class Tree {
         if(nodeHead==null) {
             return;
         }
-        Queue<TreeNode2> myQueue=new LinkedList<>();
+        Queue<TreeNode2> myQueue=new LinkedList<>();// 双端队列是有顺序的
         myQueue.add(nodeHead);
         while(!myQueue.isEmpty()) {
+            // 顺序：头，左，右
             TreeNode2 node=myQueue.poll();
             System.out.print(node.data+" ");
-            // 先左后右
             if(null!=node.leftNode) {
                 myQueue.add(node.leftNode);    //深度优先遍历，我们在这里采用每一行从左到右遍历
             }
             if(null!=node.rightNode) {
                 myQueue.add(node.rightNode);
             }
-
         }
     }
 
@@ -61,7 +60,7 @@ public class Tree {
     }
 
     /**
-     * 递归写法一深度优先遍历
+     * 递归写法一深度优先遍历 (先序遍历)
      * @param node
      */
     public void dfsRecursive(TreeNode2 node){

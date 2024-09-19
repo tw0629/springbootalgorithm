@@ -19,7 +19,7 @@
 （最长无重复子数组 和 两数之和 写法有点相似）
 从数组中找出和为指定值的任意组合 com.tian.algorithm.Z_inter.array.ArrayOp 方法二
 从数组中找出和为指定值的连续子组合 com.tian.algorithm.leedcode.a39a40_组合总和.sequenceChildSum_equal_target2 方法二   !!!!!!
-数组中两个字符串的最小距离 com.tian.algorithm.Z_inter.array.ArrayOp
+数组中两个字符串的最小距离 com.tian.algorithm.Z_inter.array.ArrayOp.getMinDistance    11111
     (面试中遇到是 大的字符串中两个字符串的最小距离，大的字符串是空格相隔的 ======> 可以将大的字符串 转换成 数组)
 
 

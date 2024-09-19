@@ -66,7 +66,7 @@ public class TreeOp {
     /**
      * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
      *
-     * 有效 二叉搜索树定义如下：
+     * 【有效 二叉搜索树】定义如下：
      *
      * 节点的左子树只包含 小于 当前节点的数。
      * 节点的右子树只包含 大于 当前节点的数。
@@ -105,6 +105,7 @@ public class TreeOp {
         return isSub(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B); // 注意是 ||或者关系
     }
 
+    // 两数是否等（==两个二叉树是否完全相同）
     private boolean isSub(TreeNode A, TreeNode B) {
         //递归终止条件：到达A或B的叶子节点
         //1.如果B为null，说明B都走完了，B都能匹配，返回true
@@ -138,6 +139,8 @@ public class TreeOp {
 
     /**
      * 两个二叉树是否完全相同
+     *
+     * 等效 上面的isSub
      */
     public boolean isSameTree(TreeNode A, TreeNode B){ //这样理解 A:大树一部分  B:小树
         if(A == null && B == null){ // !!!
@@ -202,6 +205,9 @@ public class TreeOp {
         return getHeight(root) != -1;
     }
 
+    /**
+     * 树高表达式
+     */
     private int getHeight(TreeNode root) {
         if (root == null) {
             return 0;

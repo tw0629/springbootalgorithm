@@ -13,7 +13,7 @@ public class UniqueIdMain {
 
     public static void main(String[] args) throws Exception {
         long start = System.currentTimeMillis();
-        int initialCapacity = 100000;
+        int initialCapacity = 20;
         Set<String> set = new HashSet<>(initialCapacity);
         List<Long> list = new ArrayList<>(initialCapacity);
         CountDownLatch countDownLatch = new CountDownLatch(initialCapacity);
@@ -66,9 +66,9 @@ public class UniqueIdMain {
 
                 if(iw.equals(listIdWorkers.get(0))){
                     //只打印其一
-                    System.out.println("=======>"+iw.getWorkerId()+" 第"+ time+"次获取 "+id);
+                    //System.out.println("=======>"+iw.getWorkerId()+" 第"+ time+"次获取 "+id);
                 }
-                //System.out.println("=======>"+iw.getWorkerId()+" 第"+ time+"次获取 "+id);
+                System.out.println("=======>"+iw.getWorkerId()+" 第"+ time+"次获取 "+id);
 
                 set.add(iw.getWorkerId()+"-"+id);
                 list.add(id);

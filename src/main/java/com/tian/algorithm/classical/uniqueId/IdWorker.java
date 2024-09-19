@@ -100,9 +100,10 @@ public class IdWorker {
         // 这儿就是最核心的二进制位运算操作，生成一个64bit的id
         // 先将当前时间戳左移，放到41 bit那儿；将机房id左移放到5 bit那儿；将机器id左移放到5 bit那儿；将序号放最后12 bit
         // 最后拼接起来成一个64 bit的二进制数字，转换成10进制就是个long型
-        return ((timestamp - twepoch) << timestampLeftShift) |
-                (datacenterId << datacenterIdShift) |
-                (workerId << workerIdShift) | sequence;
+        return ((timestamp - twepoch) << timestampLeftShift) |   // 时间戳 向左位移
+                (datacenterId << datacenterIdShift) |             // 机房id 向左位移
+                (workerId << workerIdShift) |                    // 机器id 向左位移
+                sequence;                                        // 序号
     }
 
     private long tilNextMillis(long lastTimestamp) {

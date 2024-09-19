@@ -31,8 +31,10 @@ public class ThreadTest {
         this.num=num;
     }
 
-
-
+    /**
+     *  方法一 synchronized
+     *  注意：全局变量count 和 局部变量i
+     */
     private static final Object object = new Object();
 
     public static class Task1 implements Runnable{
@@ -100,8 +102,11 @@ public class ThreadTest {
             }
         }
     }
-    
 
+
+    /**
+     *  方法二 ReentrantLock
+     */
     private static ReentrantLock lock = new ReentrantLock();
     private static Condition conditionA = lock.newCondition();
     private static Condition conditionB = lock.newCondition();
@@ -207,6 +212,9 @@ public class ThreadTest {
         }
     }
 
+    /**
+     *  方法三 Semaphore
+     */
     // 以A开始的信号量,初始信号量数量为1
     private static Semaphore A = new Semaphore(1);
     // B、C信号量,A完成后开始,初始信号数量为0
@@ -264,6 +272,9 @@ public class ThreadTest {
     }
 
 
+    /**
+     *  方法四 CountDownLatch
+     */
     /**
      * 感觉和 CountDownLatch 没啥关系
      */
@@ -331,11 +342,11 @@ public class ThreadTest {
     public static void main(String[] args) {
 
 
-        ThreadTest threadTest = new ThreadTest(30);
+        ThreadTest threadTest = new ThreadTest(10);
 
-//        new Thread(new Task1()).start();
-//        new Thread(new Task2()).start();
-//        new Thread(new Task3()).start();
+        new Thread(new Task1()).start();
+        new Thread(new Task2()).start();
+        new Thread(new Task3()).start();
 
 
         System.out.println();
@@ -352,7 +363,9 @@ public class ThreadTest {
 //        new ThreadB().start();
 //        new ThreadC().start();
 
-        countDownLatchPrint();
+
+//        countDownLatchPrint();
+
     }
 
 }

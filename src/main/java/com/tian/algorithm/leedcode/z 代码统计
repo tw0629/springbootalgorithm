@@ -39,7 +39,8 @@ a239_滑动窗口最大值 a239_MaxSlidingWindow       11111
 a480_滑动窗口中位数 a480_MedianSlidingWindow    11111
 
 
-
+n次方： 递归实现 com.tian.algorithm.classical.pow.pow
+n次方根：二分法实现 com.tian.algorithm.classical.pow.pow
 
 
 字节面试

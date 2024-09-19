@@ -66,7 +66,7 @@ public class LFUCache {
 
 
     public LFUCache(int capacity) {
-        this.minfreq = 0;
+        this.minfreq = 1;  // todo ？？？应该是1不是0吧
         this.capacity = capacity;
         key_table = new HashMap<Integer, Node>();;
         freq_table = new HashMap<Integer, LinkedList<Node>>();

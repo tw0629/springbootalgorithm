@@ -114,7 +114,7 @@ public class LRUCache {
         }
         else {
             // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
-            node.value = value;
+            node.value = value; // !!!!!!
             moveToHead(node);
         }
     }

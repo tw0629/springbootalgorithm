@@ -41,6 +41,8 @@ public class z_买卖股票的最佳时机 {
     }
 
     /**
+     * 其他
+     *
      * 最大的leftMax和rightMax之差的最大值
      * |leftMax-rightMax|绝对值最大
      */
@@ -50,6 +52,21 @@ public class z_买卖股票的最佳时机 {
             max = Math.max(arr[i], max);
         }
         return max - Math.min(arr[0], arr[arr.length - 1]);
+    }
+
+    /**
+     * 区别：
+     * 获取利润最大
+     *
+     */
+    public int maxProfit3(int[] prices) {
+        int count = 0;
+        for (int i = 0; i < prices.length-1; i++) {
+            if (prices[i] < prices[i + 1]) {
+                count = prices[i + 1] - prices[i] + count;
+            }
+        }
+        return count;
     }
 
     public static void main(String[] args) {

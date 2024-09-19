@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class MyBlockingQueue<T> {
     private Queue<T> queue=new LinkedList<>();
-    private Object[] items;
+    //private Object[] items;
 
     private final int MAX;
     private ReentrantLock lock=new ReentrantLock();
