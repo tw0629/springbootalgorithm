@@ -38,9 +38,13 @@ a_最长递增子序列  11111
 a239_滑动窗口最大值 a239_MaxSlidingWindow       11111
 a480_滑动窗口中位数 a480_MedianSlidingWindow    11111
 
+a443_压缩算法 com.tian.algorithm.leedcode.a443_压缩算法
 
+# 数学的证明
 n次方： 递归实现 com.tian.algorithm.classical.pow.pow
 n次方根：二分法实现 com.tian.algorithm.classical.pow.pow
+质子 com.tian.algorithm.classical.pow.质子
+最小公倍数 com.tian.algorithm.classical.pow.最小公倍数
 
 
 字节面试
@@ -51,5 +55,7 @@ n次方根：二分法实现 com.tian.algorithm.classical.pow.pow
 拼多多
     权重
 
+LRU com.tian.algorithm.base_op.cache.LRUCache
+LFU com.tian.algorithm.base_op.cache.LFUCache
 
 

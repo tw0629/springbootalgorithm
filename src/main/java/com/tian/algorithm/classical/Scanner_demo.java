@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_newcowder;
+package com.tian.algorithm.classical;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -61,6 +61,7 @@ public class Scanner_demo {
         String str = scanner.next();
         int num = scanner.nextInt();
         String line = scanner.nextLine();
+
         boolean hasLine = scanner.hasNextLine();
         boolean hasInt = scanner.hasNextInt();
 

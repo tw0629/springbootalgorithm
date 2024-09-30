@@ -685,7 +685,7 @@ public class ArrayOp {
         }
         int last1=-1; //模式串1初始化
         int last2=-1; //模式串2初始化
-        int min=Integer.MAX_VALUE;
+        int min=Integer.MAX_VALUE; // 不存在时
 
         for(int i=0;i!=strs.length;i++){
             /*if(strs[i].equals(str1)) {

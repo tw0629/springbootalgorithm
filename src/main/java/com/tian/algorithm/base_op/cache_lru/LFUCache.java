@@ -1,4 +1,4 @@
-package com.tian.algorithm.base_op.cache;
+package com.tian.algorithm.base_op.cache_lru;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,14 +40,18 @@ public class LFUCache {
     }
 
     /**
-     * key_table:   key:node的key  value:node的value
-     * freq_table:  key:使用频率    value:该频率下元素的List
+     * ### 关于两个Map数据结构的设计
+     * key_table:   key:node的key  value:node                      Map<Integer, Node>
+     * freq_table:  key:使用频率    value:该频率下元素的List<Node>    Map<Integer, LinkedList<Node>> 其中用的是双向链表LinkedList
      *
      *
-     * !!!!minfreq：之所以要维护minfreq，是当map满了之后，要从minfreq的list删除一个node
+     * ### 关于minfreq
+     * !!!!!!minfreq：之所以要维护minfreq，是当map满了之后，要从minfreq的list删除一个node
      * minfreq: 若一直有新的元素添加进来，minfreq几乎永远为1;
      *          没有元素添加进来，freq_table没删除掉一个list，minfreq都会加1;
      * minfreq要用来方位freq; 只要访问,freq是一直是+1的。
+     *
+     * !!!note: freq_table删除操作的时候需要维护minfreq
      *
      *
      * ！！！
@@ -61,12 +65,12 @@ public class LFUCache {
      */
     public Map<Integer, Node> key_table;
     public Map<Integer, LinkedList<Node>> freq_table;
-    public int minfreq;
+    public int minfreq; // 只是为了维护freq_table的最小频率是多少,方便计算处理
     public int capacity;
 
 
     public LFUCache(int capacity) {
-        this.minfreq = 1;  // todo ？？？应该是1不是0吧
+        this.minfreq = 1;  // 默认
         this.capacity = capacity;
         key_table = new HashMap<Integer, Node>();;
         freq_table = new HashMap<Integer, LinkedList<Node>>();
@@ -83,15 +87,18 @@ public class LFUCache {
         int val = node.val;
         int freq = node.freq;
 
+        // 一 freq_table删除操作
         freq_table.get(freq).remove(node);
         // 如果当前链表为空，我们需要在哈希表中删除，且更新minFreq
         if (freq_table.get(freq).size() == 0) {
+            // note: freq_table删除操作的时候需要维护minfreq
             freq_table.remove(freq);
             if (minfreq == freq) {
                 minfreq += 1;
             }
         }
-        // 插入到 freq + 1 中
+
+        // 二 插入到 freq_table freq + 1,key_table 中
         LinkedList<Node> list = freq_table.getOrDefault(freq + 1, new LinkedList<Node>());
         list.offerFirst(new Node(key, val, freq + 1));
         freq_table.put(freq + 1, list);
@@ -124,13 +131,17 @@ public class LFUCache {
             // 与 get 操作基本一致，除了需要更新缓存的值
             Node node = key_table.get(key);
             int freq = node.freq;
+
+            // freq_table删除操作
             freq_table.get(freq).remove(node);
             if (freq_table.get(freq).size() == 0) {
+                // note: freq_table删除操作的时候需要维护minfreq
                 freq_table.remove(freq);
                 if (minfreq == freq) {
-                    minfreq += 1;
+                    minfreq += 1; // 只是为了维护freq_table的最小频率是多少
                 }
             }
+
             LinkedList<Node> list = freq_table.getOrDefault(freq + 1, new LinkedList<Node>());
             list.offerFirst(new Node(key, value, freq + 1));
             freq_table.put(freq + 1, list);

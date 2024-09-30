@@ -1,4 +1,4 @@
-package com.tian.algorithm.Z_newcowder;
+package com.tian.algorithm.classical.pow;
 
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class 质子 {
         // Scanner number = new Scanner(System.in);
         // int v = number.nextInt();
         int v =180;
-        for (long i = 2; i <= v;) {
+        for (long i = 2; i <= v;) { //!!!!!! 注意: i <= v 不能写成 i <= 180
             if (v % i == 0) {
                 System.out.print(i+" ");
                 v /= i;

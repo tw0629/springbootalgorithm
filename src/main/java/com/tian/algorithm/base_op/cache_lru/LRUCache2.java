@@ -1,4 +1,4 @@
-package com.tian.algorithm.base_op.cache;
+package com.tian.algorithm.base_op.cache_lru;
 
 import java.util.Arrays;
 import java.util.HashMap;

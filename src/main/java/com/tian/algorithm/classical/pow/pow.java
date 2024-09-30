@@ -90,6 +90,7 @@ public class pow {
         double left = 0;
         double right = number;
         double mid = (left + right) / 2;
+
         double epsilon = 0.00001;
 
         while (Math.abs(pow1(mid,n) - number) > epsilon) {
@@ -125,15 +126,16 @@ public class pow {
 
     public static void main(String[] args) {
 
-        System.out.println("===========>"+Nsqrt2(800,3));
-        System.out.println("===========>"+Math.round(Nsqrt2(800,3)));
-        System.out.println("===========>"+Math.round(Nsqrt2(800,3) * 100) / 100.0);
+//        System.out.println("===========>"+Nsqrt2(800,3));
+//        System.out.println("===========>"+Math.round(Nsqrt2(800,3)));
+//        System.out.println("===========>"+Math.round(Nsqrt2(800,3) * 100) / 100.0);
 
 
         System.out.println("===========>"+pow1(2,3));
         System.out.println("===========>"+pow1(5,3));
         System.out.println("===========>"+pow1(2,-3));
         System.out.println("===========>"+pow1(2,0));
+        System.out.println("===========>"+pow1(2,10));
 
         System.out.println("======================");
 
