@@ -14,6 +14,15 @@ import java.util.Stack;
  */
 public class TreeSearch {
 
+    /**
+     * 推荐：
+     *  广度优先遍历一使用队列实现的
+     *  深度优先遍历一递归写法实现的（也是 树的先序遍历）
+     */
+
+
+    // 递归
+
     public static void preorder(TreeNode root, List<Integer> list) {
         if (root != null) {
             list.add(root.val);
@@ -35,6 +44,14 @@ public class TreeSearch {
             list.add(root.val);
         }
     }
+
+
+    /**
+     * 推荐：
+     *  广度优先遍历一使用队列实现的
+     *  深度优先遍历一递归写法实现的（也是 树的先序遍历）
+     */
+
 
     /* 用stack实现树的遍历
 

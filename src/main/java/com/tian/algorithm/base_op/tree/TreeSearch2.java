@@ -11,7 +11,7 @@ import java.util.Stack;
  * @desc
  * @since 2021/6/16 08:03
  */
-public class Tree {
+public class TreeSearch2 {
 
     /**
      * 推荐：
@@ -93,12 +93,12 @@ public class Tree {
 
 
         System.out.print("广度优先遍历结果：");
-        new Tree().broadFirstSearch(head);
+        new TreeSearch2().broadFirstSearch(head);
         System.out.println();
         System.out.print("深度优先遍历结果：");
-        new Tree().depthFirstSearch(head);
+        new TreeSearch2().depthFirstSearch(head);
         System.out.println();
         System.out.print("递归写法一深度优先遍历结果：");
-        new Tree().dfsRecursive(head);
+        new TreeSearch2().dfsRecursive(head);
     }
 }

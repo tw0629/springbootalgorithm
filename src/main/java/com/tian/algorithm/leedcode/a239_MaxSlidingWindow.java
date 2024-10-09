@@ -16,6 +16,7 @@ public class a239_MaxSlidingWindow {
     /**
      * 方法一
      * ！！！目前我看见的最好理解的   巧妙利用：PriorityQueue
+     * ！！！这种方式，【含有相同元素的】不适合；因为要进行maxQueue.remove处理
      *
      * https://blog.csdn.net/nandao158/article/details/117841636
      * 思路：用一个大顶堆，保存当前滑动窗口中的数据。滑动窗口每次移动一格，就将前面一个数出堆，后面一个数入堆。
@@ -36,7 +37,7 @@ public class a239_MaxSlidingWindow {
         //对每次操作，找到最大值（用优先队列的大顶堆），然后向后滑动（出堆一个，入堆一个）
         while (count < num.length){
             result.add(maxQueue.peek());
-            maxQueue.remove(num[count - size]);// 出堆第一个
+            maxQueue.remove(num[count - size]);// 出堆第一个入的
             maxQueue.offer(num[count]);// 入堆最后一个
             count++;
         }
@@ -50,6 +51,8 @@ public class a239_MaxSlidingWindow {
     /**
      * 方法二 !!!!!!
      * 答案里最多的解法   利用：双向队列 LinkedList
+     * 注意：代码实现中，双端队列中存的是数组值的下标，并不是值本身
+     * 注意：代码实现中，双端队列中存的是数组值的下标，并不是值本身
      * 注意：代码实现中，双端队列中存的是数组值的下标，并不是值本身
      *
      * 记住： 1 双端队列永远只放【从大到小元素的下标】；2 双端队列放的是 数组值的下标index
@@ -357,10 +360,42 @@ public class a239_MaxSlidingWindow {
         return arr;
     }
 
+    /**
+     * 方法五
+     * 暴力
+     */
+    public static PriorityQueue<Integer> maxQueue5 = new PriorityQueue<Integer>((o1, o2)->o2-o1);//大顶堆
+    public static ArrayList<Integer> result5 = new ArrayList<Integer>();//保存结果的集合
+
+    public static ArrayList<Integer> maxSlidingWindow5(int[] nums, int k) {
+        int[] ans = new int[k];
+
+        for(int i=0;i<nums.length-k+1;i++){
+            // 方式一
+            // !!!j永远从0开始     每次都是新的k个的数组
+//            for(int j=0;j<k;j++){
+//                ans[j] = nums[i+j];
+//            }
+//            Arrays.sort(ans); //!!! 可以将sort换成排序方法
+//            result5.add(ans[k-1]);
+
+            // 方式二
+            // !!!j永远从0开始     每次都是新的k个的数组
+            for(int j=0;j<k;j++){
+                maxQueue5.offer(nums[i+j]);
+            }
+            result5.add(maxQueue5.peek());
+            maxQueue5.clear();
+
+        }
+
+        return result5;
+    }
+
 
     public static void main(String[] args) {
 
-        testList();
+        //testList();
 
         int[] num = {2,3,5,2,6,2,4,1};
         int size = 3;
@@ -369,10 +404,14 @@ public class a239_MaxSlidingWindow {
         System.out.println(maxList.toString());
 
         int[] maxArray21 = maxSlidingWindow21(num, size);
-        System.out.println(maxArray21);
+        System.out.println(Arrays.toString(maxArray21));
 
         int[] maxArray22 = maxSlidingWindow22(num, size);
-        System.out.println(maxArray22);
+        System.out.println(Arrays.toString(maxArray22));
+
+
+        ArrayList<Integer> maxList5 = maxSlidingWindow5(num, size);
+        System.out.println(maxList5);
 
     }
 

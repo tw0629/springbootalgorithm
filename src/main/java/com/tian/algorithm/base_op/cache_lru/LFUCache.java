@@ -56,6 +56,9 @@ public class LFUCache {
      *
      * ！！！
      * 注意：在freq_table中的LinkedList<Node>, 插入都是头部, 删除都是尾部
+     *    频率表freq_table都可：
+     *          如果新node放到了链的头部了，所以删的时候是操作尾部；
+     *          如果新node放到了链的尾部了，所以删的时候是操作头部；
      *
      * list.offerFirst
      * list.peekFirst
@@ -123,7 +126,7 @@ public class LFUCache {
                 }
             }
             LinkedList<Node> list = freq_table.getOrDefault(1, new LinkedList<Node>());
-            list.offerFirst(new Node(key, value, 1));
+            list.offerFirst(new Node(key, value, 1));// !!!新node放到了链的头部了，所以删的时候是操作尾部
             freq_table.put(1, list);
             key_table.put(key, freq_table.get(1).peekFirst());
             minfreq = 1;
@@ -143,7 +146,7 @@ public class LFUCache {
             }
 
             LinkedList<Node> list = freq_table.getOrDefault(freq + 1, new LinkedList<Node>());
-            list.offerFirst(new Node(key, value, freq + 1));
+            list.offerFirst(new Node(key, value, freq + 1)); // !!!node放到了链的头部了，所以删的时候是操作尾部
             freq_table.put(freq + 1, list);
             key_table.put(key, freq_table.get(freq + 1).peekFirst());
         }
