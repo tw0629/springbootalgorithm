@@ -51,6 +51,7 @@ public class a56_合并区间 {
             if (idx == -1 || interval[0] > res[idx][1]) {      // 写这个if-else中的逻辑时,举例子
                 res[++idx] = interval;                         // 【刚开始】或者【只有这种情况interval[0] > res[idx][1]】，才++idx
             } else {
+                // "改尾巴" res[idx]的右
                 // 反之将当前区间合并至结果数组的最后区间
                 // !!! 因为以及排好序了，
                 res[idx][1] = Math.max(res[idx][1], interval[1]);

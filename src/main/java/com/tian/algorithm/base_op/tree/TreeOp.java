@@ -63,8 +63,11 @@ public class TreeOp {
         return root;
     }
 
+
+
     /**
      * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
+     * 【判断依据：左left.val<root.val<右left.val】
      *
      * 【有效 二叉搜索树】定义如下：
      *
@@ -87,6 +90,33 @@ public class TreeOp {
                 // 父大于左子树                            // 父小于右子树
         return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
     }
+
+    /**
+     * 判断二叉树是否是平衡二叉树
+     * 【判断依据：左右高度最大不能大于1】
+     */
+    public boolean isBalanced(TreeNode root) {
+        return getHeight(root) != -1;
+    }
+
+    /**
+     * 树高表达式
+     */
+    private int getHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+
+        if (leftHeight == -1 || rightHeight == -1 || Math.abs(leftHeight-rightHeight)>1) {
+            return -1;
+        }
+
+        return Math.max(leftHeight, rightHeight) +  1; // 树高表达式
+    }
+
+
 
     /**
      * 树的子结构
@@ -134,9 +164,6 @@ public class TreeOp {
     }
     // https://blog.csdn.net/ly0724ok/article/details/119180148
 
-
-
-
     /**
      * 两个二叉树是否完全相同
      *
@@ -151,6 +178,8 @@ public class TreeOp {
         }
         return (A.val == B.val && isSub(A.left, B.left) && isSub(A.right, B.right)); // 注意是 &&且关系
     }
+
+
 
     /**
      * 求二叉树中节点的个数
@@ -197,29 +226,5 @@ public class TreeOp {
         return kLevelSize(root.left,k-1)+kLevelSize(root.right,k-1);
     }
 
-
-    /**
-     * 判断二叉树是否是平衡二叉树
-     */
-    public boolean isBalanced(TreeNode root) {
-        return getHeight(root) != -1;
-    }
-
-    /**
-     * 树高表达式
-     */
-    private int getHeight(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        int leftHeight = getHeight(root.left);
-        int rightHeight = getHeight(root.right);
-
-        if (leftHeight == -1 || rightHeight == -1 || Math.abs(leftHeight-rightHeight)>1) {
-            return -1;
-        }
-
-        return Math.max(leftHeight, rightHeight) +  1; // 树高表达式
-    }
 
 }

@@ -19,6 +19,14 @@ public class TreeSearch2 {
      *  深度优先遍历一递归写法实现的（也是 树的先序遍历）
      */
 
+    /**
+     * 记忆点：
+     *   广度优先遍历和深度优先遍历 "算法写法是一样的"
+     *   广度优先遍历用队操作；
+     *   深度优先遍历用栈操作；
+     *   【 广队深栈, 顺序：头，左，右 】
+     */
+
     // 广度优先遍历是使用队列实现的
     public void broadFirstSearch(TreeNode2 nodeHead) {
         if(nodeHead==null) {
@@ -47,6 +55,7 @@ public class TreeSearch2 {
         Stack<TreeNode2> myStack=new Stack<>();
         myStack.add(nodeHead);
         while(!myStack.isEmpty()) {
+            // 顺序：头，左，右
             TreeNode2 node=myStack.pop();    //弹出栈顶元素
             System.out.print(node.data+" ");
             if(node.rightNode!=null) {
