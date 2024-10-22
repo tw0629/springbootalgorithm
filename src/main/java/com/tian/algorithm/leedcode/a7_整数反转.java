@@ -48,14 +48,26 @@ public class a7_整数反转 {
         return rev;
     }
 
-
-
     static int getMaxInt(){
         return (1 << 31) - 1;//2147483647， 由于优先级关系，括号不可省略
     }
 
     static int getMinInt(){
         return 1 << 31;//-2147483648
+    }
+
+
+    // 回文数字 ？？？
+    public boolean isPalindrome(int x) {
+        if(x < 0)
+            return false;
+        int cur = 0;
+        int num = x;
+        while(num != 0) {
+            cur = cur * 10 + num % 10;
+            num /= 10;
+        }
+        return cur == x;
     }
 
     public static void main(String[] args) {

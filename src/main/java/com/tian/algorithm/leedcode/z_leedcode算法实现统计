@@ -4,10 +4,10 @@
 
 a1_两数之和                 11
 a2_两数相加                 111
-a3_无重复字符的最长子串       11
+a3_无重复字符的最长子串       11111
 a4_寻找两个正序数组的中位数   11     类似：a88_合并两个有序数组
-a5_最长回文子串    1111   +
-a6_Z字形变换     1111 ？？
+a5_最长回文子串    1111
+a6_Z字形变换     11111 ？？？写错了
 a7_整数反转     11
 a8_字符串转换整数      11   a7/a8类似
 a9_回文数              1
@@ -36,7 +36,7 @@ a88_合并两个有序数组 11
 a93_复原IP地址      111？
 z_买卖股票的最佳时机  1
 
-a_最长递增子序列  11111
+a_最长递增子序列  1111111
 
 a239_滑动窗口最大值 a239_MaxSlidingWindow       111111
 a480_滑动窗口中位数 a480_MedianSlidingWindow    111111
@@ -50,6 +50,11 @@ n次方根：二分法实现 com.tian.algorithm.classical.pow.pow    111111
 最小公倍数 com.tian.algorithm.classical.pow.最小公倍数
 
 
+
+
+#==========================================================================================
+公司面试
+
 字节面试
     树的子结构
     子集变形（1<=x<=26）
@@ -57,6 +62,7 @@ n次方根：二分法实现 com.tian.algorithm.classical.pow.pow    111111
 
 拼多多
     权重
+
 
 LRU com.tian.algorithm.base_op.cache.LRUCache
 LFU com.tian.algorithm.base_op.cache.LFUCache

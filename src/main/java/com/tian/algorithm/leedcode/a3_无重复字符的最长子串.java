@@ -28,7 +28,9 @@ public class a3_无重复字符的最长子串 {
         for(int i = 0; i < s.length(); i ++){
             if(map.containsKey(s.charAt(i))){
                 // 举例：  1，2，3，4，5，2，6，7，8，2，9，10
+                // 举例：  1，2，3，4，5，2，6，7，8，3，9，10
                 left = Math.max(left,map.get(s.charAt(i)) + 1); // ！！！指向重复元素的下一个位置
+                // ？？? 有必要去最大的吗 left = map.get(s.charAt(i)) + 1;
             }
             map.put(s.charAt(i),i); // 重要！！！
             max = Math.max(max,i-left+1);// 改变最长子串的长度

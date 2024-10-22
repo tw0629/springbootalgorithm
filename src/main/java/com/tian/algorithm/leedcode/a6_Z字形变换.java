@@ -7,7 +7,7 @@ package com.tian.algorithm.leedcode;
  */
 public class a6_Z字形变换 {
 
-    /**
+    /**  ？？？是不是写错了
      * numRows=3时候
      * row:   0    1   2   1   0   1   2   1   0   1   2   1   0   1   2   1   0
      * index:        row-1           row-1           row-1           row-1

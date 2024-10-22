@@ -68,7 +68,7 @@ public class a4_寻找两个正序数组的中位数 {
         int aStart = 0, bStart = 0;
         for (int i = 0; i <= len / 2; i++) { // 注意：条件中len:一半
             left = right;
-            if (aStart < m && (bStart >= n || A[aStart] < B[bStart])) {
+            if (aStart < m && (bStart >= n || A[aStart] < B[bStart])) { // ??? 判断条件不对吧
                 right = A[aStart++];
             } else {
                 right = B[bStart++];

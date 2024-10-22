@@ -5,7 +5,7 @@ package com.tian.algorithm.leedcode;
  * @desc
  * @since 2022/11/11 10:06
  */
-public class z_买卖股票的最佳时机 {
+public class a_买卖股票的最佳时机 {
 
     // 两次遍历+动态方程 就太傻了
 

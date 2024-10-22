@@ -7,18 +7,6 @@ package com.tian.algorithm.leedcode;
  */
 public class a9_回文数 {
 
-    public boolean isPalindrome(int x) {
-        if(x < 0)
-            return false;
-        int cur = 0;
-        int num = x;
-        while(num != 0) {
-            cur = cur * 10 + num % 10;
-            num /= 10;
-        }
-        return cur == x;
-    }
-
     public static boolean judgeHuiWen(String str) {
         int len = str.length();
         for(int i = 0 ; i < len/2 ;i++){

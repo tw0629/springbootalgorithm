@@ -13,7 +13,6 @@ public class a10_正则表达式匹配 {
     //    链接：https://leetcode.cn/problems/regular-expression-matching/solution/zheng-ze-biao-da-shi-pi-pei-by-chen-wei-6h9ap/
 
     /**
-     *
      * 给你一个字符串s和一个字符规律p，请你来实现一个支持 '.'和'*'的正则表达式匹配。
      *
      * '.' 匹配任意单个字符
@@ -21,9 +20,10 @@ public class a10_正则表达式匹配 {
      * 所谓匹配，是要涵盖整个字符串s的，而不是部分字符串。
      *
      * 链接：https://leetcode.cn/problems/regular-expression-matching
-     *
      */
-    /**
+    /** !!!!!!
+     * 动态规划，令match[i][j]表示p前i个字符能与s前j个字符匹配结果，则可以分为三种情况：
+     * 动态规划，令match[i][j]表示p前i个字符能与s前j个字符匹配结果，则可以分为三种情况：
      * 动态规划，令match[i][j]表示p前i个字符能与s前j个字符匹配结果，则可以分为三种情况：
      *
      * 1 p[i]==’.’时，点匹配任意一个字符，所以match[i][j]=match[i-1][j-1]
@@ -70,7 +70,7 @@ public class a10_正则表达式匹配 {
             int i = r-1;
             for (int c=1;c<n;c++){
                 int j = c-1;
-
+                //  p来判断
                 //  1 字符串                           2 '.'
                 if (p.charAt(j)==s.charAt(i) || p.charAt(j)=='.'){
                     dp[r][c] = dp[r-1][c-1];
