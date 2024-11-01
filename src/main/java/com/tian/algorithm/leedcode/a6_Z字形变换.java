@@ -25,8 +25,11 @@ public class a6_Z字形变换 {
 
     /**  ？？？是不是写错了
      * numRows=3时候
-     * row号:   0    1   2   1   0   1   2   1   0   1   2   1   0   1   2   1   0
+     * row号的变化:   0    1   2   1   0   1   2   1   0   1   2   1   0   1   2   1   0
      * index:        row-1           row-1           row-1           row-1
+     *
+     * !!!!!! 入参s 皆为"字符串Z字形排列"读取
+     * !!!!!! 入参s 皆为"字符串Z字形排列"读取
      */
     public String convert(String s, int numRows) {
         if(numRows==1){
@@ -37,7 +40,7 @@ public class a6_Z字形变换 {
         String[] result = new String[numRows];
             // result初始化
         for(int i=0;i<result.length;i++){
-            result[i]="";//这里一定要初始化，如果不初始化的话，默认是null
+            result[i]=""; //为空串，这里一定要初始化，如果不初始化的话，默认是null
         }
 
         boolean isDown=false;

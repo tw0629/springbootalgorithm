@@ -30,6 +30,7 @@ public class BasicDataStructure {
             int val = strNumArr[0].charAt(i) - '0';
             //获得当前字符的字面整数值，然后乘以当前位的进制值
             intNumResult += val * makeInteger10N(strNumArr[0].length() - i - 1);
+            //等效 intNumResult = intNumResult*10 + val;
         }
         // 存储小数部分的整数值
         int decimalNumResult = 0;
@@ -38,6 +39,7 @@ public class BasicDataStructure {
             int val = strNumArr[1].charAt(i) - '0';
             //获得当前字符的字面整数值，然后乘以当前位的进制值
             decimalNumResult += val * makeInteger10N(strNumArr[1].length() - i - 1);
+            //等效 decimalNumResult = decimalNumResult*10 + val;
         }
         //保存小数部分最终结果
         result = decimalNumResult * makeDecimal01N(strNumArr[1].length());

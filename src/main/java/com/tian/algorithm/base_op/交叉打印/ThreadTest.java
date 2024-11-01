@@ -344,9 +344,9 @@ public class ThreadTest {
 
         ThreadTest threadTest = new ThreadTest(10);
 
-        new Thread(new Task1()).start();
-        new Thread(new Task2()).start();
-        new Thread(new Task3()).start();
+//        new Thread(new Task1()).start();
+//        new Thread(new Task2()).start();
+//        new Thread(new Task3()).start();
 
 
         System.out.println();
@@ -359,9 +359,9 @@ public class ThreadTest {
 
 //        new Thread(new TaskA()).start();
 //
-//        new ThreadA().start();
-//        new ThreadB().start();
-//        new ThreadC().start();
+        new ThreadA().start();
+        new ThreadB().start();
+        new ThreadC().start();
 
 
 //        countDownLatchPrint();

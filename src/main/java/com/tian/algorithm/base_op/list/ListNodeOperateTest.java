@@ -7,7 +7,11 @@ import com.tian.algorithm.base_DataStructure.ListNode;
  * @desc
  * @since 2021/8/1 16:13
  */
-public class ListNodeOperate2 {
+public class ListNodeOperateTest {
+
+    /**
+     * ListNode操作测试
+     */
 
     // 遍历
     public static void op1(ListNode head) {

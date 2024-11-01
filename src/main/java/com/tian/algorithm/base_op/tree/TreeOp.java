@@ -27,7 +27,7 @@ public class TreeOp {
     /**
      * 最近公共祖先
      */
-    public int lowestCommonAncestor (TreeNode root, int o1, int o2) {
+    public int lowestCommonAncestor(TreeNode root, int o1, int o2) {
         // write code here
         if(root==null) {
             return -1;

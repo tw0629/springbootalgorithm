@@ -373,6 +373,7 @@ public class StringOp {
         Deque<Integer> stack = new LinkedList<Integer>();
         //Stack<Integer> stack = new Stack<>();
         stack.push(-1); // !!!!!!  因为下标是从0开始的
+
         for (int i = 0; i < s.length(); i++) { // ((((()
             if (s.charAt(i) == '(') {
                 stack.push(i);

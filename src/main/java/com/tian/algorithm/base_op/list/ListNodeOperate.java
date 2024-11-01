@@ -18,32 +18,28 @@ public class ListNodeOperate {
      *
      * 方法：递归 + 举例一组简单数    就知道怎么写了
      *
-     *      只需要举例一组简单数，即：1->2->3->4->5->6
-     *      只要走一次最简单的一组数皆可写出 即：1->2->3->4->5->6
+     *  !!!!!! 只需要举例一组简单数，即：1->2->3->4->5->6
+     *  !!!!!! 只要走一次最简单的一组数皆可写出 即：1->2->3->4->5->6
      */
 
-    // 用数字想   1一>2一>3一>4一>5一>6
     /**
      * 给定一个链表，两两交换其中相邻的节点
      */
     public static ListNode swapPairs(ListNode head) {
         if (head == null || head.next == null)
             return head;
-        ListNode rest = head.next.next;//3
 
         ListNode newHead = head.next;//2
-        newHead.next = head;// 2一>1
+        ListNode rest = head.next.next;//3
 
+        newHead.next = head;// 2一>1
         head.next = swapPairs(rest);// // 2一>1一>……
+
         return newHead;//2
     }
 
     /**
-     * ============================================
-     * ============================================
-     * ============================================
-     *
-     * 从头到尾的：每隔几个逆序   solve()
+     * 从头到尾的：每隔几个逆序   KGroup()
      * 从尾到头的：每隔几个逆序   reverseKGroup()
      */
 
@@ -56,22 +52,22 @@ public class ListNodeOperate {
      * 并且从链表的尾部开始组起，头部剩余节点数量不够一组的不需要逆序。
      * （不能使用队列或者栈作为辅助）
      */
-    public static ListNode KGroup(ListNode head, int k) {
+    public static ListNode KGroup(ListNode head, int k) {//1->2->3->4->5->6
         ListNode.print(head);
 
         // 调用逆序函数
-        head = reverseList(head); // 因为是要求从尾部开始每几个翻转，所以要先排逆序
+        head = ReverseList.reverseList2(head); // 因为是要求从尾部开始每几个翻转，所以要先排逆序 //6->5->4->3->2->1
         ListNode.print(head);
 
         // 调用每 k 个为一组的逆序函数（从头部开始组起）
-        head = reverseKGroup(head, k);
+        head = reverseKGroup(head, k); //4->5->6->1->2->3
         ListNode.print(head);
 
         // 在逆序一次
-        head = reverseList(head);
+        head = ReverseList.reverseList2(head); //3->2->1->6->5->4
         ListNode.print(head);
 
-        return head;
+        return head;//3->2->1->6->5->4
     }
 
     /**
@@ -79,7 +75,7 @@ public class ListNodeOperate {
      *
      * k个为一组逆序   下面注释用举例说明
      */
-    public static ListNode reverseKGroup(ListNode head, int k) {
+    public static ListNode reverseKGroup(ListNode head, int k) {//1->2->3->4->5->6->7->8
         // head/temp: 1->2->3->4->5->6->7->8
         // eg:3
         ListNode temp = head;
@@ -101,26 +97,29 @@ public class ListNodeOperate {
         // newHead: 3->2->1->null
         // head:    1->null
         // 把当前的组进行逆序
-        ListNode newHead = reverseList(head);
+        ListNode newHead = ReverseList.reverseList2(head);
         // 尾节点指向下一个翻转的头节点
         // 把之后的节点进行分组逆序
         ListNode newTemp = reverseKGroup(t2, k);
         // 把两部分连接起来
         head.next = newTemp;  // 注意: 此时newHead的尾部就是head
 
-        return newHead;
+        return newHead;//3->2->1->6->5->4->7->8
     }
 
-    //只要走一次最简单的一组数皆可写出 即：1->2->3
-    //逆序单链表     （这种方式画图理解简单，图见:com.tian.algorithm.Z_inter.list.ReverseList.reverseList2）
-    private static ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
+
+    /**
+     * ListNode找中间值
+     * （类似：是否有环）
+     */
+    private ListNode findMid(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next;
+            fast = fast.next;
+            slow = slow.next;
         }
-        ListNode result = reverseList(head.next);//3   head:2
-        head.next.next = head; // 2->3->2
-        head.next = null; // 2->null 3->2  // 1->2->null 3->2->null
-        return result;
+        return slow;
     }
 
     /**
@@ -166,7 +165,6 @@ public class ListNodeOperate {
      * 注意：这种写法同【和最大的子数组】的写法
      * ListNode 只能写子序列；不好描述子串/子链表
      *
-     *  （连续子序列）
      *
      *  和最大的子链表
      *     该算法为：连续子链表的和最大
@@ -186,7 +184,7 @@ public class ListNodeOperate {
     }
 
     /**
-     * 和最大的子序列  子序列 (这不就是 只挑正数吗)
+     * 和最大的子序列  子序列 (只挑正数)
      * ListNode
      */
     public static ListNode subSequenceSumMax(ListNode head) {
@@ -194,8 +192,10 @@ public class ListNodeOperate {
         int temp= 0;
         ListNode cur = head;
 
+        // 新链表，首尾初始化
         ListNode newList = null;
         ListNode tail = null;
+
         while(cur!=null){
             Integer data = cur.data;
             cur=cur.next;
@@ -240,7 +240,6 @@ public class ListNodeOperate {
         //ListNode newList = subSequenceSumMax(node7);
         sumMaxChild(node7);
         //ListNode.print(newList);
-
 
 
         //https://zhuanlan.zhihu.com/p/77573456

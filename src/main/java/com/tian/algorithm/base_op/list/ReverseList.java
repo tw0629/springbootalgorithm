@@ -9,22 +9,11 @@ import com.tian.algorithm.base_DataStructure.ListNode;
  */
 public class ReverseList {
 
-    /**
-     * ListNode找中间值
-     * （类似：是否有环）
-     */
-    private ListNode findMid(ListNode head) {
-        ListNode fast = head, slow = head;
-        while (fast != null && fast.next != null) {
-            fast = fast.next;
-            fast = fast.next;
-            slow = slow.next;
-        }
-        return slow;
-    }
-
     // 只需要举例一组简单数，即：1->2->3
-    // 反转链表
+
+    /**
+     * 反转链表 方法一
+     */
     public static ListNode reverseList(ListNode head) {
         ListNode res = null;//指向当前节点的前驱
         ListNode next = null;//指向当前节点的后驱
@@ -38,9 +27,9 @@ public class ReverseList {
         }
         return res;
     }
-
-    //用递归的方法反转链表
     /**
+     * 反转链表 方法二 用递归的方法反转链表
+     *
      * 理解：ListNode lastLoa = reverseList2(head.next); //!!! 其实:lastLoa就是最后位置，永远不动了/永远不变了。永远是5的位置，一层层的递归传上去。
      *
      * 递归过程： head.next.next = head;
@@ -66,35 +55,20 @@ public class ReverseList {
      *
      * 5 -> 4 -> 3 -> 2 -> 1
      */
-    public static ListNode reverseList2(ListNode head){
-        if (head == null || head.next == null) {
+    public static ListNode reverseList2(ListNode head) {
+        if(head == null || head.next == null){
             return head;
         }
-        //递归反转子lian链表
-        ListNode lastLoa= reverseList2(head.next);//!!!其实:newList就是 lastList位置，永远不动了/永远不变了。永远是5的位置，一层层的递归传上去
-        //第三张图
-        head.next.next = head;
-        head.next = null;
-        return lastLoa;
-    }
-
-    public static void op3(ListNode head) {
-
-        ListNode cur = head;
-        cur = cur.next.next;
-
-        ListNode nur = cur;
-        nur.next = null;
-
-        ListNode.print(head);
-        ListNode.print(cur);
-        ListNode.print(nur);
+        // 递归反转子链表  !!!其实:newList就是 lastList位置，永远不动了/永远不变了。永远是5的位置，一层层的递归传上去
+        ListNode result = reverseList(head.next);//3   head:2
+        head.next.next = head; // 2->3->2
+        head.next = null; // 2->null 3->2  // 1->2->null 3->2->null
+        return result;
     }
 
 
     /**
-     * 区间反转
-     * 方法一
+     * 区间反转 方法一
      *
      * 给你单链表的头指针 head 和两个整数.left 和 right ，其中.left <= right 。
      * 请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
@@ -139,9 +113,8 @@ public class ReverseList {
 
         return dummyNode.next;
     }
-
     /**
-     * 方法二 头插法
+     * 区间反转 方法二 头插法
      * 想找到m-1,m的这两个位置，依次将m后面的元素逐个插到m-1后面（头插法）
      */
     public ListNode reverseBetween(ListNode head, int m, int n) {
@@ -181,10 +154,6 @@ public class ReverseList {
         ListNode.print(r1);
         ListNode.print(r2);
 
-        System.out.println();
-
-        ListNode listNode4 = ListNode.initBuild();
-        op3(listNode4);
         System.out.println();
 
         ListNode listNode5 = ListNode.initBuild();

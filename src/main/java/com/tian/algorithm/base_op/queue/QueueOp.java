@@ -22,7 +22,7 @@ public class QueueOp {
 
         public int pop() {
             if (stack2.size() <= 0) {
-                while (stack1.size() != 0) {
+                while (stack1.size() != 0) {  // 如果多并发就会有问题，因为可能是刚放进来的
                     stack2.push(stack1.pop());
                 }
             }
