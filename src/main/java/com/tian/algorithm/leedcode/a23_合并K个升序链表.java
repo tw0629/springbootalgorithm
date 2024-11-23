@@ -2,6 +2,8 @@ package com.tian.algorithm.leedcode;
 
 import com.tian.algorithm.base_DataStructure.ListNode;
 
+import java.util.List;
+
 /**
  * @author David Tian
  * @desc
@@ -29,6 +31,15 @@ public class a23_合并K个升序链表 {
         }
         return res;
     }
+
+    // 同理数组类型也一样 参考归并排序：public static void merge(int[] arr,int low,int mid,int high,int[] tmp)
+//    public static int[] mergeKLists(List<int[]> lists) {
+//        int[] res = null;
+//        for (int[] arr: lists) {
+//            //res = twoMergeArray(res, arr);
+//        }
+//        return res;
+//    }
 
     // 有点问题
     public static ListNode mergeKLists2(ListNode[] lists, int l, int h) {

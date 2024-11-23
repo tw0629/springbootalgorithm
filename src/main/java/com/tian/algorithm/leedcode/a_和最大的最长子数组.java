@@ -11,7 +11,7 @@ public class a_和最大的最长子数组 {
     // com.tian.algorithm.leedcode.a53_最大子数组和
 
     /**
-     * 和最大的最长子数组
+     * 和最大的最长子数组 具体
      * 和最大的最长子数组
      * 和最大的最长子数组
      */
@@ -50,7 +50,7 @@ public class a_和最大的最长子数组 {
     }
 
     /**
-     * 最大的子数组和
+     * 最大的子数组和/连续子数组的最大和
      */
     public static void sumMaxChild(int[] a) {
         //max就是上面的dp[i]

@@ -138,7 +138,9 @@ public class a1_两数之和 {
      *  n数之和
      *  nSum框架，从nums[start]开始，计算和为target的n元组
      *
-     *  注意：start为起始位置，0开始, 容易漏掉,n是n个数之和
+     *  入参注意：
+     *  一个控制【n个数之和】：入参n      //注意：n是n个数之和
+     *  一个控制【起始位置】 ：入参start  //注意：start为起始位置，0开始, 容易漏掉
      */
     private static List<List<Integer>> nSumEqualsTarget(int[] nums, int n, int start, int target) {
         int sz = nums.length;

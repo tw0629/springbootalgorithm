@@ -139,10 +139,10 @@ public class a46a47_全排列 {
         visited = new boolean[nums.length];//每个位置的元素是否访问过  boolean默认值是false
 
         Arrays.sort(nums); //排序
-        backtrack(nums, ans, 0, perm);
+        backtrack(nums, 0, ans, perm);
         return ans;
     }
-    public static void backtrack(int[] nums, List<List<Integer>> ans, int idx, List<Integer> perm) {
+    public static void backtrack(int[] nums, int idx, List<List<Integer>> ans, List<Integer> perm) {
         if (idx == nums.length) {
             ans.add(new ArrayList<Integer>(perm)); // !!!注意：不能写成ans.add(perm); 因为每次都会remove掉
             return;
@@ -155,7 +155,7 @@ public class a46a47_全排列 {
 
             perm.add(nums[i]);
             visited[i] = true;
-            backtrack(nums, ans, idx + 1, perm);
+            backtrack(nums, idx + 1, ans,  perm);
             visited[i] = false; // 后两行应该没有顺序
             perm.remove(idx);
         }

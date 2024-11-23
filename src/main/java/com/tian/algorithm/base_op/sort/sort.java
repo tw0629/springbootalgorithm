@@ -56,7 +56,7 @@ public class sort {
         for(int i = 1; i < n; i++) { //i = 1 开始
             int t = i;
             // 调整堆
-            while(t != 0 && data[parent(t)] > data[t]) {//大就交换
+            while(t != 0 && data[parent(t)] > data[t]) { //大就交换  !!!!!! t!=0
                 int temp = data[t];
                 data[t] = data[parent(t)];
                 data[parent(t)] = temp;

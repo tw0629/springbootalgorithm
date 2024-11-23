@@ -78,15 +78,15 @@ public class a39a40_组合总和 {
 
         // 关键步骤
         Arrays.sort(candidates);
-        dfs2(candidates, 0, len, target, res, path);
+        dfs2(candidates, 0, target, res, path);
         return res;
     }
-    private static void dfs2(int[] candidates, int begin, int len, int target, List<List<Integer>> res, Deque<Integer> path) {
+    private static void dfs2(int[] candidates, int begin, int target, List<List<Integer>> res, Deque<Integer> path) {
         if (target == 0) {
             res.add(new ArrayList<>(path));
             return;
         }
-        for (int i = begin; i < len; i++) {
+        for (int i = begin; i < candidates.length; i++) {
 
 
             // 小剪枝：同一层相同数值x                                  结点，从 2 个开始，候选数更少，结果一定发生重复，因此跳过，用 continue
@@ -99,7 +99,7 @@ public class a39a40_组合总和 {
             // System.out.println("递归之前 => " + path + "，剩余 = " + (target - candidates[i]));
 
             // 因为元素不可以重复使用，这里递归传递下去的是 i + 1 而不是 i
-            dfs2(candidates, i + 1, len, target - candidates[i], res, path);
+            dfs2(candidates, i + 1, target - candidates[i], res, path);
 
             path.removeLast();
             // 调试语句 ②
